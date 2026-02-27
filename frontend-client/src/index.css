@@ -1,71 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+@theme {
+  --breakpoint-1100: 1055px;
+  --breakpoint-1075: 1075px;
+  --breakpoint-775: 775px;
 
-  body {
-    @apply bg-navy text-white font-poppins antialiased;
-    background: radial-gradient(ellipse at 20% 50%, rgba(30, 42, 94, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
-                #080d1e;
-    min-height: 100vh;
-  }
+  --color-emerald-clair: oklch(84.5% 0.143 164.978);
+  --color-emerald-fonce: oklch(69.6% 0.17 162.48);
+  --color-primary:        #00412E;
+  --color-primary-second: #272d50;
+  --color-primary-soft:   #96bf8a;
+  --color-bg-light:       #ffffff;
+  --color-bg-dark:        #E8EAE5;
+  --color-text-light:     #E8EAE5;
+  --color-principale:     #68BBE3;
+  --color-secondary:      #0e86d4;
+  --color-tertiary:       #055c9d;
+  --color-quartio:        #003060;
+  --color-navy:           #080d1e;
 
-  * {
-    @apply box-border;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #080d1e;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(249, 115, 22, 0.4);
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(249, 115, 22, 0.7);
-  }
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --text-kely: 10px;
 }
 
-@layer components {
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
-  }
+html { scroll-behavior: smooth; }
 
-  .btn-primary {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-orange-500 text-white font-semibold
-           hover:bg-orange-400 transition shadow-lg shadow-orange-500/25;
-  }
-
-  .btn-outline {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/80
-           hover:border-orange-500/50 hover:text-orange-400 transition;
-  }
-
-  .section-label {
-    @apply text-xs uppercase tracking-[0.3em] text-orange-400 mb-2;
-  }
-
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold text-white mb-4;
-  }
-
-  .glow-bg {
-    @apply absolute rounded-full blur-[120px] pointer-events-none;
-  }
-
-  .input-dark {
-    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white
-           placeholder:text-white/30 outline-none focus:border-orange-500/50 transition;
-  }
+body {
+  font-family: var(--font-sans);
+  background-color: #080d1e;
+  color: #fff;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Réutilisables */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1rem;
+}
+
+.input-dark {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  color: #fff;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-dark::placeholder { color: rgba(255,255,255,0.3); }
+.input-dark:focus { border-color: rgba(249,115,22,0.5); }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f97316;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.75rem;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #ea6b0f; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.badge-green  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+.badge-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+.badge-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.badge-red    { background: rgba(239,68,68,0.15);  color: #f87171; }

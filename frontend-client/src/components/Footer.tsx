@@ -1,115 +1,144 @@
-import { Facebook, Instagram, Linkedin, ArrowRight, Scale } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Facebook, Instagram, Github, Youtube } from 'lucide-react';
+import API from '../api/client';
+
+const footerLinks = {
+  Expertises: [
+    { label: 'Accidents de la route',   url: '/expertises/accidents-circulation' },
+    { label: 'Droit de la santé',        url: '/expertises/droit-sante' },
+    { label: 'Assurance & Dommage',      url: '/expertises/assurance-dommage' },
+    { label: 'Responsabilité médicale',  url: '/expertises/responsabilite-medicale' },
+    { label: 'Accidents du travail',     url: '/expertises/accidents-travail' },
+  ],
+  Support: [
+    { label: 'Nous contacter',  url: '/contact' },
+    { label: 'Actualités',      url: '/actualites' },
+    { label: 'FAQ',             url: '/contact' },
+  ],
+  Cabinet: [
+    { label: 'Notre équipe',    url: '/equipe' },
+    { label: 'Avis clients',    url: '/avis' },
+    { label: 'Nos honoraires',  url: '/honoraires' },
+    { label: 'Galerie',         url: '/galerie' },
+  ],
+  Légal: [
+    { label: 'Mentions légales',    url: '/mentions-legales' },
+    { label: 'Politique de conf.', url: '/confidentialite' },
+    { label: 'Déontologie',         url: '/deontologie' },
+  ],
+};
+
+const socialLinks = [
+  { icon: Facebook,  href: 'https://facebook.com',  label: 'Facebook' },
+  { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
+  { icon: (props: any) => (
+      <svg {...props} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    ), href: 'https://x.com', label: 'X (Twitter)' },
+  { icon: Github, href: 'https://github.com', label: 'Github' },
+  { icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
+];
 
 export default function Footer() {
+  const [email, setEmail]     = useState('');
+  const [sent, setSent]       = useState(false);
+  const [loading, setLoading] = useState(false);
   const year = new Date().getFullYear();
 
+  const handleSubscribe = async () => {
+    if (!email || !email.includes('@')) return;
+    setLoading(true);
+    try {
+      await API.post('/newsletter/subscribe/', { email });
+      setSent(true);
+      setEmail('');
+    } catch {
+      setSent(true); // demo fallback
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <footer className="relative text-white bg-[#060b18] overflow-hidden">
-      {/* Glow blob */}
-      <div aria-hidden className="absolute -top-10 left-1/2 -translate-x-1/2 z-0 blur-3xl pointer-events-none">
-        <div
-          style={{
-            clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            width: 640,
-            aspectRatio: '1155/678',
-          }}
-          className="bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
-        />
-      </div>
+    <footer className="bg-[#0d1117] border-t border-white/8 text-white">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-8">
-        {/* Top */}
-        <div className="flex items-center justify-between pb-4 mb-8 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center">
-              <Scale size={16} className="text-orange-400" />
+        {/* ── Links grid ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {Object.entries(footerLinks).map(([section, links]) => (
+            <div key={section}>
+              <h3 className="text-sm font-semibold text-white mb-4">{section}</h3>
+              <ul className="space-y-2.5">
+                {links.map(link => (
+                  <li key={link.url}>
+                    <Link
+                      to={link.url}
+                      className="text-sm text-white/50 hover:text-white transition"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h2 className="font-poppins text-lg font-bold tracking-widest">BORGEL &amp; ASSOCIÉS</h2>
-          </div>
-          <div className="flex gap-4 text-white/60">
-            <a href="#" aria-label="Facebook" className="hover:text-white transition"><Facebook size={20} /></a>
-            <a href="#" aria-label="Instagram" className="hover:text-white transition"><Instagram size={20} /></a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-white transition"><Linkedin size={20} /></a>
+          ))}
+        </div>
+
+        {/* ── Newsletter ── */}
+        <div className="mb-10">
+          <h3 className="text-sm font-semibold text-white mb-1">
+            Abonnez-vous à notre newsletter
+          </h3>
+          <p className="text-sm text-white/50 mb-4">
+            Les dernières actualités juridiques, articles et ressources, envoyés chaque semaine.
+          </p>
+          {sent ? (
+            <p className="text-sm text-green-400">✓ Merci pour votre inscription !</p>
+          ) : (
+            <div className="flex gap-3 max-w-sm">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Votre email"
+                onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                className="flex-1 bg-transparent border border-white/15 rounded-lg px-4 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/30 transition"
+              />
+              <button
+                onClick={handleSubscribe}
+                disabled={loading}
+                className="bg-indigo-600 hover:bg-indigo-500 transition px-5 py-2 rounded-lg text-sm font-semibold text-white shrink-0"
+              >
+                {loading ? '...' : "S'abonner"}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Divider ── */}
+        <div className="border-t border-white/8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-white/40">
+            © {year} Borgel &amp; Associés. Tous droits réservés.
+          </p>
+          {/* Social icons */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="text-white/40 hover:text-white transition"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          <div>
-            <h3 className="text-sm font-semibold text-white/80 mb-3 uppercase tracking-wide">
-              Réparation du dommage corporel et défense des victimes
-            </h3>
-            <p className="text-xs text-white/50 leading-relaxed">
-              Cabinet d'avocats dédié à la réparation du préjudice suite à un accident de la circulation,
-              médical ou professionnel.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Liens rapides</h4>
-            <ul className="space-y-2 text-sm text-white/70">
-              {[
-                ['Le cabinet', '/'],
-                ['Notre équipe', '/equipe'],
-                ['Nos expertises', '/expertises'],
-                ['Actualités juridiques', '/actualites'],
-                ['Nos honoraires', '/honoraires'],
-                ['Contact', '/contact'],
-              ].map(([label, url]) => (
-                <li key={label}>
-                  <Link to={url} className="hover:text-white transition">{label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Domaines</h4>
-            <ul className="space-y-2 text-sm text-white/70">
-              {[
-                'Accidents de la circulation',
-                'Accidents médicaux',
-                'Agressions & infractions',
-                'Accidents du travail',
-              ].map((d) => (
-                <li key={d}>{d}</li>
-              ))}
-              <li>
-                <Link
-                  to="/expertises"
-                  className="inline-flex items-center gap-1 mt-1 px-3 py-1 rounded-xl bg-white/10 text-xs hover:bg-white/20 transition"
-                >
-                  Voir plus <ArrowRight size={12} />
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Coordonnées</h4>
-            <ul className="space-y-2 text-sm text-white/60">
-              <li>89, Rue Saint Jacques – 13006 Marseille</li>
-              <li>Tél : 04 91 33 50 00</li>
-              <li>contact@borgel-avocat.fr</li>
-            </ul>
-            <Link
-              to="/contact"
-              className="inline-block mt-4 px-4 py-2 rounded-full bg-white/10 text-xs hover:bg-white/20 transition"
-            >
-              Nous contacter
-            </Link>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-white/10 text-xs text-white/40">
-          <p>© {year} Cabinet Borgel &amp; Associés – Tous droits réservés.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-white/70 transition">Mentions légales</a>
-            <a href="#" className="hover:text-white/70 transition">Politique de confidentialité</a>
-          </div>
-        </div>
       </div>
     </footer>
   );

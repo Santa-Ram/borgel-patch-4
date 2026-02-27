@@ -372,56 +372,137 @@ function ExpertisesPreviewSection() {
   );
 }
 
+const allDemoMembers = [
+  { id:1, name:'Maître Borgel',  role:'Avocat associé fondateur',          photo: null },
+  { id:2, name:'Sophie Durand',  role:'Avocate senior – Dommage corporel', photo: null },
+  { id:3, name:'Thomas Martin',  role:'Avocat collaborateur',               photo: null },
+  { id:4, name:'Julie Leroy',    role:'Juriste spécialisée',                photo: null },
+  { id:5, name:'Marc Petit',     role:'Avocat – Accidents du travail',      photo: null },
+  { id:6, name:'Clara Blanc',    role:'Avocate – Responsabilité médicale',  photo: null },
+];
+
+const avatarColorsHome = [
+  'from-orange-400 to-orange-600',
+  'from-blue-400 to-blue-600',
+  'from-purple-400 to-purple-600',
+  'from-emerald-400 to-emerald-600',
+];
+
+function getRandomFour(arr: any[]) {
+  const shuffled = [...arr].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 4);
+}
+
+function resolvePhoto(photo: string | null | undefined): string | null {
+  if (!photo) return null;
+  if (photo.startsWith('http')) return photo;
+  return `http://localhost:8000${photo}`;
+}
+
+function initials(name: string) {
+  return name.split(' ').map((w: string) => w[0]).join('').substring(0, 2).toUpperCase();
+}
+
 function TeamPreviewSection() {
-  const [members, setMembers] = useState<any[]>([]);
+  const [allMembers, setAllMembers] = useState<any[]>([]);
+  const [displayed, setDisplayed]   = useState<any[]>([]);
+  const [visible, setVisible]       = useState(true);
 
   useEffect(() => {
-    teamAPI.list().then((res) => {
-      const shuffled = [...res.data.results || res.data].sort(() => Math.random() - 0.5);
-      setMembers(shuffled.slice(0, 4));
-    }).catch(() => {});
+    teamAPI.list()
+      .then(res => {
+        const list: any[] = res.data.results || res.data;
+        const active = list
+          .filter(m => m.is_active !== false)
+          .map(m => ({ ...m, photo: resolvePhoto(m.photo) }));
+        const pool = active.length > 0 ? active : allDemoMembers;
+        setAllMembers(pool);
+        setDisplayed(getRandomFour(pool));
+      })
+      .catch(() => {
+        setAllMembers(allDemoMembers);
+        setDisplayed(getRandomFour(allDemoMembers));
+      });
   }, []);
 
-  const demoMembers = [
-    { id: 1, name: 'Maître Borgel', role: 'Avocat associé', photo: undefined },
-    { id: 2, name: 'Sophie Durand', role: 'Avocate senior', photo: undefined },
-    { id: 3, name: 'Thomas Martin', role: 'Avocat collaborateur', photo: undefined },
-    { id: 4, name: 'Julie Leroy', role: 'Juriste', photo: undefined },
-  ];
-
-  const displayed = members.length > 0 ? members : demoMembers;
+  // Rotation toutes les 60 secondes avec fade
+  useEffect(() => {
+    if (allMembers.length <= 4) return;
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setDisplayed(getRandomFour(allMembers));
+        setVisible(true);
+      }, 400);
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, [allMembers]);
 
   return (
     <section className="py-24 px-6 bg-[#0a0f1e]">
       <div className="max-w-6xl mx-auto">
+
+        {/* Header aligné à gauche — comme la photo */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-14"
         >
-          <p className="section-label">L'équipe</p>
-          <h2 className="section-title">Notre Équipe</h2>
-          <p className="text-white/60 max-w-xl mx-auto">
-            Des avocats engagés, experts reconnus dans leur domaine et à l'écoute de chaque client.
+          <h2 className="text-4xl font-bold text-white mb-4">Notre équipe</h2>
+          <p className="text-white/55 text-base max-w-lg leading-relaxed">
+            Un groupe d'avocats passionnés par leur métier et dévoués à obtenir les meilleurs résultats pour leurs clients.
           </p>
         </motion.div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {displayed.map((member, i) => (
+
+        {/* Grille 4 membres circulaires */}
+        <AnimatePresence mode="wait">
+          {visible && displayed.length > 0 && (
             <motion.div
-              key={member.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              key={displayed.map(m => m.id).join('-')}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-10"
             >
-              <CardTeam member={member} />
+              {displayed.map((member, i) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  className="flex flex-col items-center text-center group"
+                >
+                  {/* Photo circulaire */}
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-5 ring-2 ring-white/5 group-hover:ring-orange-500/30 transition duration-300">
+                    {member.photo ? (
+                      <img
+                        src={member.photo}
+                        alt={member.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      />
+                    ) : (
+                      <div className={`w-full h-full bg-gradient-to-br ${avatarColorsHome[i % avatarColorsHome.length]} flex items-center justify-center text-2xl font-bold text-white`}>
+                        {initials(member.name)}
+                      </div>
+                    )}
+                  </div>
+                  <h3 className="font-bold text-white text-sm mb-1 group-hover:text-orange-400 transition">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs text-white/50">{member.role}</p>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link to="/equipe" className="btn-outline">
-            Voir toute l'équipe <ArrowRight size={16} />
+          )}
+        </AnimatePresence>
+
+        {/* CTA */}
+        <div className="mt-14 text-center">
+          <Link to="/equipe"
+            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition border border-white/15 hover:border-orange-500/40 px-6 py-2.5 rounded-full">
+            Voir toute l'équipe <ArrowRight size={14} />
           </Link>
         </div>
       </div>

@@ -15,14 +15,14 @@ export default function FloatingContact() {
   const radius = 80; // px
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 left-6 z-50">
       {/* Child buttons */}
       <AnimatePresence>
         {open && contacts.map((c, i) => {
-          // spread from 0° to 90° (quarter circle, top-left direction)
-          const angleDeg = 90 + (90 / (contacts.length - 1)) * i; // 90° to 180°
+          // spread from 90° to 0° (quarter circle, top-right direction)
+          const angleDeg = 90 - (90 / (contacts.length - 1)) * i; // 90° to 0°
           const angleRad = (angleDeg * Math.PI) / 180;
-          const x = -Math.cos(angleRad) * radius;
+          const x = Math.cos(angleRad) * radius;
           const y = -Math.sin(angleRad) * radius;
 
           return (
