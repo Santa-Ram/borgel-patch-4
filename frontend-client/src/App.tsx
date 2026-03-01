@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import FloatingContact from './components/FloatingContact';
 
 const Home = lazy(() => import('./pages/Home'));
 const Team = lazy(() => import('./pages/Team'));
@@ -18,6 +17,7 @@ const Reviews = lazy(() => import('./pages/Reviews'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Login = lazy(() => import('./pages/Login'));
+const FAQ   = lazy(() => import('./pages/FAQ'));
 
 function PageLoader() {
   return (
@@ -41,7 +41,6 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main className="pt-16">{children}</main>
       <Footer />
-      <FloatingContact />
     </>
   );
 }
@@ -149,6 +148,14 @@ export default function App() {
             element={
               <ClientLayout>
                 <Gallery />
+              </ClientLayout>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <ClientLayout>
+                <FAQ />
               </ClientLayout>
             }
           />

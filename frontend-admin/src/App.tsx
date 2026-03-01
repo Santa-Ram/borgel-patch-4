@@ -12,6 +12,7 @@ const ReviewsAdmin   = lazy(() => import('./pages/ReviewsAdmin'));
 const VideosAdmin    = lazy(() => import('./pages/VideosAdmin'));
 const NewsletterAdmin= lazy(() => import('./pages/NewsletterAdmin'));
 const GalleryAdmin   = lazy(() => import('./pages/GalleryAdmin'));
+const FaqAdmin       = lazy(() => import('./pages/FaqAdmin'));
 const MediaAdmin     = lazy(() => import('./pages/MediaAdmin'));
 
 function PageLoader() {
@@ -51,6 +52,7 @@ export default function App() {
                   <Route path="videos"            element={<VideosAdmin/>}/>
                   <Route path="newsletter"        element={<NewsletterAdmin/>}/>
                   <Route path="gallery"           element={<GalleryAdmin/>}/>
+                  <Route path="faq"              element={<FaqAdmin/>}/>
                   <Route path="media"             element={<MediaAdmin/>}/>
                   <Route path="*"                 element={<Navigate to="/" replace/>}/>
                 </Routes>

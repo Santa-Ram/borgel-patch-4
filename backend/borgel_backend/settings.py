@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.reviews',
     'apps.videos',
     'apps.newsletter',
+    'apps.faq',
     'apps.chat',
 ]
 

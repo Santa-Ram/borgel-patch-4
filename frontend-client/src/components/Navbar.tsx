@@ -1,28 +1,32 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Search,
-  Bell,
   X,
-  Scale,
   ChevronDown,
   ShieldCheck,
   Target,
   Gavel,
   Users,
   ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  MessageSquare,
+  HelpCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../assets/logoblu.png";
+import API from "../api/client";
 
-const simpleLinks = [
+/* ─── Nav links ─────────────────────────────────────────── */
+const navLinks = [
   { label: "Accueil", url: "/" },
   { label: "Notre Équipe", url: "/equipe" },
-  { label: "Honoraires", url: "/honoraires" },
   { label: "Actualités", url: "/actualites" },
-  { label: "Vidéos", url: "/videos" },
+  { label: "Honoraires", url: "/honoraires" },
 ];
 
+/* ─── Expertises mega menu ──────────────────────────────── */
 const expertisesMenu = {
   col1: {
     title: "Indemnisation du dommage corporel",
@@ -90,96 +94,420 @@ const expertisesMenu = {
   },
 };
 
-const dropdownVariants = {
+/* ─── Contacts ──────────────────────────────────────────── */
+const contactItems = [
+  {
+    icon: Phone,
+    label: "Appeler",
+    href: "tel:0491335000",
+    color: "bg-green-500/15 text-green-400 border-green-500/20",
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    href: "mailto:contact@borgel.fr",
+    color: "bg-blue-500/15 text-blue-400 border-blue-500/20",
+  },
+  {
+    icon: MessageSquare,
+    label: "Formulaire",
+    href: "/contact",
+    color: "bg-purple-500/15 text-purple-400 border-purple-500/20",
+  },
+  {
+    icon: MapPin,
+    label: "Localiser",
+    href: "https://maps.google.com/?q=89+Rue+Saint+Jacques+Marseille",
+    color: "bg-red-500/15 text-red-400 border-red-500/20",
+  },
+];
+
+/* ─── Animations ────────────────────────────────────────── */
+const dropdownV = {
   hidden: { opacity: 0, y: -8 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.18 } },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.14 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.16 } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.12 } },
 };
+const searchV = {
+  hidden: { opacity: 0, height: 0 },
+  visible: { opacity: 1, height: "auto", transition: { duration: 0.2 } },
+  exit: { opacity: 0, height: 0, transition: { duration: 0.15 } },
+};
+const contactV = {
+  hidden: { opacity: 0, scale: 0.95, y: -6 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.18 } },
+  exit: { opacity: 0, scale: 0.95, y: -6, transition: { duration: 0.12 } },
+};
+
+/* ─── NavLabel — underline centre→extérieur ─────────────── */
+function NavLabel({ label, active }: { label: string; active: boolean }) {
+  return (
+    <span className="relative inline-block pb-0.5">
+      {label}
+      <span
+        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
+          active ? "w-full bg-orange-400" : "w-0 bg-white/60 group-hover:w-full"
+        }`}
+      />
+    </span>
+  );
+}
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expertisesOpen, setExpertisesOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const [searchVal, setSearchVal] = useState("");
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+
+  const expertRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (url: string) =>
     url === "/" ? location.pathname === "/" : location.pathname.startsWith(url);
 
-  // Fermer le menu si clic extérieur
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setExpertisesOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  // Fermer sur changement de route
   useEffect(() => {
     setExpertisesOpen(false);
+    setContactOpen(false);
+    setSearchOpen(false);
   }, [location]);
+  useEffect(() => {
+    if (searchOpen) setTimeout(() => searchRef.current?.focus(), 60);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    const h = (e: MouseEvent) => {
+      if (expertRef.current && !expertRef.current.contains(e.target as Node))
+        setExpertisesOpen(false);
+      if (contactRef.current && !contactRef.current.contains(e.target as Node))
+        setContactOpen(false);
+    };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
+
+  // Articles récents pour mega menu
+  useEffect(() => {
+    API.get("/posts/?page_size=6")
+      .then((r) => {
+        const posts = r.data.results || r.data;
+        const shuffled = [...posts].sort(() => Math.random() - 0.5).slice(0, 2);
+        setRecentPosts(shuffled);
+      })
+      .catch(() =>
+        setRecentPosts([
+          {
+            id: 1,
+            title: "Indemnisation : nouvelles règles 2025",
+            slug: "indemnisation-2025",
+            cover_image: null,
+          },
+          {
+            id: 2,
+            title: "Faute médicale : comment réagir ?",
+            slug: "faute-medicale",
+            cover_image: null,
+          },
+        ]),
+      );
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchVal.trim()) return;
+    navigate(`/actualites?q=${encodeURIComponent(searchVal.trim())}`);
+    setSearchVal("");
+    setSearchOpen(false);
+  };
 
   return (
     <>
-      {/* ── Desktop navbar ──────────────────────────────── */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0d1117] border-b border-white/10">
-        {/* Row 1 : logo · search · actions */}
-        <div className="flex items-center justify-between px-6 h-24 gap-4">
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            {/* <div className="w-8 h-8 rounded-lg bg-blue-600/30 flex items-center justify-center">
-              <Scale size={15} className="text-blue-400" />
-            </div> */}
-            <span className="text-sm font-bold text-white tracking-wide">
-              <img src={Logo} alt="" className="h-30 w-auto" />
+      <nav className="fixed top-0 w-full z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-white/8">
+        {/* ── Single row h-16 ───────────────────────────── */}
+        <div className="flex items-center h-16 px-6 gap-4">
+          {/* Logo — gauche */}
+          <Link to="/" className="shrink-0 flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="Borgel"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML =
+                    '<span style="font-size:13px;font-weight:800;color:white;letter-spacing:-0.5px">B&A</span>';
+                }}
+              />
+            </div>
+            <span className="hidden lg:block text-sm font-bold text-white tracking-wide">
+              BORGEL &amp; ASSOCIÉS
             </span>
           </Link>
 
-          <div className="hidden md:flex flex-1 max-w-2xl mx-auto relative">
-            <Search
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"
-            />
-            <input
-              type="search"
-              value={searchVal}
-              onChange={(e) => setSearchVal(e.target.value)}
-              placeholder="Rechercher..."
-              className="w-full bg-white/6 border border-white/10 rounded-lg pl-9 pr-4 py-1.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition"
-            />
+          {/* Nav links — centrés (flex-1 + justify-center) */}
+          <div className="hidden md:flex flex-1 items-center justify-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.url}
+                to={link.url}
+                className={`group relative px-3.5 py-2 text-sm font-medium transition-colors ${
+                  isActive(link.url)
+                    ? "text-white"
+                    : "text-white/55 hover:text-white"
+                }`}
+              >
+                <NavLabel label={link.label} active={isActive(link.url)} />
+              </Link>
+            ))}
+
+            {/* Expertises */}
+            <div className="relative" ref={expertRef}>
+              <button
+                onClick={() => setExpertisesOpen((p) => !p)}
+                className={`group relative px-3.5 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
+                  isActive("/expertises") || expertisesOpen
+                    ? "text-white"
+                    : "text-white/55 hover:text-white"
+                }`}
+              >
+                <NavLabel
+                  label="Expertises"
+                  active={isActive("/expertises") || expertisesOpen}
+                />
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform duration-200 mt-0.5 ${expertisesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {expertisesOpen && (
+                  <motion.div
+                    className="fixed left-0 right-0 top-16 z-40"
+                    variants={dropdownV}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <div className="bg-[#0d1117]/97 backdrop-blur-md border-t border-white/10 shadow-2xl">
+                      <div className="max-w-6xl mx-auto px-8 py-7 grid grid-cols-3 gap-10">
+                        {/* Col 1 */}
+                        <div>
+                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                            {expertisesMenu.col1.title}
+                          </h4>
+                          <ul className="space-y-3">
+                            {expertisesMenu.col1.items.map((item) => (
+                              <li key={item.slug}>
+                                <Link
+                                  to={`/expertises/${item.slug}`}
+                                  onClick={() => setExpertisesOpen(false)}
+                                  className="flex gap-3 group"
+                                >
+                                  <item.icon
+                                    size={14}
+                                    className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
+                                  />
+                                  <div>
+                                    <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
+                                      {item.label}
+                                    </p>
+                                    <p className="text-[11px] text-white/35">
+                                      {item.desc}
+                                    </p>
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* Col 2 */}
+                        <div>
+                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                            {expertisesMenu.col2.title}
+                          </h4>
+                          <ul className="space-y-3">
+                            {expertisesMenu.col2.items.map((item) => (
+                              <li key={item.slug}>
+                                <Link
+                                  to={`/expertises/${item.slug}`}
+                                  onClick={() => setExpertisesOpen(false)}
+                                  className="flex gap-3 group"
+                                >
+                                  <item.icon
+                                    size={14}
+                                    className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
+                                  />
+                                  <div>
+                                    <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
+                                      {item.label}
+                                    </p>
+                                    <p className="text-[11px] text-white/35">
+                                      {item.desc}
+                                    </p>
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* Col 3 — Actualités récentes */}
+                        <div>
+                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                            Actualités récentes
+                          </h4>
+                          <div className="space-y-4">
+                            {recentPosts.map((post) => (
+                              <Link
+                                key={post.id}
+                                to={`/actualites/${post.slug}`}
+                                onClick={() => setExpertisesOpen(false)}
+                                className="flex gap-3 group"
+                              >
+                                <div className="w-20 h-14 rounded-lg overflow-hidden shrink-0 bg-white/5 border border-white/8 group-hover:border-orange-500/20 transition">
+                                  {post.cover_image ? (
+                                    <img
+                                      src={post.cover_image}
+                                      alt={post.title}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-orange-500/10 to-blue-500/10 flex items-center justify-center text-white/20 text-xs">
+                                      📰
+                                    </div>
+                                  )}
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition line-clamp-2 leading-snug">
+                                    {post.title}
+                                  </p>
+                                  <span className="text-[11px] text-orange-400 mt-1 inline-block">
+                                    Lire →
+                                  </span>
+                                </div>
+                              </Link>
+                            ))}
+                            <Link
+                              to="/actualites"
+                              onClick={() => setExpertisesOpen(false)}
+                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-white transition"
+                            >
+                              Toutes les actualités <ArrowRight size={11} />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <button className="text-white/50 hover:text-white transition">
-              <Bell size={18} />
-            </button>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white select-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="lucide lucide-shield-question-mark-icon lucide-shield-question-mark"
-              >
-                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-                <path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" />
-                <path d="M12 17h.01" />
-              </svg>
-            </div>
+          {/* Right actions */}
+          <div className="flex items-center gap-1.5 ml-auto shrink-0">
+            {/* Search */}
             <button
-              className="md:hidden text-white/60 hover:text-white transition"
+              onClick={() => setSearchOpen((p) => !p)}
+              className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
+                searchOpen
+                  ? "bg-white/10 text-white"
+                  : "text-white/50 hover:text-white hover:bg-white/6"
+              }`}
+              aria-label="Rechercher"
+            >
+              {searchOpen ? <X size={17} /> : <Search size={17} />}
+            </button>
+
+            {/* FAQ icon */}
+            <Link
+              to="/faq"
+              className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
+                isActive("/faq")
+                  ? "bg-white/10 text-white"
+                  : "text-white/50 hover:text-white hover:bg-white/6"
+              }`}
+              aria-label="FAQ"
+              title="Questions fréquentes"
+            >
+              <HelpCircle size={17} />
+            </Link>
+
+            {/* Contact — icône seule + panel dropdown */}
+            <div className="relative hidden md:block" ref={contactRef}>
+              <button
+                onClick={() => setContactOpen((p) => !p)}
+                className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
+                  contactOpen
+                    ? "bg-orange-500 text-white"
+                    : "bg-orange-500/15 text-orange-400 hover:bg-orange-500/25"
+                }`}
+                aria-label="Nous contacter"
+              >
+                <Phone size={17} />
+              </button>
+
+              <AnimatePresence>
+                {contactOpen && (
+                  <motion.div
+                    variants={contactV}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute right-0 top-11 w-64 z-50 bg-[#131822] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+                  >
+                    <div className="p-4 border-b border-white/8">
+                      <p className="text-xs font-semibold text-white mb-0.5">
+                        Nous contacter
+                      </p>
+                      <p className="text-[11px] text-white/40">
+                        Borgel &amp; Associés — Marseille
+                      </p>
+                    </div>
+                    <div className="p-2">
+                      {contactItems.map((c) => (
+                        <a
+                          key={c.label}
+                          href={c.href}
+                          target={
+                            c.href.startsWith("http") ? "_blank" : undefined
+                          }
+                          rel="noopener noreferrer"
+                          onClick={() => setContactOpen(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 transition group"
+                        >
+                          <div
+                            className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${c.color}`}
+                          >
+                            <c.icon size={14} />
+                          </div>
+                          <span className="text-sm text-white/70 group-hover:text-white transition">
+                            {c.label}
+                          </span>
+                          <ArrowRight
+                            size={12}
+                            className="ml-auto text-white/20 group-hover:text-white/50 transition"
+                          />
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Mobile burger */}
+            <button
+              className="md:hidden text-white/60 hover:text-white transition w-9 h-9 flex items-center justify-center"
               onClick={() => setMobileOpen(true)}
             >
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -193,174 +521,62 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Row 2 : nav tabs */}
-        <div className="hidden md:flex items-center justify-center gap-10 px-6 border-t border-white/6 h-10">
-          {/* Liens simples */}
-          {simpleLinks.map((link) => (
-            <Link
-              key={link.url}
-              to={link.url}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                isActive(link.url)
-                  ? "bg-white/10 text-white"
-                  : "text-white/55 hover:text-white hover:bg-white/6"
-              }`}
+        {/* Search bar */}
+        <AnimatePresence>
+          {searchOpen && (
+            <motion.div
+              variants={searchV}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="overflow-hidden border-t border-white/8 bg-[#0d1117]"
             >
-              {link.label}
-            </Link>
-          ))}
-
-          {/* Expertises — avec mega menu */}
-          <div className="relative" ref={menuRef}>
-            <button
-              onClick={() => setExpertisesOpen((p) => !p)}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition flex items-center gap-1 ${
-                isActive("/expertises") || expertisesOpen
-                  ? "bg-white/10 text-white"
-                  : "text-white/55 hover:text-white hover:bg-white/6"
-              }`}
-            >
-              Expertises
-              <ChevronDown
-                size={13}
-                className={`transition-transform duration-200 ${expertisesOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <AnimatePresence>
-              {expertisesOpen && (
-                <motion.div
-                  className="fixed left-0 right-0 top-24 z-40"
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
+              <form
+                onSubmit={handleSearch}
+                className="flex items-center gap-3 px-6 py-3 max-w-3xl mx-auto"
+              >
+                <Search size={15} className="text-white/35 shrink-0" />
+                <input
+                  ref={searchRef}
+                  type="search"
+                  value={searchVal}
+                  onChange={(e) => setSearchVal(e.target.value)}
+                  placeholder="Rechercher une expertise, un article, un avocat..."
+                  className="flex-1 bg-transparent text-sm text-white placeholder:text-white/30 outline-none"
+                />
+                <AnimatePresence>
+                  {searchVal && (
+                    <motion.button
+                      type="submit"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="text-xs bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-lg transition shrink-0"
+                    >
+                      Rechercher
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setSearchVal("");
+                  }}
+                  className="text-white/30 hover:text-white transition shrink-0"
                 >
-                  <div className="bg-[#0d1117]/95 backdrop-blur-md border-t border-white/10 shadow-2xl">
-                    <div className="max-w-7xl mx-auto px-8 py-7 grid grid-cols-3 gap-10">
-                      {/* Colonne 1 */}
-                      <div>
-                        <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
-                          {expertisesMenu.col1.title}
-                        </h4>
-                        <ul className="space-y-3">
-                          {expertisesMenu.col1.items.map((item) => (
-                            <li key={item.slug}>
-                              <Link
-                                to={`/expertises/${item.slug}`}
-                                onClick={() => setExpertisesOpen(false)}
-                                className="flex gap-3 group"
-                              >
-                                <item.icon
-                                  size={15}
-                                  className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
-                                />
-                                <div>
-                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
-                                    {item.label}
-                                  </p>
-                                  <p className="text-xs text-white/40">
-                                    {item.desc}
-                                  </p>
-                                </div>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Colonne 2 */}
-                      <div>
-                        <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
-                          {expertisesMenu.col2.title}
-                        </h4>
-                        <ul className="space-y-3">
-                          {expertisesMenu.col2.items.map((item) => (
-                            <li key={item.slug}>
-                              <Link
-                                to={`/expertises/${item.slug}`}
-                                onClick={() => setExpertisesOpen(false)}
-                                className="flex gap-3 group"
-                              >
-                                <item.icon
-                                  size={15}
-                                  className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
-                                />
-                                <div>
-                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
-                                    {item.label}
-                                  </p>
-                                  <p className="text-xs text-white/40">
-                                    {item.desc}
-                                  </p>
-                                </div>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Colonne 3 : Actualités */}
-                      <div>
-                        <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
-                          Actualités
-                        </h4>
-                        <div className="space-y-4">
-                          {[
-                            {
-                              label: "Droit et justice",
-                              desc: "Les dernières évolutions juridiques",
-                              slug: "droit-et-justice",
-                            },
-                            {
-                              label: "Cas de succès",
-                              desc: "Comment nous avons gagné vos litiges",
-                              slug: "cas-de-succes",
-                            },
-                          ].map((a) => (
-                            <Link
-                              key={a.slug}
-                              to={`/actualites/${a.slug}`}
-                              onClick={() => setExpertisesOpen(false)}
-                              className="flex gap-3 group"
-                            >
-                              <div className="w-24 h-16 bg-white/5 rounded-lg shrink-0 border border-white/8 group-hover:border-orange-500/20 transition" />
-                              <div>
-                                <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
-                                  {a.label}
-                                </p>
-                                <p className="text-xs text-white/40 mb-1">
-                                  {a.desc}
-                                </p>
-                                <span className="text-[11px] text-orange-400 underline">
-                                  Lire plus
-                                </span>
-                              </div>
-                            </Link>
-                          ))}
-                          <Link
-                            to="/actualites"
-                            onClick={() => setExpertisesOpen(false)}
-                            className="inline-flex items-center gap-1 text-xs text-white/50 hover:text-white transition mt-1"
-                          >
-                            Parcourir toutes les actualités{" "}
-                            <ArrowRight size={11} />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+                  <X size={14} />
+                </button>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      <div className="h-24 md:block hidden" />
-      <div className="h-14 md:hidden" />
+      {/* Spacer h-16 */}
+      <div className="h-16" />
 
-      {/* ── Mobile panel ──────────────────────────────── */}
+      {/* Mobile panel */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -378,64 +594,84 @@ export default function Navbar() {
               transition={{ type: "tween", duration: 0.25 }}
               className="fixed right-0 top-0 h-full w-72 z-50 bg-[#0d1117] border-l border-white/10 flex flex-col"
             >
-              <div className="flex items-center justify-between px-5 h-14 border-b border-white/10">
-                <span className="text-sm font-bold text-white">BORGEL</span>
+              <div className="flex items-center justify-between px-5 h-16 border-b border-white/10">
+                <span className="text-sm font-bold text-white">
+                  BORGEL &amp; ASSOCIÉS
+                </span>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="text-white/50 hover:text-white transition"
+                  className="text-white/50 hover:text-white"
                 >
                   <X size={18} />
                 </button>
               </div>
 
-              <div className="px-5 pt-4 pb-2">
-                <div className="relative">
-                  <Search
-                    size={13}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"
-                  />
+              <div className="px-4 pt-3 pb-2">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (searchVal.trim()) {
+                      navigate(
+                        `/actualites?q=${encodeURIComponent(searchVal)}`,
+                      );
+                      setSearchVal("");
+                      setMobileOpen(false);
+                    }
+                  }}
+                  className="flex items-center gap-2 bg-white/6 border border-white/10 rounded-xl px-3 py-2"
+                >
+                  <Search size={13} className="text-white/40 shrink-0" />
                   <input
                     type="search"
+                    value={searchVal}
+                    onChange={(e) => setSearchVal(e.target.value)}
                     placeholder="Rechercher..."
-                    className="w-full bg-white/6 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder:text-white/30 outline-none"
+                    className="flex-1 bg-transparent text-sm text-white placeholder:text-white/30 outline-none"
                   />
-                </div>
+                </form>
               </div>
 
-              <nav className="flex-1 px-3 py-2 overflow-y-auto">
-                {[
-                  ...simpleLinks,
-                  { label: "Expertises", url: "/expertises" },
-                ].map((link) => (
-                  <Link
-                    key={link.url}
-                    to={link.url}
-                    onClick={() => setMobileOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition mb-0.5 ${
-                      isActive(link.url)
-                        ? "bg-white/10 text-white"
-                        : "text-white/65 hover:text-white hover:bg-white/6"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+              <nav className="flex-1 px-3 py-1 overflow-y-auto">
+                {[...navLinks, { label: "Expertises", url: "/expertises" }].map(
+                  (link) => (
+                    <Link
+                      key={link.url}
+                      to={link.url}
+                      onClick={() => setMobileOpen(false)}
+                      className={`block px-4 py-3 rounded-xl text-sm font-medium transition mb-0.5 ${
+                        isActive(link.url)
+                          ? "bg-white/10 text-white"
+                          : "text-white/65 hover:text-white hover:bg-white/6"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ),
+                )}
+                <div className="border-t border-white/8 mt-2 pt-2">
+                  {contactItems.map((c) => (
+                    <a
+                      key={c.label}
+                      href={c.href}
+                      target={c.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/5 transition"
+                    >
+                      <c.icon size={14} className="text-orange-400 shrink-0" />
+                      {c.label}
+                    </a>
+                  ))}
+                </div>
               </nav>
 
               <div className="border-t border-white/10 px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white shrink-0">
-                    B
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      Borgel &amp; Associés
-                    </p>
-                    <p className="text-xs text-white/40">
-                      contact@borgel-avocats.fr
-                    </p>
-                  </div>
-                </div>
+                <p className="text-xs font-semibold text-white">
+                  Borgel &amp; Associés
+                </p>
+                <p className="text-xs text-white/40">
+                  contact@borgel-avocats.fr
+                </p>
               </div>
             </motion.div>
           </>

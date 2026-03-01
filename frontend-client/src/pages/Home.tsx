@@ -42,6 +42,15 @@ const heroSlides = [
     line1: 'Droit du dommage corporel',
     line2: 'Accidents graves · Fautes médicales',
   },
+  {
+    id: 4,
+    label: 'TestKely',
+    badge: "Miaraka mijery alo",
+    quote:
+      'Nous défendons les victimes avec rigueur, combativité et une parfaite maîtrise du dommage corporel.',
+    line1: 'Droit du dommage corporel',
+    line2: 'Accidents graves · Fautes médicales',
+  },
 ];
 
 const fadeUp: Variants = {
