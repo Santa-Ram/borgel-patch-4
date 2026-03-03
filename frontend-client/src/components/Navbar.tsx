@@ -17,10 +17,12 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import API from "../api/client";
+import logo from "../assets/logoBlanc.png";
 
 /* ─── Nav links ─────────────────────────────────────────── */
 const navLinks = [
   { label: "Accueil", url: "/" },
+  { label: "À propos", url: "/a-propos" },
   { label: "Notre Équipe", url: "/equipe" },
   { label: "Actualités", url: "/actualites" },
   { label: "Honoraires", url: "/honoraires" },
@@ -34,31 +36,31 @@ const expertisesMenu = {
       {
         icon: ShieldCheck,
         label: "Accident de la Circulation",
-        desc: "Conseils essentiels pour protéger vos intérêts",
+        desc: "La reconnaissance de votre droit à indemnisation",
         slug: "accidents-circulation",
       },
       {
         icon: Target,
         label: "Agressions et Infractions",
-        desc: "Comment préparer votre dossier efficacement",
+        desc: "Faire reconnaitre votre qualité de victime.",
         slug: "agressions",
       },
       {
         icon: Gavel,
         label: "Victimes d'Attentat",
-        desc: "Découvrez nos domaines de compétence",
+        desc: "Vous assister dans une procédure complexe et éloignée de la réalité des souffrances...",
         slug: "victimes-attentat",
       },
       {
         icon: Users,
         label: "Accident Médical",
-        desc: "Rencontrez nos avocats expérimentés",
+        desc: "Vous assister et faire valoir vos droits.",
         slug: "accident-medical",
       },
       {
         icon: Users,
         label: "Accident du Travail",
-        desc: "Droits et démarches après un accident professionnel",
+        desc: "Une juste réparation pour les victimes d'un accident du travail.",
         slug: "accidents-travail",
       },
     ],
@@ -69,25 +71,25 @@ const expertisesMenu = {
       {
         icon: ShieldCheck,
         label: "Accident de la Vie Courante",
-        desc: "Conseils essentiels pour protéger vos intérêts",
+        desc: "Une juste indemnisation dans le cadre d'une responsabilité contractuelle ou délictuelle.",
         slug: "accident-vie-courante",
       },
       {
         icon: Target,
         label: "Contentieux Droit des Assurances",
-        desc: "Comment préparer votre dossier efficacement",
+        desc: "L'exécution de vos garanties contractuelles.",
         slug: "assurance-dommage",
       },
       {
         icon: Gavel,
         label: "Réparation du Préjudice Corporel",
-        desc: "Découvrez nos domaines de compétence",
+        desc: "Optimiser la réparation de votre préjudice corporel.",
         slug: "prejudice-corporel",
       },
       {
         icon: Users,
         label: "Médecin de Recours & Expertise",
-        desc: "Rencontrez nos avocats expérimentés",
+        desc: "Une juste évaluation de votre Préjudice Corporel.",
         slug: "expertise-medicale",
       },
     ],
@@ -142,7 +144,7 @@ const contactV = {
 /* ─── NavLabel — underline centre→extérieur ─────────────── */
 function NavLabel({ label, active }: { label: string; active: boolean }) {
   return (
-    <span className="relative inline-block pb-0.5">
+    <span className="relative inline-block pb-1">
       {label}
       <span
         className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
@@ -227,25 +229,15 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 w-full z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-white/8">
-        {/* ── Single row h-16 ───────────────────────────── */}
-        <div className="flex items-center h-16 px-6 gap-4">
-          {/* Logo — gauche */}
+        <div className="flex items-center h-20 px-6 gap-4">
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+            <div className=" overflow-hidden flex items-center">
               <img
-                src="/logo.png"
+                src={logo}
                 alt="Borgel"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                  (e.target as HTMLImageElement).parentElement!.innerHTML =
-                    '<span style="font-size:13px;font-weight:800;color:white;letter-spacing:-0.5px">B&A</span>';
-                }}
+                className="w-auto h-20 object-content"
               />
             </div>
-            <span className="hidden lg:block text-sm font-bold text-white tracking-wide">
-              BORGEL &amp; ASSOCIÉS
-            </span>
           </Link>
 
           {/* Nav links — centrés (flex-1 + justify-center) */}
@@ -287,7 +279,7 @@ export default function Navbar() {
               <AnimatePresence>
                 {expertisesOpen && (
                   <motion.div
-                    className="fixed left-0 right-0 top-16 z-40"
+                    className="fixed left-0 right-0 top-20 z-40"
                     variants={dropdownV}
                     initial="hidden"
                     animate="visible"
@@ -316,7 +308,7 @@ export default function Navbar() {
                                     <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/35">
+                                    <p className="text-[11px] text-white/50">
                                       {item.desc}
                                     </p>
                                   </div>
@@ -346,7 +338,7 @@ export default function Navbar() {
                                     <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/35">
+                                    <p className="text-[11px] text-white/50">
                                       {item.desc}
                                     </p>
                                   </div>
@@ -382,19 +374,20 @@ export default function Navbar() {
                                   )}
                                 </div>
                                 <div>
-                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition line-clamp-2 leading-snug">
+                                  <p className="text-sm font-medium text-white transition line-clamp-2 leading-snug">
                                     {post.title}
                                   </p>
-                                  <span className="text-[11px] text-orange-400 mt-1 inline-block">
-                                    Lire →
-                                  </span>
+
+                                  <button className=" text-[11px] inline-block mt-1 hover:text-orange-400 transition">
+                                    Voir plus →
+                                  </button>
                                 </div>
                               </Link>
                             ))}
                             <Link
                               to="/actualites"
                               onClick={() => setExpertisesOpen(false)}
-                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-white transition"
+                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-orange-400 transition"
                             >
                               Toutes les actualités <ArrowRight size={11} />
                             </Link>
@@ -437,7 +430,6 @@ export default function Navbar() {
               <HelpCircle size={17} />
             </Link>
 
-            {/* Contact — icône seule + panel dropdown */}
             <div className="relative hidden md:block" ref={contactRef}>
               <button
                 onClick={() => setContactOpen((p) => !p)}
@@ -572,9 +564,6 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </nav>
-
-      {/* Spacer h-16 */}
-      <div className="h-16" />
 
       {/* Mobile panel */}
       <AnimatePresence>

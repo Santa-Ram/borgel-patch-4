@@ -1,23 +1,24 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-const Home = lazy(() => import('./pages/Home'));
-const Team = lazy(() => import('./pages/Team'));
-const TeamMember = lazy(() => import('./pages/TeamMember'));
-const Posts = lazy(() => import('./pages/Posts'));
-const PostDetail = lazy(() => import('./pages/PostDetail'));
-const Expertises = lazy(() => import('./pages/Expertises'));
-const ExpertiseDetail = lazy(() => import('./pages/ExpertiseDetail'));
-const Honoraires = lazy(() => import('./pages/Honoraires'));
-const Videos = lazy(() => import('./pages/Videos'));
-const Reviews = lazy(() => import('./pages/Reviews'));
-const Gallery = lazy(() => import('./pages/Gallery'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Login = lazy(() => import('./pages/Login'));
-const FAQ   = lazy(() => import('./pages/FAQ'));
+const Home = lazy(() => import("./pages/Home"));
+const Team = lazy(() => import("./pages/Team"));
+const TeamMember = lazy(() => import("./pages/TeamMember"));
+const Posts = lazy(() => import("./pages/Posts"));
+const PostDetail = lazy(() => import("./pages/PostDetail"));
+const Expertises = lazy(() => import("./pages/Expertises"));
+const ExpertiseDetail = lazy(() => import("./pages/ExpertiseDetail"));
+const Honoraires = lazy(() => import("./pages/Honoraires"));
+const Videos = lazy(() => import("./pages/Videos"));
+const Reviews = lazy(() => import("./pages/Reviews"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Login = lazy(() => import("./pages/Login"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const About = lazy(() => import("./pages/About"));
 
 function PageLoader() {
   return (
@@ -52,9 +53,9 @@ export default function App() {
         position="top-right"
         toastOptions={{
           style: {
-            background: '#0d1435',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,0.1)',
+            background: "#0d1435",
+            color: "#fff",
+            border: "1px solid rgba(255,255,255,0.1)",
           },
         }}
       />
@@ -148,6 +149,14 @@ export default function App() {
             element={
               <ClientLayout>
                 <Gallery />
+              </ClientLayout>
+            }
+          />
+          <Route
+            path="/a-propos"
+            element={
+              <ClientLayout>
+                <About />
               </ClientLayout>
             }
           />

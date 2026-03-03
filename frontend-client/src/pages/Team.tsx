@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { teamAPI } from '../api/client';
+import HeroBanner from '../components/HeroBanner';
 
 const demoMembers = [
   { id:1, name:'Maître Borgel',   role:'Avocat associé fondateur',         photo:null, linkedin:'', twitter:'' },
@@ -64,8 +65,8 @@ export default function Team() {
         <div className="max-w-5xl mx-auto">
 
           {/* Header centré */}
-          <div className="text-center mb-14">
-            <h1 className="text-4xl font-bold text-white mb-4">
+          <div className="text-center h-100 ">
+            <h1 className="flex justify-center items-center text-4xl font-bold text-white mb-4">
               Rencontrez notre équipe
             </h1>
             <p className="text-white/55 text-base max-w-xl mx-auto leading-relaxed">

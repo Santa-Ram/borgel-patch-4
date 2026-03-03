@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight, Shield, Scale, Briefcase, ChevronLeft, ChevronRight,
-  Car, Stethoscope, Star
+  Car, Stethoscope, Star, Quote, Award, CheckCircle
 } from 'lucide-react';
 import { postsAPI, teamAPI, reviewsAPI } from '../api/client';
 import { CardPost, CardTeam, CardReview } from '../components/Cards';
@@ -20,16 +20,16 @@ const heroSlides = [
     label: 'Notre objectif :',
     badge: 'Accident de la Circulation',
     quote:
-      'La reconnaissance de votre droit à indemnisation. Face à un événement traumatisant, nous vous accompagnons avec rigueur et humanité.',
+      "Communément appelé accident de la voie publique, accident de la route ou accident de voiture.",
     line1: 'Borgel & Associés – Marseille',
     line2: 'Contentieux complexes · Conseil stratégique',
   },
   {
     id: 2,
     label: 'Notre objectif :',
-    badge: 'Droit de la santé',
+    badge: ' Accident médical',
     quote:
-      'Le dossier médical, propriété sacrée du patient — nous vous accompagnons à chaque étape pour faire valoir vos droits.',
+      'Aléa thérapeutique, infections nosocomiales, erreurs médicales.',
     line1: 'Proximité & transparence',
     line2: 'Compte-rendus réguliers · Pédagogie juridique',
   },
@@ -37,15 +37,6 @@ const heroSlides = [
     id: 3,
     label: 'Expertise',
     badge: "20+ ans d'expérience",
-    quote:
-      'Nous défendons les victimes avec rigueur, combativité et une parfaite maîtrise du dommage corporel.',
-    line1: 'Droit du dommage corporel',
-    line2: 'Accidents graves · Fautes médicales',
-  },
-  {
-    id: 4,
-    label: 'TestKely',
-    badge: "Miaraka mijery alo",
     quote:
       'Nous défendons les victimes avec rigueur, combativité et une parfaite maîtrise du dommage corporel.',
     line1: 'Droit du dommage corporel',
@@ -115,12 +106,12 @@ function HeroSection() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24 lg:py-40 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         {/* Text */}
         <motion.div className="flex-1 text-center lg:text-left" initial="hidden" animate="visible" variants={stagger}>
-          <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-4 font-semibold">
+          <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-emerald-clair mb-4 font-semibold">
             Avocat au Barreau de Marseille
           </motion.p>
           <motion.h1
             variants={fadeUp}
-            className="font-poppins text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
           >
             Borgel &amp; Associés
           </motion.h1>
@@ -136,13 +127,14 @@ function HeroSection() {
             className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8"
           >
             <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              <Link to="/contact" className="btn-primary">
-                Prendre rendez-vous <ArrowRight size={16} />
+              <Link to="/contact" className="inline-flex btn items-center gap-2 rounded-full border border-orange-500 bg-orange-500/15 text-orange-500 px-6 py-3 text-sm sm:text-base font-semibold shadow-soft-xl hover:bg-ba-gold-soft transition">
+                Prendre rendez-vous 
+                {/* <ArrowRight size={16} /> */}
               </Link>
             </motion.div>
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
-              <Link to="/expertises" className="btn-outline">
-                Nos expertises
+              <Link to="/expertises" className="inline-flex btn items-center gap-2 rounded-full border border-white px-6 py-3 text-sm sm:text-base font-medium text-white/80 hover:border-ba-gold hover:text-ba-gold transition">
+                Découvrir nos expertises
               </Link>
             </motion.div>
           </motion.div>
@@ -241,6 +233,79 @@ function HeroSection() {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function AboutPreviewSection() {
+  return (
+    <section className="py-20 px-6 bg-[#080d1e]">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+          {/* Gauche : texte */}
+          <motion.div initial={{ opacity:0, x:-30 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }} transition={{ duration:0.7 }}>
+            <p className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-3 font-semibold">À propos du cabinet</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-5">
+              15 ans au service des victimes
+            </h2>
+            <p className="text-white/65 leading-relaxed mb-5">
+              Fondé en 2007 par Maître Borgel, notre cabinet s'est imposé comme une référence en droit du dommage corporel à Marseille.
+              Nous défendons les victimes d'accidents et de fautes médicales avec rigueur et humanité.
+            </p>
+            <p className="text-white/65 leading-relaxed mb-8">
+              Notre approche : transparence totale, communication régulière et combativité sans faille pour obtenir
+              la <span className="text-orange-400 font-semibold">juste réparation</span> de chaque préjudice.
+            </p>
+            {/* Valeurs résumées */}
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              {[
+                [Shield, 'Rigueur juridique'],
+                [Award,  'Expertise reconnue'],
+                [CheckCircle, 'Résultats prouvés'],
+                [Quote,  'Écoute & humanité'],
+              ].map(([Icon, label]) => (
+                <div key={label as string} className="flex items-center gap-2 text-sm text-white/70">
+                  <Icon size={15} className="text-orange-400 shrink-0"/>
+                  {label as string}
+                </div>
+              ))}
+            </div>
+            <Link to="/a-propos" className="inline-flex items-center gap-2 border border-white/20 hover:border-orange-500/40 hover:text-orange-400 text-white text-sm font-medium px-6 py-2.5 rounded-full transition">
+              En savoir plus <ArrowRight size={14}/>
+            </Link>
+          </motion.div>
+
+          {/* Droite : stats + citation */}
+          <motion.div initial={{ opacity:0, x:30 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }} transition={{ duration:0.7, delay:0.15 }}
+            className="space-y-4">
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-3">
+              {[['15+', "Ans d'expérience"], ['500+', 'Dossiers'], ['95%', 'Satisfaction']].map(([v, l]) => (
+                <div key={l} className="glass-card p-4 text-center">
+                  <p className="text-2xl font-bold text-orange-400">{v}</p>
+                  <p className="text-[11px] text-white/45 mt-0.5">{l}</p>
+                </div>
+              ))}
+            </div>
+            {/* Citation client */}
+            <div className="glass-card p-6 relative overflow-hidden">
+              <div className="absolute -top-2 -right-2 w-16 h-16 bg-orange-500/8 rounded-full blur-xl"/>
+              <Quote size={22} className="text-orange-400/50 mb-3"/>
+              <p className="text-white/70 text-sm leading-relaxed italic mb-4">
+                "Maître Borgel et son équipe m'ont accompagné avec une humanité et une rigueur exemplaires.
+                L'indemnisation obtenue a changé ma vie."
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-orange-500/20 flex items-center justify-center text-xs font-bold text-orange-400">M</div>
+                <div>
+                  <p className="text-xs font-semibold text-white">Marie L.</p>
+                  <p className="text-[10px] text-white/35">Victime d'accident — 2024</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -649,6 +714,7 @@ export default function Home() {
         <meta name="description" content="Cabinet d'avocats spécialisé en droit du dommage corporel et responsabilité médicale à Marseille. Accidents de la route, fautes médicales, accidents du travail." />
       </Helmet>
       <HeroSection />
+      <AboutPreviewSection />
       <PresentationSection />
       <ParallaxSections />
       <ExpertisesPreviewSection />

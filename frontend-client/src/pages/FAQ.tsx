@@ -60,32 +60,32 @@ export default function FAQPage() {
       </Helmet>
 
       {/* ── Bannière ──────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#080d1e] pt-10 pb-20">
+      <section className="relative overflow-hidden bg-[#080d1e] h-150 pt-10 pb-20">
         {/* Blobs */}
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-1/3 w-[500px] aspect-square rounded-full bg-blue-600/15 blur-[100px]"/>
           <div className="absolute bottom-0 left-0 w-[400px] aspect-square rounded-full bg-orange-600/10 blur-[120px]"/>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 mt-25 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible:{ transition:{ staggerChildren:0.1 } } }}>
             <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-4 font-semibold">
               Centre d'aide
             </motion.p>
-            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              Questions fréquentes
+            <motion.h1 variants={fadeUp} className="font-serif text-4xl sm:text-5xl text-white mb-4">
+              Questions fréquemment posées.
             </motion.h1>
             <motion.p variants={fadeUp} className="text-white/60 text-lg max-w-xl mx-auto mb-10">
               Retrouvez les réponses aux questions les plus posées sur nos services et nos procédures.
             </motion.p>
 
             {/* Barre de recherche hero */}
-            <motion.div variants={fadeUp} className="relative max-w-lg mx-auto">
+            <motion.div variants={fadeUp} className="relative max-w-xl mx-auto">
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"/>
               <input
                 type="search" value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Rechercher une question..."
-                className="w-full bg-white/8 border border-white/15 rounded-2xl pl-12 pr-4 py-3.5 text-white placeholder:text-white/35 outline-none focus:border-orange-500/40 transition text-sm"
+                className="w-full bg-white/8 border border-white/15 rounded-full pl-12 pr-4 py-3.5 text-white placeholder:text-white/35 outline-none focus:border-orange-500/40 transition text-sm"
               />
               {search && (
                 <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition">
