@@ -11,10 +11,15 @@ const demoMembers = [
 ];
 
 const demoExpertises = [
-  {id:1, name:'Accidents de la circulation'},
-  {id:2, name:'Droit de la santé'},
-  {id:3, name:'Assurance & Dommage corporel'},
-  {id:4, name:'Responsabilité médicale'},
+  {id:1, name:'Accident de la Circulation',        slug:'accidents-circulation', icon:'🚗'},
+  {id:2, name:'Agressions et Infractions',         slug:'agressions',            icon:'🛡️'},
+  {id:3, name:"Victimes d'Attentat",               slug:'victimes-attentat',     icon:'⚖️'},
+  {id:4, name:'Accident Médical',                  slug:'accident-medical',      icon:'🏥'},
+  {id:5, name:'Accident du Travail',               slug:'accidents-travail',     icon:'⚙️'},
+  {id:6, name:'Accident de la Vie Courante',       slug:'accident-vie-courante', icon:'🏠'},
+  {id:7, name:'Contentieux Droit des Assurances',  slug:'assurance-dommage',     icon:'📋'},
+  {id:8, name:'Réparation du Préjudice Corporel',  slug:'prejudice-corporel',    icon:'💙'},
+  {id:9, name:'Médecin de Recours et Expertise',   slug:'expertise-medicale',    icon:'🩺'},
 ];
 
 const ROLES = ['Avocat associé fondateur','Avocat associé','Avocate senior','Avocat collaborateur','Juriste spécialisée','Secrétaire juridique'];
@@ -60,20 +65,41 @@ export default function TeamAdmin() {
     setView('form');
   };
 
-  const openEdit = (m:any) => {
+  const openEdit = async (m:any) => {
     setEditing(m);
-    setForm({
-      name:m.name||'', role:m.role||'', biography:m.biography||'',
-      phone:m.phone||'', email:m.email||'',
-      linkedin:m.linkedin||'',
-      twitter:m.twitter||'',
-      facebook:m.facebook||'',
-      is_active:m.is_active, order:m.order||0,
-    });
-    setSelectedExp(m.expertises?.map((e:any)=>e.id||e)||[]);
     setPhotoFile(null);
     setPhotoPreview(m.photo||'');
     setView('form');
+
+    // Lire les données complètes depuis l'API pour avoir expertise_ids à jour
+    try {
+      const res = await API.get(`/admin/team/${m.id}/`);
+      const full = res.data;
+      setForm({
+        name:full.name||'', role:full.role||'', biography:full.biography||'',
+        phone:full.phone||'', email:full.email||'',
+        linkedin:full.linkedin||'',
+        twitter:full.twitter||'',
+        facebook:full.facebook||'',
+        is_active:full.is_active, order:full.order||0,
+      });
+      // expertises_detail = [{id, name, ...}] — on extrait les IDs
+      const ids = (full.expertises_detail || []).map((e:any) => e.id);
+      setSelectedExp(ids);
+      if(full.photo) setPhotoPreview(full.photo);
+    } catch {
+      // Fallback: utiliser les données de la liste
+      setForm({
+        name:m.name||'', role:m.role||'', biography:m.biography||'',
+        phone:m.phone||'', email:m.email||'',
+        linkedin:m.linkedin||'',
+        twitter:m.twitter||'',
+        facebook:m.facebook||'',
+        is_active:m.is_active, order:m.order||0,
+      });
+      // expertise_ids est maintenant dans le list serializer
+      setSelectedExp(m.expertise_ids||[]);
+    }
   };
 
   const handlePhotoChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -289,8 +315,8 @@ export default function TeamAdmin() {
             <div className="flex flex-wrap gap-2">
               {(expertises.length>0?expertises:demoExpertises).map((e:any)=>(
                 <button key={e.id} onClick={()=>setSelectedExp(p=>p.includes(e.id)?p.filter(x=>x!==e.id):[...p,e.id])}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${selectedExp.includes(e.id)?'bg-orange-500/20 border-orange-500/40 text-orange-400':'bg-white/5 border-white/10 text-white/60 hover:border-white/20'}`}>
-                  {e.name}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition ${selectedExp.includes(e.id)?'bg-orange-500/20 border-orange-500/40 text-orange-400':'bg-white/5 border-white/10 text-white/60 hover:border-white/20'}`}>
+                  <span>{e.icon}</span>{e.name}
                 </button>
               ))}
             </div>

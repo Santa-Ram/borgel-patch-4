@@ -6,9 +6,14 @@ import json
 
 
 class TeamMemberListSerializer(serializers.ModelSerializer):
+    # Retourne les IDs pour que le formulaire admin sache quelles expertises sont sélectionnées
+    expertise_ids = serializers.PrimaryKeyRelatedField(
+        source='expertises', many=True, read_only=True
+    )
+
     class Meta:
         model = TeamMember
-        fields = ['id', 'name', 'role', 'photo', 'order', 'is_active']
+        fields = ['id', 'name', 'role', 'photo', 'order', 'is_active', 'expertise_ids']
 
 
 class TeamMemberDetailSerializer(serializers.ModelSerializer):

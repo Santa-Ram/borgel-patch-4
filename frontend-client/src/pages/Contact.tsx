@@ -78,20 +78,21 @@ export default function Contact() {
               variants={fadeUp}
               className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-4 font-semibold"
             >
-              Centre d'aide
+              Centre de contact
             </motion.p>
             <motion.h1
               variants={fadeUp}
               className="font-serif text-4xl sm:text-5xl text-white mb-4"
             >
-              Questions fréquemment posées.
+              Envoyer nous un message pour toute question ou demande
+              d'information ou consultation.{" "}
             </motion.h1>
             <motion.p
               variants={fadeUp}
               className="text-white/60 text-lg max-w-xl mx-auto mb-10"
             >
-              Retrouvez les réponses aux questions les plus posées sur nos
-              services et nos procédures.
+              Envoyer nous un message pour toute question ou demande
+              d'information ou consultation.{" "}
             </motion.p>
           </motion.div>
         </div>

@@ -13,19 +13,19 @@ import {
   Mail,
   MapPin,
   MessageSquare,
-  HelpCircle,
+  ShieldQuestion,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import API from "../api/client";
-import logo from "../assets/logoBlanc.png";
 
 /* ─── Nav links ─────────────────────────────────────────── */
 const navLinks = [
   { label: "Accueil", url: "/" },
-  { label: "À propos", url: "/a-propos" },
   { label: "Notre Équipe", url: "/equipe" },
+  { label: "À propos", url: "/a-propos" },
   { label: "Actualités", url: "/actualites" },
   { label: "Honoraires", url: "/honoraires" },
+  
 ];
 
 /* ─── Expertises mega menu ──────────────────────────────── */
@@ -36,31 +36,31 @@ const expertisesMenu = {
       {
         icon: ShieldCheck,
         label: "Accident de la Circulation",
-        desc: "La reconnaissance de votre droit à indemnisation",
+        desc: "Conseils essentiels pour protéger vos intérêts",
         slug: "accidents-circulation",
       },
       {
         icon: Target,
         label: "Agressions et Infractions",
-        desc: "Faire reconnaitre votre qualité de victime.",
+        desc: "Comment préparer votre dossier efficacement",
         slug: "agressions",
       },
       {
         icon: Gavel,
         label: "Victimes d'Attentat",
-        desc: "Vous assister dans une procédure complexe et éloignée de la réalité des souffrances...",
+        desc: "Découvrez nos domaines de compétence",
         slug: "victimes-attentat",
       },
       {
         icon: Users,
         label: "Accident Médical",
-        desc: "Vous assister et faire valoir vos droits.",
+        desc: "Rencontrez nos avocats expérimentés",
         slug: "accident-medical",
       },
       {
         icon: Users,
         label: "Accident du Travail",
-        desc: "Une juste réparation pour les victimes d'un accident du travail.",
+        desc: "Droits et démarches après un accident professionnel",
         slug: "accidents-travail",
       },
     ],
@@ -71,25 +71,25 @@ const expertisesMenu = {
       {
         icon: ShieldCheck,
         label: "Accident de la Vie Courante",
-        desc: "Une juste indemnisation dans le cadre d'une responsabilité contractuelle ou délictuelle.",
+        desc: "Conseils essentiels pour protéger vos intérêts",
         slug: "accident-vie-courante",
       },
       {
         icon: Target,
         label: "Contentieux Droit des Assurances",
-        desc: "L'exécution de vos garanties contractuelles.",
+        desc: "Comment préparer votre dossier efficacement",
         slug: "assurance-dommage",
       },
       {
         icon: Gavel,
         label: "Réparation du Préjudice Corporel",
-        desc: "Optimiser la réparation de votre préjudice corporel.",
+        desc: "Découvrez nos domaines de compétence",
         slug: "prejudice-corporel",
       },
       {
         icon: Users,
         label: "Médecin de Recours & Expertise",
-        desc: "Une juste évaluation de votre Préjudice Corporel.",
+        desc: "Rencontrez nos avocats expérimentés",
         slug: "expertise-medicale",
       },
     ],
@@ -144,7 +144,7 @@ const contactV = {
 /* ─── NavLabel — underline centre→extérieur ─────────────── */
 function NavLabel({ label, active }: { label: string; active: boolean }) {
   return (
-    <span className="relative inline-block pb-1">
+    <span className="relative inline-block pb-0.5">
       {label}
       <span
         className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
@@ -229,15 +229,25 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 w-full z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-white/8">
-        <div className="flex items-center h-20 px-6 gap-4">
+        {/* ── Single row h-16 ───────────────────────────── */}
+        <div className="flex items-center h-16 px-6 gap-4">
+          {/* Logo — gauche */}
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
-            <div className=" overflow-hidden flex items-center">
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
               <img
-                src={logo}
+                src="/logo.png"
                 alt="Borgel"
-                className="w-auto h-20 object-content"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML =
+                    '<span style="font-size:13px;font-weight:800;color:white;letter-spacing:-0.5px">B&A</span>';
+                }}
               />
             </div>
+            <span className="hidden lg:block text-sm font-bold text-white tracking-wide">
+              BORGEL &amp; ASSOCIÉS
+            </span>
           </Link>
 
           {/* Nav links — centrés (flex-1 + justify-center) */}
@@ -279,7 +289,7 @@ export default function Navbar() {
               <AnimatePresence>
                 {expertisesOpen && (
                   <motion.div
-                    className="fixed left-0 right-0 top-20 z-40"
+                    className="fixed left-0 right-0 top-16 z-40"
                     variants={dropdownV}
                     initial="hidden"
                     animate="visible"
@@ -308,7 +318,7 @@ export default function Navbar() {
                                     <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/50">
+                                    <p className="text-[11px] text-white/35">
                                       {item.desc}
                                     </p>
                                   </div>
@@ -338,7 +348,7 @@ export default function Navbar() {
                                     <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/50">
+                                    <p className="text-[11px] text-white/35">
                                       {item.desc}
                                     </p>
                                   </div>
@@ -346,6 +356,17 @@ export default function Navbar() {
                               </li>
                             ))}
                           </ul>
+
+                          <div className="py-5 pl-7 flex items-center justify-between">
+                            <Link
+                              to="/expertises"
+                              onClick={() => setExpertisesOpen(false)}
+                              className="inline-flex items-center gap-2 border text-xs font-semibold text-orange-400 hover:bg-orange-500/25  px-4 py-1.5 rounded-full transition"
+                            >
+                              Voir toutes nos expertises{" "}
+                              <ArrowRight size={12} />
+                            </Link>
+                          </div>
                         </div>
                         {/* Col 3 — Actualités récentes */}
                         <div>
@@ -374,20 +395,19 @@ export default function Navbar() {
                                   )}
                                 </div>
                                 <div>
-                                  <p className="text-sm font-medium text-white transition line-clamp-2 leading-snug">
+                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition line-clamp-2 leading-snug">
                                     {post.title}
                                   </p>
-
-                                  <button className=" text-[11px] inline-block mt-1 hover:text-orange-400 transition">
-                                    Voir plus →
-                                  </button>
+                                  <span className="text-[11px] text-orange-400 mt-1 inline-block">
+                                    Lire →
+                                  </span>
                                 </div>
                               </Link>
                             ))}
                             <Link
                               to="/actualites"
                               onClick={() => setExpertisesOpen(false)}
-                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-orange-400 transition"
+                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-white transition"
                             >
                               Toutes les actualités <ArrowRight size={11} />
                             </Link>
@@ -395,6 +415,7 @@ export default function Navbar() {
                         </div>
                       </div>
                     </div>
+                    {/* Bande bas — CTA */}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -416,7 +437,7 @@ export default function Navbar() {
               {searchOpen ? <X size={17} /> : <Search size={17} />}
             </button>
 
-            {/* FAQ icon */}
+            {/* FAQ */}
             <Link
               to="/faq"
               className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
@@ -427,9 +448,10 @@ export default function Navbar() {
               aria-label="FAQ"
               title="Questions fréquentes"
             >
-              <HelpCircle size={17} />
+              <ShieldQuestion size={17} />
             </Link>
 
+            {/* Contact — FAB flower */}
             <div className="relative hidden md:block" ref={contactRef}>
               <button
                 onClick={() => setContactOpen((p) => !p)}
@@ -440,53 +462,51 @@ export default function Navbar() {
                 }`}
                 aria-label="Nous contacter"
               >
-                <Phone size={17} />
+                <motion.div
+                  animate={{ rotate: contactOpen ? 45 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {contactOpen ? <X size={17} /> : <Phone size={17} />}
+                </motion.div>
               </button>
 
               <AnimatePresence>
                 {contactOpen && (
                   <motion.div
-                    variants={contactV}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="absolute right-0 top-11 w-64 z-50 bg-[#131822] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+                    initial={{ opacity: 0, scale: 0.95, y: -8 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-13 right-0 z-50 flex flex-col gap-2"
                   >
-                    <div className="p-4 border-b border-white/8">
-                      <p className="text-xs font-semibold text-white mb-0.5">
-                        Nous contacter
-                      </p>
-                      <p className="text-[11px] text-white/40">
-                        Borgel &amp; Associés — Marseille
-                      </p>
-                    </div>
-                    <div className="p-2">
-                      {contactItems.map((c) => (
+                    {contactItems.map((c, i) => (
+                      <motion.div
+                        key={c.label}
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 10 }}
+                        transition={{ delay: i * 0.06 }}
+                        className="flex items-center justify-end gap-2 group"
+                      >
+                        {/* Label au survol — apparaît à gauche */}
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs font-medium text-white bg-[#131822] border border-white/10 px-2.5 py-1 rounded-lg whitespace-nowrap shadow-lg">
+                          {c.label}
+                        </span>
+
                         <a
-                          key={c.label}
                           href={c.href}
                           target={
                             c.href.startsWith("http") ? "_blank" : undefined
                           }
                           rel="noopener noreferrer"
                           onClick={() => setContactOpen(false)}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 transition group"
+                          title={c.label}
+                          className={`w-9 h-9 rounded-full border flex items-center justify-center shadow-lg hover:scale-110 transition-transform shrink-0 ${c.color}`}
                         >
-                          <div
-                            className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${c.color}`}
-                          >
-                            <c.icon size={14} />
-                          </div>
-                          <span className="text-sm text-white/70 group-hover:text-white transition">
-                            {c.label}
-                          </span>
-                          <ArrowRight
-                            size={12}
-                            className="ml-auto text-white/20 group-hover:text-white/50 transition"
-                          />
+                          <c.icon size={15} />
                         </a>
-                      ))}
-                    </div>
+                      </motion.div>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -565,7 +585,6 @@ export default function Navbar() {
         </AnimatePresence>
       </nav>
 
-      {/* Mobile panel */}
       <AnimatePresence>
         {mobileOpen && (
           <>

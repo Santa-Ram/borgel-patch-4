@@ -1,86 +1,11 @@
 [
-  {
-    "model": "expertises.expertise",
-    "pk": 1,
-    "fields": {
-      "name": "Accidents de la circulation",
-      "slug": "accidents-circulation",
-      "icon": "🚗",
-      "summary": "Notre objectif : la reconnaissance de votre droit à indemnisation. Face à un événement traumatisant et souvent...",
-      "description": "",
-      "hero_image": null,
-      "order": 1,
-      "is_active": true
-    }
-  },
-  {
-    "model": "expertises.expertise",
-    "pk": 2,
-    "fields": {
-      "name": "Droit de la santé",
-      "slug": "droit-sante",
-      "icon": "🏥",
-      "summary": "Responsabilité médicale et droits des patients.",
-      "description": "",
-      "hero_image": null,
-      "order": 2,
-      "is_active": true
-    }
-  },
-  {
-    "model": "expertises.expertise",
-    "pk": 3,
-    "fields": {
-      "name": "Assurance & Dommage corporel",
-      "slug": "assurance-dommage",
-      "icon": "🛡️",
-      "summary": "Optimisation de vos indemnisations d'assurance.",
-      "description": "",
-      "hero_image": null,
-      "order": 3,
-      "is_active": true
-    }
-  },
-  {
-    "model": "expertises.expertise",
-    "pk": 4,
-    "fields": {
-      "name": "Responsabilité médicale",
-      "slug": "responsabilite-medicale",
-      "icon": "⚖️",
-      "summary": "Défense des victimes de fautes médicales.",
-      "description": "",
-      "hero_image": null,
-      "order": 4,
-      "is_active": true
-    }
-  },
-  {
-    "model": "expertises.expertise",
-    "pk": 5,
-    "fields": {
-      "name": "Accidents du travail",
-      "slug": "accidents-travail",
-      "icon": "⚙️",
-      "summary": "Protection des salariés victimes d'accidents professionnels.",
-      "description": "",
-      "hero_image": null,
-      "order": 5,
-      "is_active": true
-    }
-  },
-  {
-    "model": "expertises.expertise",
-    "pk": 6,
-    "fields": {
-      "name": "Préjudice moral",
-      "slug": "prejudice-moral",
-      "icon": "💔",
-      "summary": "Réparation du préjudice moral et psychologique.",
-      "description": "",
-      "hero_image": null,
-      "order": 6,
-      "is_active": true
-    }
-  }
+  {"model":"expertises.expertise","pk":1,"fields":{"name":"Accident de la Circulation","slug":"accidents-circulation","icon":"\ud83d\ude97","summary":"Defense des victimes d'accidents de la route pour une indemnisation complete.","description":"<p>Notre cabinet intervient des le lendemain de l'accident pour securiser vos droits.</p>","hero_image":null,"legal_elements":["Droit a indemnisation integrale","Expertise medicale contradictoire","Calcul du pretium doloris","Prejudice d'agrement","Perte de revenus future"],"order":1,"is_active":true}},
+  {"model":"expertises.expertise","pk":2,"fields":{"name":"Agressions et Infractions","slug":"agressions","icon":"\ud83d\udee1\ufe0f","summary":"Accompagnement des victimes d'agressions pour une indemnisation via le FGTI.","description":"<p>Nous constituons votre dossier et defendons vos interets devant la commission.</p>","hero_image":null,"legal_elements":["Dossier FGTI","Commission CIVI","Prejudice corporel subi","Dommages et interets","Partie civile"],"order":2,"is_active":true}},
+  {"model":"expertises.expertise","pk":3,"fields":{"name":"Victimes d'Attentat","slug":"victimes-attentat","icon":"\u2696\ufe0f","summary":"Defense des victimes d'actes terroristes pour la reconnaissance de leur statut.","description":"<p>Notre cabinet vous accompagne dans la reconnaissance de votre statut et la defense de vos droits.</p>","hero_image":null,"legal_elements":["Statut victime attentat","FGTI terrorisme","Prejudices specifiques","Suivi psychologique","Rente viagere"],"order":3,"is_active":true}},
+  {"model":"expertises.expertise","pk":4,"fields":{"name":"Accident Medical","slug":"accident-medical","icon":"\ud83c\udfe5","summary":"Accompagnement des patients victimes d'accidents medicaux et d'aleas therapeutiques.","description":"<p>Nous vous guidons devant la Commission de Conciliation et d'Indemnisation ou devant les tribunaux.</p>","hero_image":null,"legal_elements":["Faute medicale","Alea therapeutique","Commission CCI","Infection nosocomiale","Defaut d'information"],"order":4,"is_active":true}},
+  {"model":"expertises.expertise","pk":5,"fields":{"name":"Accident du Travail","slug":"accidents-travail","icon":"\u2699\ufe0f","summary":"Protection des salaries victimes d'accidents du travail pour une reparation integrale.","description":"<p>L'accident du travail ouvre droit a des indemnisations specifiques.</p>","hero_image":null,"legal_elements":["Reconnaissance accident","Faute inexcusable employeur","Rente AT","Incapacite permanente","Maladie professionnelle"],"order":5,"is_active":true}},
+  {"model":"expertises.expertise","pk":6,"fields":{"name":"Accident de la Vie Courante","slug":"accident-vie-courante","icon":"\ud83c\udfe0","summary":"Defense des victimes d'accidents domestiques et sportifs pour l'indemnisation.","description":"<p>Les accidents de la vie courante peuvent engager la responsabilite d'un tiers.</p>","hero_image":null,"legal_elements":["Responsabilite du tiers","Garantie vie privee","Accident sportif","Garantie accidents corporels","Recours assurance"],"order":6,"is_active":true}},
+  {"model":"expertises.expertise","pk":7,"fields":{"name":"Contentieux Droit des Assurances","slug":"assurance-dommage","icon":"\ud83d\udccb","summary":"Analyse des contrats et contentieux face aux compagnies d'assurance.","description":"<p>Nous analysons vos contrats et n'hesitons pas a saisir les tribunaux.</p>","hero_image":null,"legal_elements":["Analyse des garanties","Negociation amiable","Recours contentieux","Expertise contradictoire","Resiliation abusive"],"order":7,"is_active":true}},
+  {"model":"expertises.expertise","pk":8,"fields":{"name":"Reparation du Prejudice Corporel","slug":"prejudice-corporel","icon":"\ud83d\udc99","summary":"Evaluation et reparation exhaustive de tous les postes de prejudice corporel.","description":"<p>Nous defendons chaque poste de prejudice avec rigueur selon la nomenclature Dintilhac.</p>","hero_image":null,"legal_elements":["Nomenclature Dintilhac","Pretium doloris","Prejudice fonctionnel","PGPF / PGPA","Deficit fonctionnel permanent"],"order":8,"is_active":true}},
+  {"model":"expertises.expertise","pk":9,"fields":{"name":"Medecin de Recours et Expertise","slug":"expertise-medicale","icon":"\ud83e\ude7a","summary":"Assistance medicale lors des expertises pour contrer les conclusions des assureurs.","description":"<p>Assiste d'un medecin de recours, vous n'affronterez plus seul le medecin de la compagnie d'assurance.</p>","hero_image":null,"legal_elements":["Medecin conseil adverse","Expertise medicale","Contre-expertise","Date de consolidation","Taux IPP"],"order":9,"is_active":true}}
 ]
