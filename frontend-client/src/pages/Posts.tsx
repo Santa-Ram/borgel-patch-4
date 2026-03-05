@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Search } from 'lucide-react';
+import { Award, Briefcase, Building2, Search, Users } from 'lucide-react';
 import { postsAPI } from '../api/client';
 import HeroBanner from '../components/HeroBanner';
 import { CardPost } from '../components/Cards';
@@ -30,6 +30,26 @@ export default function Posts() {
   const displayed = (posts.length > 0 ? posts : demoPosts).filter(
     (p) => p.title.toLowerCase().includes(search.toLowerCase()) || p.excerpt.toLowerCase().includes(search.toLowerCase())
   );
+
+type Direction = 1 | -1;
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7 },
+  },
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
 
   return (
     <>
@@ -73,6 +93,56 @@ export default function Posts() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+      <section className="flex justify-center py-6 lg:py-12 bg-indigo-50 m-6 shadow-xl/75 rounded-3xl">
+        <div className="flex sm:flex-col-2 max-w-5xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+            className="flex grid-cols-2 sm:flex-row items-center justify-between gap-6"
+          >
+            <motion.div
+              variants={fadeUp}
+              className="text-center lg:text-left max-w-lg"
+            >
+              <p className="text-xs uppercase tracking-[0.25em] text-quartio mb-3">
+                Réseau & reconnaissance
+              </p>
+              <h2 className="font-serif text-sm text-black sm:text-xl mb-3">
+                Un cabinet reconnu dans l’écosystème juridique.
+              </h2>
+              <p className="text-xs sm:text-base text-black/75">
+                Borgel &amp; Associés travaille en lien avec des associations de
+                victimes, des institutions médicales et des acteurs spécialisés
+                du secteur.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full lg:w-auto text-center text-[11px] text-white/90"
+            >
+              <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
+                <Award className="w-4 h-4 text-ba-gold mb-1" />
+                <span>Barreau de Marseille</span>
+              </div>
+              <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
+                <Building2 className="w-4 h-4 text-ba-gold mb-1" />
+                <span>Institutions médicales</span>
+              </div>
+              <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
+                <Users className="w-4 h-4 text-ba-gold mb-1" />
+                <span>Associations de victimes</span>
+              </div>
+              <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
+                <Briefcase className="w-4 h-4 text-ba-gold mb-1" />
+                <span>Partenaires assurances</span>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </>

@@ -113,6 +113,8 @@ export default function Team() {
         <div className="max-w-5xl mx-auto">
           {/* Header centré */}
           <div className="text-center h-100 ">
+            {/* <div className="absolute -top-4 -left-4 w-20 h-20 bg-orange-500/10 rounded-full blur-xl" />
+            <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" /> */}
             <h1 className="flex justify-center items-center text-4xl font-bold text-white mb-4">
               Rencontrez notre équipe
             </h1>

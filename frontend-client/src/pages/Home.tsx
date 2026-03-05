@@ -103,14 +103,14 @@ function HeroSection() {
   }, [paused]);
 
   return (
-    <section className="relative isolate flex justify-center bg-[#080d1e] overflow-hidden min-h-[90vh] lg:min-h-screen">
+    <section className="relative isolate flex justify-center bg-[#080d1e] overflow-hidden min-h-[90vh] lg:h-98">
       <div
         aria-hidden
         className="absolute inset-0 overflow-hidden pointer-events-none"
       >
-        <div className="absolute -top-20 right-1/3 w-[600px] aspect-square rounded-full bg-blue-600/20 blur-[120px]" />
-        <div className="absolute top-1/3 -left-20 w-[400px] aspect-square rounded-full bg-indigo-600/20 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] aspect-square rounded-full bg-orange-600/15 blur-[130px]" />
+        <div className="absolute -top-20 right-1/4 w-[500px] aspect-square rounded-full bg-blue-600/20 blur-[200px]" />
+        <div className="absolute top-1/6 -left-15 w-[400px] aspect-square rounded-full bg-indigo-600/20 blur-[100px]" />
+
         <div className="absolute -top-10 right-1/2 mr-10 blur-3xl">
           <div
             style={{
@@ -123,7 +123,7 @@ function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24 lg:py-40 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-10 lg:top-10 md:py-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         {/* Text */}
         <motion.div
           className="flex-1 text-center lg:text-left"
@@ -278,8 +278,8 @@ function HeroSection() {
 
 function AboutPreviewSection() {
   return (
-    <section className="py-20 px-6 bg-[#080d1e]">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-5 px-6 ">
+      <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           {/* Gauche : texte */}
           <motion.div
@@ -295,18 +295,20 @@ function AboutPreviewSection() {
               15 ans au service des victimes
             </h2>
             <p className="text-white/65 leading-relaxed mb-5">
-              Fondé en 2007 par Maître Borgel, notre cabinet s'est imposé comme
-              une référence en droit du dommage corporel à Marseille. Nous
-              défendons les victimes d'accidents et de fautes médicales avec
-              rigueur et humanité.
+              Le cabinet de <span className="text-white font-semibold">
+                Maître Alban BORGEL
+              </span>{" "} est un cabinet d'avocats, dédié
+              à la réparation du préjudice corporel, totalement indépendant des
+              compagnies d'assurances et autres fonds d’indemnisation.
             </p>
             <p className="text-white/65 leading-relaxed mb-8">
-              Notre approche : transparence totale, communication régulière et
-              combativité sans faille pour obtenir la{" "}
+              Nous intervenons également dans le cadre d’un litige vous opposant
+              à une {" "}
               <span className="text-orange-400 font-semibold">
-                juste réparation
+                Compagnie d’assurances
               </span>{" "}
-              de chaque préjudice.
+              qui refuserait la mise en œuvre d’une
+              garantie vol, incendie, invalidité, incapacité …
             </p>
             {/* Valeurs résumées */}
             <div className="grid grid-cols-2 gap-3 mb-8">
@@ -339,10 +341,10 @@ function AboutPreviewSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="space-y-4"
+            className="space-y-4 top-10"
           >
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-6">
               {[
                 ["15+", "Ans d'expérience"],
                 ["500+", "Dossiers"],
@@ -355,7 +357,7 @@ function AboutPreviewSection() {
               ))}
             </div>
             {/* Citation client */}
-            <div className="glass-card p-6 relative overflow-hidden">
+            <div className="glass-card p-10 relative overflow-hidden">
               <div className="absolute -top-2 -right-2 w-16 h-16 bg-orange-500/8 rounded-full blur-xl" />
               <Quote size={22} className="text-orange-400/50 mb-3" />
               <p className="text-white/70 text-sm leading-relaxed italic mb-4">
