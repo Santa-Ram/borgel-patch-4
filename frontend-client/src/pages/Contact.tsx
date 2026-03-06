@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { Check, MapPin, Phone, Mail, Clock } from "lucide-react";
+import {
+  Check,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Newspaper,
+  Wrench,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { contactsAPI } from "../api/client";
 import HeroBanner from "../components/HeroBanner";
@@ -31,9 +39,27 @@ export default function Contact() {
     );
   };
 
+  const container = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const fadeUpCard = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+      },
+    },
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,14 +87,13 @@ export default function Contact() {
         />
       </Helmet>
 
-      <section className="relative overflow-hidden bg-[#080d1e] h-150 pt-10 pb-20">
-        {/* Blobs */}
+      <section className="relative overflow-hidden bg-[#080d1e] lg:h-150 sm:pt-10 lg:pb-20">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-1/3 w-[500px] aspect-square rounded-full bg-blue-600/15 blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] aspect-square rounded-full bg-orange-600/10 blur-[120px]" />
+          <div className="absolute top-0 right-1/3 bottom-1/4 w-[500px] aspect-square rounded-full bg-blue-600/15 blur-[100px]" />
+          <div className="absolute bottom-1/4 left-0 w-[400px] aspect-square rounded-full bg-orange-600/10 blur-[120px]" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 mt-25 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 mt-10 lg:mt-25 text-center">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -76,16 +101,15 @@ export default function Contact() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-4 font-semibold"
+              className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-4 font-bold"
             >
               Centre de contact
             </motion.p>
             <motion.h1
               variants={fadeUp}
-              className="font-serif text-4xl sm:text-5xl text-white mb-4"
+              className="font-serif font-bold text-3xl sm:text-6xl text-white mb-4"
             >
-              Envoyer nous un message pour toute question ou demande
-              d'information ou consultation.{" "}
+              Centre de contact
             </motion.h1>
             <motion.p
               variants={fadeUp}
@@ -94,6 +118,32 @@ export default function Contact() {
               Envoyer nous un message pour toute question ou demande
               d'information ou consultation.{" "}
             </motion.p>
+
+            <motion.div
+              variants={container}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <SupportCard
+                icon={<Phone />}
+                title="Consultation"
+                description="Consectetur vel non. Rerum ut consequatur nobis unde. Enim est quo corrupti consequatur."
+                variants={fadeUpCard}
+              />
+
+              <SupportCard
+                icon={<Wrench />}
+                title="Support"
+                description="Quod possimus sit modi rerum exercitationem quaerat atque tenetur ullam."
+                variants={fadeUpCard}
+              />
+
+              <SupportCard
+                icon={<Newspaper />}
+                title="Formulaire"
+                description="Ratione et porro eligendi est sed ratione rerum itaque. Placeat accusantium impedit eum odit."
+                variants={fadeUpCard}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -215,7 +265,6 @@ export default function Contact() {
             </form>
           </motion.div>
 
-          {/* Info */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -281,5 +330,33 @@ export default function Contact() {
         </div>
       </section>
     </>
+  );
+}
+
+function SupportCard({
+  icon,
+  title,
+  description,
+  variants,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  variants: any;
+}) {
+  return (
+    <motion.div
+      variants={variants}
+      className="relative rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 text-white shadow-lg hover:bg-white/10 transition"
+    >
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-orange-500/20 text-orange-300">
+          {icon}
+        </div>
+        <h3 className="font-semibold">{title}</h3>
+      </div>
+
+      <p className="text-sm text-start text-white/70">{description}</p>
+    </motion.div>
   );
 }

@@ -384,92 +384,92 @@ function AboutPreviewSection() {
   );
 }
 
-function PresentationSection() {
-  return (
-    <section className="py-24 px-6 bg-[#0a0f1e]">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <p className="section-label">Le cabinet</p>
-          <h2 className="section-title">
-            Des avocats engagés pour votre indemnisation
-          </h2>
-          <p className="text-white/70 mb-6 leading-relaxed">
-            Fondé par Maître Borgel, notre cabinet est spécialisé depuis plus de
-            15 ans dans la défense des victimes d'accidents et de fautes
-            médicales. Nous mettons notre expertise au service d'une cause
-            essentielle : obtenir la juste réparation de votre préjudice.
-          </p>
-          <p className="text-white/70 mb-8 leading-relaxed">
-            Notre approche combine rigueur juridique, pédagogie et engagement
-            personnel pour chaque dossier. Nous croyons en la transparence et
-            dans un accompagnement humain tout au long de la procédure.
-          </p>
-          <div className="grid grid-cols-3 gap-6 mb-8">
-            {[
-              ["15+", "Ans d'expérience"],
-              ["500+", "Dossiers traités"],
-              ["95%", "Taux de satisfaction"],
-            ].map(([nb, label]) => (
-              <div key={label} className="text-center">
-                <p className="text-2xl font-bold text-orange-400">{nb}</p>
-                <p className="text-xs text-white/50 mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
-          <Link to="/equipe" className="btn-outline">
-            En savoir plus <ArrowRight size={16} />
-          </Link>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="grid grid-cols-2 gap-4"
-        >
-          {[
-            {
-              icon: Car,
-              title: "Accidents circulation",
-              desc: "Indemnisation complète des victimes",
-            },
-            {
-              icon: Stethoscope,
-              title: "Fautes médicales",
-              desc: "Expertise en responsabilité médicale",
-            },
-            {
-              icon: Shield,
-              title: "Dommage corporel",
-              desc: "Évaluation et réparation du préjudice",
-            },
-            {
-              icon: Scale,
-              title: "Contentieux",
-              desc: "Défense en justice à tous niveaux",
-            },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="glass-card p-5 hover:border-orange-500/20 transition"
-            >
-              <div className="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center mb-3">
-                <Icon size={18} className="text-orange-400" />
-              </div>
-              <h4 className="font-semibold text-white text-sm mb-1">{title}</h4>
-              <p className="text-xs text-white/50">{desc}</p>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+// function PresentationSection() {
+//   return (
+//     <section className="py-24 px-6 bg-[#0a0f1e]">
+//       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+//         <motion.div
+//           initial={{ opacity: 0, x: -30 }}
+//           whileInView={{ opacity: 1, x: 0 }}
+//           viewport={{ once: true }}
+//           transition={{ duration: 0.7 }}
+//         >
+//           <p className="section-label">Le cabinet</p>
+//           <h2 className="section-title">
+//             Des avocats engagés pour votre indemnisation
+//           </h2>
+//           <p className="text-white/70 mb-6 leading-relaxed">
+//             Fondé par Maître Borgel, notre cabinet est spécialisé depuis plus de
+//             15 ans dans la défense des victimes d'accidents et de fautes
+//             médicales. Nous mettons notre expertise au service d'une cause
+//             essentielle : obtenir la juste réparation de votre préjudice.
+//           </p>
+//           <p className="text-white/70 mb-8 leading-relaxed">
+//             Notre approche combine rigueur juridique, pédagogie et engagement
+//             personnel pour chaque dossier. Nous croyons en la transparence et
+//             dans un accompagnement humain tout au long de la procédure.
+//           </p>
+//           <div className="grid grid-cols-3 gap-6 mb-8">
+//             {[
+//               ["15+", "Ans d'expérience"],
+//               ["500+", "Dossiers traités"],
+//               ["95%", "Taux de satisfaction"],
+//             ].map(([nb, label]) => (
+//               <div key={label} className="text-center">
+//                 <p className="text-2xl font-bold text-orange-400">{nb}</p>
+//                 <p className="text-xs text-white/50 mt-1">{label}</p>
+//               </div>
+//             ))}
+//           </div>
+//           <Link to="/equipe" className="btn-outline">
+//             En savoir plus <ArrowRight size={16} />
+//           </Link>
+//         </motion.div>
+//         <motion.div
+//           initial={{ opacity: 0, x: 30 }}
+//           whileInView={{ opacity: 1, x: 0 }}
+//           viewport={{ once: true }}
+//           transition={{ duration: 0.7, delay: 0.2 }}
+//           className="grid grid-cols-2 gap-4"
+//         >
+//           {[
+//             {
+//               icon: Car,
+//               title: "Accidents circulation",
+//               desc: "Indemnisation complète des victimes",
+//             },
+//             {
+//               icon: Stethoscope,
+//               title: "Fautes médicales",
+//               desc: "Expertise en responsabilité médicale",
+//             },
+//             {
+//               icon: Shield,
+//               title: "Dommage corporel",
+//               desc: "Évaluation et réparation du préjudice",
+//             },
+//             {
+//               icon: Scale,
+//               title: "Contentieux",
+//               desc: "Défense en justice à tous niveaux",
+//             },
+//           ].map(({ icon: Icon, title, desc }) => (
+//             <div
+//               key={title}
+//               className="glass-card p-5 hover:border-orange-500/20 transition"
+//             >
+//               <div className="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center mb-3">
+//                 <Icon size={18} className="text-orange-400" />
+//               </div>
+//               <h4 className="font-semibold text-white text-sm mb-1">{title}</h4>
+//               <p className="text-xs text-white/50">{desc}</p>
+//             </div>
+//           ))}
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// }
 
 function ExpertisesPreviewSection() {
   const expertiseItems = [
@@ -1179,7 +1179,7 @@ export default function Home() {
       </Helmet>
       <HeroSection />
       <AboutPreviewSection />
-      <PresentationSection />
+      {/* <PresentationSection /> */}
       <ParallaxSections />
       <ExpertisesPreviewSection />
       <TeamPreviewSection />

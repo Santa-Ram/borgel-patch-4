@@ -141,7 +141,6 @@ const contactV = {
   exit: { opacity: 0, scale: 0.95, y: -6, transition: { duration: 0.12 } },
 };
 
-/* ─── NavLabel — underline centre→extérieur ─────────────── */
 function NavLabel({ label, active }: { label: string; active: boolean }) {
   return (
     <span className="relative inline-block pb-0.5">
@@ -192,7 +191,7 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", h);
   }, []);
 
-  // Articles récents pour mega menu
+
   useEffect(() => {
     API.get("/posts/?page_size=6")
       .then((r) => {
@@ -229,9 +228,9 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 w-full z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-white/8">
-        {/* ── Single row h-16 ───────────────────────────── */}
+        
         <div className="flex items-center h-16 px-6 gap-4">
-          {/* Logo — gauche */}
+         
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
             <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
               <img
@@ -246,12 +245,12 @@ export default function Navbar() {
               />
             </div>
             <span className="hidden lg:block text-sm font-bold text-white tracking-wide">
-              BORGEL &amp; ASSOCIÉS
+              BORGEL
             </span>
           </Link>
 
-          {/* Nav links — centrés (flex-1 + justify-center) */}
-          <div className="hidden md:flex flex-1 items-center justify-center gap-1">
+          
+          <div className="hidden 891:flex flex-1 items-center justify-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.url}
@@ -266,7 +265,7 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Expertises */}
+            
             <div className="relative" ref={expertRef}>
               <button
                 onClick={() => setExpertisesOpen((p) => !p)}
@@ -452,7 +451,7 @@ export default function Navbar() {
             </Link>
 
             {/* Contact — FAB flower */}
-            <div className="relative hidden md:block" ref={contactRef}>
+            <div className="relative hidden 891:block" ref={contactRef}>
               <button
                 onClick={() => setContactOpen((p) => !p)}
                 className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
@@ -514,7 +513,7 @@ export default function Navbar() {
 
             {/* Mobile burger */}
             <button
-              className="md:hidden text-white/60 hover:text-white transition w-9 h-9 flex items-center justify-center"
+              className="891:hidden text-white/60 hover:text-white transition w-9 h-9 flex items-center justify-center"
               onClick={() => setMobileOpen(true)}
             >
               <svg
