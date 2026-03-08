@@ -7,14 +7,14 @@ import "../index.css";
 const footerLinks = {
   Expertises: [
     {
-      label: "Accidents de la route",
+      label: "Accident de la Circulation",
       url: "/expertises/accidents-circulation",
     },
-    { label: "Droit de la santé", url: "/expertises/droit-sante" },
+    { label: "Accident Médical", url: "/expertises/accident-medical" },
     { label: "Assurance & Dommage", url: "/expertises/assurance-dommage" },
     {
-      label: "Responsabilité médicale",
-      url: "/expertises/responsabilite-medicale",
+      label: "Victimes d'Attentat",
+      url: "/expertises/victimes-attentat",
     },
     { label: "Accidents du travail", url: "/expertises/accidents-travail" },
   ],
@@ -104,8 +104,8 @@ export default function Footer() {
         </div>
 
         {/* ── Newsletter ── */}
-        <div className="flex grid-cols-3">
-          <div className="mb-5 col-span-2">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-5">
+          <div className="flex-1">
             <h3 className="text-sm font-semibold text-white mb-1">
               Abonnez-vous à notre newsletter
             </h3>
@@ -137,19 +137,26 @@ export default function Footer() {
               </div>
             )}
           </div>
-          <div className="flex items-center gap-4">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-white/40 hover:text-white transition"
-              >
-                <Icon size={18} />
-              </a>
-            ))}
+
+          {/* Social — droite */}
+          <div className="sm:text-right shrink-0">
+            <h4 className="text-xs font-semibold text-white/30 uppercase tracking-wider mb-3">
+              Suivez-nous
+            </h4>
+            <div className="flex items-center gap-3 sm:justify-end">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-white/40 hover:text-white transition"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
