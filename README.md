@@ -1,6 +1,6 @@
 # 🏛️ Borgel & Associés — Projet Full-Stack
 
-Cabinet d'avocats spécialisé en droit du dommage corporel et responsabilité médicale.
+Cabinet d'avocats spécialisé en droit du dommage corporel
 
 ## Architecture
 
@@ -92,4 +92,4 @@ POST /api/auth/refresh/           → JWT refresh
 
 ## Crédits
 
-Projet généré le 22 Février 2026 — Borgel & Associés Marseille
+Projet Santa généré le 22 Février 2026 — Borgel & Associés Marseille

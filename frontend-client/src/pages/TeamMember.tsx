@@ -71,7 +71,7 @@ export default function TeamMemberPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className=" min-h-screenflex items-center justify-center">
         <div className="glass-card animate-pulse w-full max-w-4xl h-96 rounded-3xl" />
       </div>
     );
@@ -93,11 +93,11 @@ export default function TeamMemberPage() {
             to="/equipe"
             className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white mb-5 transition"
           >
-            <ArrowLeft size={16} /> <p className="underline underline-offset-3">Retour à l'équipe</p>
+            <ArrowLeft size={16} />{" "}
+            <p className="underline underline-offset-3">Retour à l'équipe</p>
           </Link>
 
           <div className="grid lg:grid-cols-3 lg:grid-rows-3 gap-5 mb-10">
-            {/* Left - Photo + contacts */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -118,7 +118,6 @@ export default function TeamMemberPage() {
                   )}
                 </div>
 
-                {/* Social links */}
                 <div className="flex justify-center mb-5 gap-3">
                   {m.facebook && (
                     <a
@@ -165,12 +164,9 @@ export default function TeamMemberPage() {
                     </a>
                   )}
                 </div>
-
-                {/* Contact details */}
               </div>
             </motion.div>
 
-            {/* Right - Bio + skills */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -195,7 +191,6 @@ export default function TeamMemberPage() {
                 />
               </section>
 
-              
               {m.expertises_detail?.length > 0 && (
                 <section className="glass-card p-8">
                   <h2 className="text-xl font-bold text-white mb-5">
@@ -222,15 +217,16 @@ export default function TeamMemberPage() {
             </motion.div>
           </div>
 
-          {/* Other members */}
           {others.length > 0 && (
-            <section>
+            <section className="">
               <h2 className="text-2xl font-bold text-white mb-8">
                 Autres membres de l'équipe
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
                 {others.map((m) => (
-                  <CardTeam key={m.id} member={m} />
+                  <div key={m.id} className="scale-90 origin-top">
+                    <CardTeam member={m} />
+                  </div>
                 ))}
               </div>
             </section>

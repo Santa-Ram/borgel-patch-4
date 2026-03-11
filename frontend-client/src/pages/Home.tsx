@@ -1180,7 +1180,7 @@ export default function Home() {
       <HeroSection />
       <AboutPreviewSection />
       {/* <PresentationSection /> */}
-      <ParallaxSections />
+      {/* <ParallaxSections /> */}
       <ExpertisesPreviewSection />
       <TeamPreviewSection />
       <PostsPreviewSection />

@@ -37,7 +37,7 @@ const footerLinks = {
     },
     { label: "Tél : 04 91 33 50 00", url: "/avis" },
     { label: "Contact@borgel-avocat.fr ", url: "/honoraires" },
-    { label: "Galerie", url: "/galerie" },
+    
   ],
 };
 
