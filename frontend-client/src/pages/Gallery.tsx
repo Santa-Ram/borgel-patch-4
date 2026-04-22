@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { X } from 'lucide-react';
+import { IconX } from '@tabler/icons-react';
 import HeroBanner from '../components/HeroBanner';
 
 const demoGallery = [
@@ -71,7 +71,7 @@ export default function Gallery() {
               onClick={() => setSelected(null)}
               aria-label="Fermer"
             >
-              <X size={24} />
+              <IconX size={24} />
             </button>
             <motion.img
               initial={{ scale: 0.9, opacity: 0 }}

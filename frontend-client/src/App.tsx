@@ -19,6 +19,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Login = lazy(() => import("./pages/Login"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const About = lazy(() => import("./pages/About"));
+const Processus = lazy(() => import("./pages/Processus"));
 
 function PageLoader() {
   return (
@@ -27,7 +28,7 @@ function PageLoader() {
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="w-2 h-2 rounded-full bg-orange-500 animate-bounce"
+            className="w-2 h-2 rounded-full bg-purple-500 animate-bounce"
             style={{ animationDelay: `${i * 0.15}s` }}
           />
         ))}
@@ -157,6 +158,14 @@ export default function App() {
             element={
               <ClientLayout>
                 <About />
+              </ClientLayout>
+            }
+          />
+          <Route
+            path="/processus"
+            element={
+              <ClientLayout>
+                <Processus />
               </ClientLayout>
             }
           />

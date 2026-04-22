@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { Star } from "lucide-react";
+import { IconStar } from "@tabler/icons-react";
 import { reviewsAPI } from "../api/client";
 import HeroBanner from "../components/HeroBanner";
 import { CardReview } from "../components/Cards";
@@ -93,7 +93,7 @@ export default function Reviews() {
       <section className="relative min-h-[52vh] flex items-center overflow-hidden bg-[#0d1b2e]">
         
         
-        <div className="absolute top-10 left-1/4 w-80 h-80 bg-orange-400/8 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-10 left-1/4 w-80 h-80 bg-purple-400/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-blue-500/8 rounded-full blur-3xl pointer-events-none" />
 
         
@@ -205,7 +205,7 @@ export default function Reviews() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-orange-400 border border-orange-400/30 px-4 py-1.5 rounded-full mb-">
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#00d4b8] border border-[#00d4b8]/30 px-4 py-1.5 rounded-full mb-">
               Témoignages
             </span>
           </motion.div>
@@ -218,7 +218,7 @@ export default function Reviews() {
           >
             Ce que disent
             <br />
-            <span className="text-orange-400">nos clients</span>
+            <span className="text-[#00d4b8]">nos clients</span>
           </motion.h1>
 
           <motion.p
@@ -255,10 +255,10 @@ export default function Reviews() {
             </span>
             <div className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star
+                <IconStar
                   key={i}
                   size={13}
-                  className="text-orange-400 fill-orange-400"
+                  className="text-amber-400 fill-amber-400"
                 />
               ))}
             </div>
@@ -278,30 +278,30 @@ export default function Reviews() {
           >
             <div className="glass-card inline-flex items-center gap-4 px-8 py-5 mb-8">
               <div>
-                <p className="text-5xl font-bold text-white">
+                <p className="text-5xl font-bold text-slate-900">
                   {avgRating.toFixed(1)}
                 </p>
                 <div className="flex gap-0.5 my-1 justify-center">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
+                    <IconStar
                       key={i}
                       size={16}
                       className={
                         i < Math.round(avgRating)
-                          ? "text-orange-400 fill-orange-400"
-                          : "text-white/20"
+                          ? "text-amber-400 fill-amber-400"
+                          : "text-slate-200"
                       }
                     />
                   ))}
                 </div>
-                <p className="text-xs text-white/50">Note Google</p>
+                <p className="text-xs text-slate-500">Note Google</p>
               </div>
-              <div className="w-px h-16 bg-white/10" />
+              <div className="w-px h-16 bg-slate-200" />
               <div>
-                <p className="text-3xl font-bold text-orange-400">
+                <p className="text-3xl font-bold text-[#1e40af]">
                   {displayed.length}+
                 </p>
-                <p className="text-xs text-white/50 mt-1">Avis vérifiés</p>
+                <p className="text-xs text-slate-500 mt-1">Avis vérifiés</p>
               </div>
             </div>
           </motion.div>

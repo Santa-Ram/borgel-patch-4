@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { Search, Shield, Award, Scale } from "lucide-react";
+import { IconSearch, IconShield, IconAward, IconScale } from "@tabler/icons-react";
 import { expertisesAPI } from "../api/client";
 import { CardExpertise } from "../components/Cards";
 
@@ -139,16 +139,16 @@ export default function Expertises() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="inline-block text-[10px] sm:text-xs md:text-lg font-semibold tracking-widest uppercase text-orange-400 border border-orange-400/30 px-4 py-1.5 rounded-full mb-2 md:mb-6">
+            <span className="inline-block text-[10px] sm:text-xs md:text-lg font-semibold tracking-widest uppercase text-[#00d4b8] border border-[#00d4b8]/30 px-4 py-1.5 rounded-full mb-2 md:mb-6">
               Domaines d'intervention
             </span>
 
             <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-1md:mb-3">
-              Notre <span className="text-orange-400">Expertise</span>
+              Notre <span className="text-[#00d4b8]">Expertise</span>
             </h1>
 
             <p className="text-white/70 text-sm md:text-lg mb-2 leading-relaxed">
-              <span className="text-orange-400 font-semibold">
+              <span className="text-[#00d4b8] font-semibold">
                 Nous assurons
               </span>{" "}
               exclusivement la défense des victimes d'un préjudice corporel à la
@@ -169,13 +169,13 @@ export default function Expertises() {
                   transition={{ delay: 0.3 + i * 0.1 }}
                   className="flex items-start gap-1.5 text-white/80"
                 >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#00d4b8] shrink-0" />
                   {item}
                 </motion.li>
               ))}
             </ul>
 
-            <div className="h-px w-24 bg-orange-400/40 mb-2 md:mb-4" />
+            <div className="h-px w-24 bg-[#00d4b8]/40 mb-2 md:mb-4" />
 
             <p className="text-white/50 text-sm italic">
               Spécialiste en droit du dommage corporel
@@ -190,8 +190,8 @@ export default function Expertises() {
           >
             <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-8 space-y-3">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-orange-400/20 flex items-center justify-center">
-                  <Award size={16} className="text-orange-400" />
+                <div className="w-10 h-10 rounded-xl bg-[#00d4b8]/15 flex items-center justify-center">
+                  <IconAward size={16} className="text-[#00d4b8]" />
                 </div>
                 <h2 className="text-white font-semibold text-lg">
                   La spécialisation, une garantie pour les victimes
@@ -218,15 +218,15 @@ export default function Expertises() {
 
               <div className="grid grid-cols-3 gap-4 pt-2">
                 {[
-                  { icon: Shield, label: "Protection", sub: "des victimes" },
-                  { icon: Scale, label: "Expertise", sub: "judiciaire" },
-                  { icon: Award, label: "Certifié", sub: "par la loi" },
+                  { icon: IconShield, label: "Protection", sub: "des victimes" },
+                  { icon: IconScale, label: "Expertise", sub: "judiciaire" },
+                  { icon: IconAward, label: "Certifié", sub: "par la loi" },
                 ].map(({ icon: Icon, label, sub }) => (
                   <div
                     key={label}
                     className="text-center p-3 rounded-xl bg-white/5 border border-white/10"
                   >
-                    <Icon size={18} className="text-orange-400 mx-auto mb-1" />
+                    <Icon size={18} className="text-[#00d4b8] mx-auto mb-1" />
                     <p className="text-white text-xs font-semibold">{label}</p>
                     <p className="text-white/40 text-xs">{sub}</p>
                   </div>
@@ -247,7 +247,7 @@ export default function Expertises() {
             </p>
 
             <div className="relative">
-              <Search
+              <IconSearch
                 size={16}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none z-10"
               />
@@ -319,7 +319,7 @@ export default function Expertises() {
       </section>
 
       <section className="relative py-10 bg-[#0d1b2e] overflow-hidden">
-        {/* <div className="absolute top-0 left-0 w-72 h-72 bg-orange-400/5 rounded-full blur-3xl pointer-events-none" /> */}
+        {/* <div className="absolute top-0 left-0 w-72 h-72 bg-purple-400/5 rounded-full blur-3xl pointer-events-none" /> */}
 
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -362,9 +362,9 @@ export default function Expertises() {
                     transition={{ delay: i * 0.15 }}
                     className="flex items-start gap-4"
                   >
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#00d4b8] shrink-0" />
                     <div>
-                      <p className="text-orange-400 font-bold text-lg">
+                      <p className="text-[#00d4b8] font-bold text-lg">
                         {item.title}
                       </p>
                       <p className="text-white/50 text-sm leading-relaxed">
@@ -405,7 +405,7 @@ export default function Expertises() {
       </section>
 
       <section className="relative py-20 px-6 bg-[#0d1b2e] overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-orange-400/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-purple-400/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-6xl mx-auto">
@@ -424,7 +424,7 @@ export default function Expertises() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
               >
-                <p className="text-3xl font-bold text-orange-400 mb-1">
+                <p className="text-3xl font-bold text-[#00d4b8] mb-1">
                   {stat.value}
                 </p>
                 <p className="text-white/50 text-sm">{stat.label}</p>
@@ -439,7 +439,7 @@ export default function Expertises() {
             className="text-center border border-white/10 bg-white/5 backdrop-blur-sm rounded-2xl p-12"
           >
             <h2 className="text-3xl font-bold text-white mb-4">
-              Vous êtes <span className="text-orange-400">victime</span> ?
+              Vous êtes <span className="text-[#00d4b8]">victime</span> ?
             </h2>
             <p className="text-white/60 max-w-xl mx-auto mb-8">
               Nos avocats spécialisés analysent votre situation gratuitement et
@@ -447,7 +447,8 @@ export default function Expertises() {
             </p>
             <a
               href="/contact"
-              className="inline-block bg-orange-400 hover:bg-orange-500 text-[#0d1b2e] font-semibold px-8 py-3.5 rounded-xl transition-colors"
+              className="inline-block text-white font-semibold px-8 py-3.5 rounded-xl transition hover:opacity-90"
+              style={{ background: "linear-gradient(90deg, #00d4b8 0%, #00b0f0 100%)" }}
             >
               Consulter gratuitement
             </a>

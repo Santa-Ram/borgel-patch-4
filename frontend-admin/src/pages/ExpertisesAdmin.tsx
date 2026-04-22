@@ -33,19 +33,19 @@ export default function ExpertisesAdmin() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-2xl font-bold text-white">Expertises</h1><p className="text-sm text-white/50">{list.length} domaine{list.length!==1?'s':''}</p></div>
+        <div><h1 className="text-2xl font-bold text-slate-900">Expertises</h1><p className="text-sm text-slate-500">{list.length} domaine{list.length!==1?'s':''}</p></div>
         <button className="btn-primary"><Plus size={15}/> Ajouter expertise</button>
       </div>
       <div className="glass-card overflow-hidden">
         {loading ? <div className="p-8 text-center"><div className="animate-spin w-6 h-6 border-2 border-orange-500 border-t-transparent rounded-full mx-auto"/></div> : (
           <table className="w-full text-sm">
-            <thead><tr className="border-b border-white/10"><th className="text-left py-3 px-4 text-white/50 text-xs uppercase">Domaine</th><th className="text-left py-3 px-4 text-white/50 text-xs uppercase hidden md:table-cell">Slug</th><th className="text-left py-3 px-4 text-white/50 text-xs uppercase hidden sm:table-cell">Ordre</th><th className="text-left py-3 px-4 text-white/50 text-xs uppercase">Statut</th><th className="text-right py-3 px-4 text-white/50 text-xs uppercase">Actions</th></tr></thead>
+            <thead><tr className="border-b border-slate-200"><th className="text-left py-3 px-4 text-slate-500 text-xs uppercase">Domaine</th><th className="text-left py-3 px-4 text-slate-500 text-xs uppercase hidden md:table-cell">Slug</th><th className="text-left py-3 px-4 text-slate-500 text-xs uppercase hidden sm:table-cell">Ordre</th><th className="text-left py-3 px-4 text-slate-500 text-xs uppercase">Statut</th><th className="text-right py-3 px-4 text-slate-500 text-xs uppercase">Actions</th></tr></thead>
             <tbody>
               {list.map((e:any)=>(
-                <tr key={e.id} className="border-b border-white/5 hover:bg-white/3 transition">
-                  <td className="py-3 px-4"><div className="flex items-center gap-2"><span className="text-xl">{e.icon}</span><p className="text-white font-medium">{e.name}</p></div></td>
+                <tr key={e.id} className="border-b border-white/5 hover:bg-slate-50 transition">
+                  <td className="py-3 px-4"><div className="flex items-center gap-2"><span className="text-xl">{e.icon}</span><p className="text-slate-900 font-medium">{e.name}</p></div></td>
                   <td className="py-3 px-4 hidden md:table-cell"><code className="text-xs text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded">{e.slug}</code></td>
-                  <td className="py-3 px-4 hidden sm:table-cell text-white/50">{e.order}</td>
+                  <td className="py-3 px-4 hidden sm:table-cell text-slate-500">{e.order}</td>
                   <td className="py-3 px-4"><button onClick={()=>toggle(e)}>{e.is_active?<span className="badge badge-green flex items-center gap-1 w-fit"><CheckCircle size={10}/>Actif</span>:<span className="badge badge-red flex items-center gap-1 w-fit"><XCircle size={10}/>Inactif</span>}</button></td>
                   <td className="py-3 px-4"><div className="flex justify-end gap-1"><button className="btn-ghost p-1.5">✏️</button><button onClick={()=>del(e.slug)} className="btn-ghost text-red-400 p-1.5"><Trash2 size={13}/></button></div></td>
                 </tr>

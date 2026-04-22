@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Calendar, Eye, ArrowLeft, Tag } from 'lucide-react';
+import { IconCalendar, IconEye, IconArrowLeft, IconTag } from '@tabler/icons-react';
 import { postsAPI } from '../api/client';
 
 const demoPost = {
@@ -44,8 +44,8 @@ export default function PostDetail() {
 
       <div className="min-h-screen py-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <Link to="/actualites" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white mb-8 transition">
-            <ArrowLeft size={16} /> Retour aux actualités
+          <Link to="/actualites" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 mb-8 transition">
+            <IconArrowLeft size={16} /> Retour aux actualités
           </Link>
 
           {p.cover_image && (
@@ -57,30 +57,30 @@ export default function PostDetail() {
           <motion.article initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex flex-wrap gap-2 mb-4">
               {p.tags?.map((tag: any) => (
-                <span key={tag.id} className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest text-orange-400 bg-orange-500/10 rounded-full px-3 py-1">
-                  <Tag size={10} /> {tag.name}
+                <span key={tag.id} className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest text-[#1e40af] bg-purple-100 rounded-full px-3 py-1">
+                  <IconTag size={10} /> {tag.name}
                 </span>
               ))}
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">{p.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">{p.title}</h1>
 
-            <div className="flex items-center gap-4 text-sm text-white/40 mb-8">
-              <span className="flex items-center gap-1.5"><Calendar size={14} />{new Date(p.created_at).toLocaleDateString('fr-FR', { dateStyle: 'long' })}</span>
-              <span className="flex items-center gap-1.5"><Eye size={14} />{p.views} vues</span>
+            <div className="flex items-center gap-4 text-sm text-slate-400 mb-8">
+              <span className="flex items-center gap-1.5"><IconCalendar size={14} />{new Date(p.created_at).toLocaleDateString('fr-FR', { dateStyle: 'long' })}</span>
+              <span className="flex items-center gap-1.5"><IconEye size={14} />{p.views} vues</span>
             </div>
 
             <div
-              className="prose prose-invert prose-lg max-w-none text-white/80 leading-relaxed
-                         prose-headings:text-white prose-headings:font-bold
+              className="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed
+                         prose-headings:text-slate-900 prose-headings:font-bold
                          prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                         prose-p:mb-5 prose-a:text-orange-400 prose-a:no-underline hover:prose-a:underline"
+                         prose-p:mb-5 prose-a:text-[#1e40af] prose-a:no-underline hover:prose-a:underline"
               dangerouslySetInnerHTML={{ __html: p.content }}
             />
           </motion.article>
 
-          <div className="mt-12 pt-8 border-t border-white/10">
-            <p className="text-sm text-white/60 mb-4">Vous avez des questions sur votre situation ?</p>
+          <div className="mt-12 pt-8 border-t border-slate-200">
+            <p className="text-sm text-slate-500 mb-4">Vous avez des questions sur votre situation ?</p>
             <Link to="/contact" className="btn-primary">Prendre rendez-vous</Link>
           </div>
         </div>

@@ -1,12 +1,12 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Mail, MessageSquare, MapPin, X } from 'lucide-react';
+import { IconPhone, IconMail, IconMessage, IconMapPin, IconX } from '@tabler/icons-react';
 
 const contacts = [
-  { icon: Phone,        label: 'Appeler',    href: 'tel:0491335000',             color: 'bg-green-500',  angle: 90 },
-  { icon: Mail,         label: 'Email',      href: 'mailto:contact@borgel.fr',   color: 'bg-blue-500',   angle: 60 },
-  { icon: MessageSquare,label: 'Contact',    href: '/contact',                    color: 'bg-purple-500', angle: 30 },
-  { icon: MapPin,       label: 'Localiser',  href: 'https://maps.google.com/?q=89+Rue+Saint+Jacques+Marseille', color: 'bg-red-500', angle: 0 },
+  { icon: IconPhone,        label: 'Appeler',    href: 'tel:0491335000',             color: 'bg-green-500',  angle: 90 },
+  { icon: IconMail,         label: 'Email',      href: 'mailto:contact@borgel.fr',   color: 'bg-blue-500',   angle: 60 },
+  { icon: IconMessage,label: 'Contact',    href: '/contact',                    color: 'bg-purple-500', angle: 30 },
+  { icon: IconMapPin,       label: 'Localiser',  href: 'https://maps.google.com/?q=89+Rue+Saint+Jacques+Marseille', color: 'bg-red-500', angle: 0 },
 ];
 
 export default function FloatingContact() {
@@ -58,18 +58,19 @@ export default function FloatingContact() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setOpen(!open)}
-        className="relative w-14 h-14 bg-orange-500 rounded-full shadow-lg shadow-orange-500/40 flex items-center justify-center"
+        className="relative w-14 h-14 rounded-full shadow-lg flex items-center justify-center"
+        style={{ background: "linear-gradient(135deg, #00d4b8 0%, #00b0f0 100%)", boxShadow: "0 4px 16px rgba(0,212,184,0.4)" }}
       >
         <motion.div animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.2 }}>
           {open
-            ? <X size={22} className="text-white"/>
-            : <Phone size={22} className="text-white"/>
+            ? <IconX size={22} className="text-white"/>
+            : <IconPhone size={22} className="text-white"/>
           }
         </motion.div>
 
         {/* Pulse ring */}
         {!open && (
-          <span className="absolute inset-0 rounded-full animate-ping bg-orange-400 opacity-25"/>
+          <span className="absolute inset-0 rounded-full animate-ping bg-[#00d4b8] opacity-25"/>
         )}
       </motion.button>
 

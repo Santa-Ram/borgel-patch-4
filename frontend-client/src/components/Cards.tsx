@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Eye, Calendar, Star } from 'lucide-react';
+import { IconArrowRight, IconEye, IconCalendar, IconStar } from '@tabler/icons-react';
 
 // ─── CardPost ───────────────────────────────────────────────────────────────
 
@@ -20,10 +20,11 @@ export function CardPost({ post }: { post: Post }) {
   return (
     <motion.article
       whileHover={{ y: -4, scale: 1.01 }}
-      className="glass-card overflow-hidden hover:border-orange-500/30 transition group"
+      className="bg-white rounded-2xl border border-[#e2e8f0] overflow-hidden hover:border-[#00d4b8] hover:shadow-lg transition group"
+      style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
     >
       {post.cover_image && (
-        <div className="h-48 overflow-hidden">
+        <div className="h-44 overflow-hidden">
           <img
             src={post.cover_image}
             alt={post.title}
@@ -34,29 +35,29 @@ export function CardPost({ post }: { post: Post }) {
       )}
       <div className="p-5">
         {post.expertise && (
-          <span className="inline-block text-[10px] uppercase tracking-widest text-orange-400 bg-orange-500/10 rounded-full px-2 py-0.5 mb-3">
+          <span className="inline-block text-[10px] uppercase tracking-widest text-[#1e40af] bg-[#eff6ff] rounded-full px-2.5 py-0.5 mb-3 font-semibold">
             {post.expertise.name}
           </span>
         )}
-        <h3 className="font-semibold text-white mb-2 line-clamp-2 group-hover:text-orange-400 transition">
+        <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2 group-hover:text-[#1e40af] transition text-sm">
           {post.title}
         </h3>
-        <p className="text-sm text-white/60 line-clamp-3 mb-4">{post.excerpt}</p>
+        <p className="text-sm text-slate-500 line-clamp-3 mb-4">{post.excerpt}</p>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-xs text-white/40">
+          <div className="flex items-center gap-3 text-xs text-slate-400">
             <span className="flex items-center gap-1">
-              <Calendar size={12} />
+              <IconCalendar size={11} />
               {new Date(post.created_at).toLocaleDateString('fr-FR')}
             </span>
             <span className="flex items-center gap-1">
-              <Eye size={12} /> {post.views}
+              <IconEye size={11} /> {post.views}
             </span>
           </div>
           <Link
             to={`/actualites/${post.slug}`}
-            className="text-xs text-orange-400 hover:text-orange-300 flex items-center gap-1 transition"
+            className="text-xs text-[#00b8a0] hover:text-[#007a6b] flex items-center gap-1 font-medium transition"
           >
-            Lire <ArrowRight size={12} />
+            Lire <IconArrowRight size={11} />
           </Link>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function CardTeam({ member }: { member: TeamMember }) {
   return (
     <motion.div whileHover={{ y: -4 }} className="group text-center">
       <Link to={`/equipe/${member.id}`}>
-        <div className="relative mb-4 overflow-hidden rounded-2xl aspect-[3/4]">
+        <div className="relative mb-4 overflow-hidden rounded-2xl aspect-[3/4] bg-[#f0fdfa]">
           {member.photo ? (
             <img
               src={member.photo}
@@ -86,17 +87,22 @@ export function CardTeam({ member }: { member: TeamMember }) {
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-blue-deep to-navy flex items-center justify-center">
-              <span className="text-4xl font-bold text-orange-400">{member.name[0]}</span>
+            <div className="w-full h-full bg-gradient-to-br from-[#1e40af] to-[#00b8a0] flex items-center justify-center">
+              <span className="text-4xl font-bold text-white/80">{member.name[0]}</span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
           <div className="absolute bottom-4 left-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 flex justify-center">
-            <span className="text-xs bg-orange-500 text-white px-3 py-1 rounded-full">Voir le profil</span>
+            <span
+              className="text-xs text-white px-3 py-1 rounded-full"
+              style={{ background: "linear-gradient(90deg, #00d4b8, #00b0f0)" }}
+            >
+              Voir le profil
+            </span>
           </div>
         </div>
-        <h3 className="font-semibold text-white group-hover:text-orange-400 transition">{member.name}</h3>
-        <p className="text-sm text-white/60">{member.role}</p>
+        <h3 className="font-semibold text-slate-900 group-hover:text-[#00b8a0] transition text-sm">{member.name}</h3>
+        <p className="text-sm text-slate-500">{member.role}</p>
       </Link>
     </motion.div>
   );
@@ -116,8 +122,9 @@ interface Expertise {
 export function CardExpertise({ expertise }: { expertise: Expertise }) {
   return (
     <motion.div
-      whileHover={{ y: -6, scale: 1.02 }}
-      className="glass-card p-6 hover:border-orange-500/30 transition group cursor-pointer"
+      whileHover={{ y: -5, scale: 1.01 }}
+      className="bg-white rounded-2xl border border-[#e2e8f0] p-6 hover:border-[#00d4b8] hover:shadow-lg transition group cursor-pointer"
+      style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
     >
       <Link to={`/expertises/${expertise.slug}`} className="block">
         {expertise.hero_image && (
@@ -130,13 +137,18 @@ export function CardExpertise({ expertise }: { expertise: Expertise }) {
             />
           </div>
         )}
-        <div className="w-12 h-12 rounded-xl bg-orange-500/15 flex items-center justify-center mb-4 group-hover:bg-orange-500/25 transition">
-          <span className="text-orange-400 text-xl">{expertise.icon}</span>
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition"
+          style={{ background: "#eff6ff" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "#ccfbf1")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "#eff6ff")}
+        >
+          <span className="text-xl">{expertise.icon}</span>
         </div>
-        <h3 className="font-bold text-white mb-2 group-hover:text-orange-400 transition">{expertise.name}</h3>
-        <p className="text-sm text-white/60 line-clamp-3 mb-4">{expertise.summary}</p>
-        <span className="inline-flex items-center gap-1 text-xs text-orange-400 hover:text-orange-300 transition">
-          Découvrir <ArrowRight size={12} />
+        <h3 className="font-bold text-slate-900 mb-2 group-hover:text-[#1e40af] transition text-sm">{expertise.name}</h3>
+        <p className="text-sm text-slate-500 line-clamp-3 mb-4">{expertise.summary}</p>
+        <span className="inline-flex items-center gap-1 text-xs text-[#00b8a0] font-semibold hover:text-[#007a6b] transition">
+          Découvrir <IconArrowRight size={11} />
         </span>
       </Link>
     </motion.div>
@@ -159,44 +171,48 @@ interface Review {
 export function CardReview({ review }: { review: Review }) {
   return (
     <motion.div
-      whileHover={{ y: -4, scale: 1.01 }}
-      className="glass-card p-5 hover:border-orange-500/30 transition"
+      whileHover={{ y: -3, scale: 1.005 }}
+      className="bg-white rounded-2xl border border-[#e2e8f0] p-5 hover:border-[#00d4b8] hover:shadow-md transition"
+      style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
     >
       <div className="flex items-center gap-3 mb-4">
         {review.avatar ? (
           <img
             src={review.avatar}
             alt={review.name}
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-9 h-9 rounded-full object-cover"
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold flex-shrink-0">
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0"
+            style={{ background: "#f0fdfa", color: "#00b8a0" }}
+          >
             {review.name[0]}
           </div>
         )}
         <div>
-          <p className="font-semibold text-white text-sm">{review.name}</p>
-          <p className="text-xs text-white/40">
+          <p className="font-semibold text-slate-900 text-sm">{review.name}</p>
+          <p className="text-xs text-slate-400">
             {review.source} · {new Date(review.published_at).toLocaleDateString('fr-FR')}
           </p>
         </div>
       </div>
       <div className="flex gap-0.5 mb-3">
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star
+          <IconStar
             key={i}
-            size={14}
-            className={i < review.rating ? 'text-amber-400 fill-amber-400' : 'text-white/20'}
+            size={13}
+            className={i < review.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}
           />
         ))}
       </div>
-      <p className="text-sm text-white/70 italic line-clamp-4">"{review.content}"</p>
+      <p className="text-sm text-slate-600 italic line-clamp-4">"{review.content}"</p>
       {review.external_link && (
         <a
           href={review.external_link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-3 text-xs text-orange-400 hover:underline"
+          className="inline-block mt-3 text-xs text-[#00b8a0] hover:underline font-medium"
         >
           Voir l'avis original →
         </a>

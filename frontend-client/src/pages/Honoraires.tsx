@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { CheckCircle, Scale } from 'lucide-react';
+import { IconCircleCheck, IconScale } from '@tabler/icons-react';
 import HeroBanner from '../components/HeroBanner';
 import { Link } from 'react-router-dom';
 
@@ -15,12 +15,12 @@ export function Honoraires() {
 
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-8 mb-8 border-orange-500/20">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-8 mb-8 border-purple-500/20">
             <div className="flex items-center gap-3 mb-4">
-              <Scale size={24} className="text-orange-400" />
-              <h2 className="text-xl font-bold text-white">Consultation initiale gratuite</h2>
+              <IconScale size={24} className="text-[#1e40af]" />
+              <h2 className="text-xl font-bold text-slate-900">Consultation initiale gratuite</h2>
             </div>
-            <p className="text-white/70 leading-relaxed">
+            <p className="text-slate-600 leading-relaxed">
               Nous proposons une première consultation téléphonique gratuite de 20 minutes pour évaluer votre situation
               et vous informer sur vos droits. Cette démarche vous permet de comprendre les enjeux de votre dossier
               sans engagement financier.
@@ -49,15 +49,15 @@ export function Honoraires() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`glass-card p-6 ${plan.highlight ? 'border-orange-500/40' : ''}`}
+                className={`glass-card p-6 ${plan.highlight ? 'border-purple-500/40' : ''}`}
               >
-                <h3 className="font-bold text-white text-lg mb-1">{plan.title}</h3>
-                <p className="text-3xl font-bold text-orange-400 my-3">{plan.price}</p>
-                <p className="text-sm text-white/60 mb-5">{plan.desc}</p>
+                <h3 className="font-bold text-slate-900 text-lg mb-1">{plan.title}</h3>
+                <p className="text-3xl font-bold text-[#1e40af] my-3">{plan.price}</p>
+                <p className="text-sm text-slate-500 mb-5">{plan.desc}</p>
                 <ul className="space-y-2.5">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm text-white/70">
-                      <CheckCircle size={14} className="text-orange-400 flex-shrink-0" />
+                    <li key={f} className="flex items-center gap-2.5 text-sm text-slate-600">
+                      <IconCircleCheck size={14} className="text-[#00b8a0] flex-shrink-0" />
                       {f}
                     </li>
                   ))}
@@ -67,8 +67,8 @@ export function Honoraires() {
           </div>
 
           <div className="glass-card p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-4">Aide juridictionnelle</h3>
-            <p className="text-white/70 mb-6 max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Aide juridictionnelle</h3>
+            <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
               Si vos revenus sont modestes, vous pouvez bénéficier de l'aide juridictionnelle. Notre cabinet accepte
               les bénéficiaires de l'aide juridictionnelle totale ou partielle.
             </p>

@@ -85,8 +85,8 @@ export default function MediaAdmin() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Médiathèque</h1>
-          <p className="text-sm text-white/50">{media.length} fichier{media.length!==1?'s':''}</p>
+          <h1 className="text-2xl font-bold text-slate-900">Médiathèque</h1>
+          <p className="text-sm text-slate-500">{media.length} fichier{media.length!==1?'s':''}</p>
         </div>
         <button onClick={()=>inputRef.current?.click()} className="btn-primary">
           <Upload size={15}/>Importer des fichiers
@@ -100,24 +100,24 @@ export default function MediaAdmin() {
         onDragOver={e=>{e.preventDefault();setDragging(true)}}
         onDragLeave={()=>setDragging(false)}
         onDrop={e=>{e.preventDefault();setDragging(false);handleFiles(e.dataTransfer.files)}}
-        className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer ${dragging?'border-orange-500 bg-orange-500/10':'border-white/10 hover:border-white/20 hover:bg-white/3'}`}
+        className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer ${dragging?'border-orange-500 bg-orange-500/10':'border-slate-200 hover:border-slate-200 hover:bg-slate-50'}`}
         onClick={()=>inputRef.current?.click()}
       >
-        <Upload size={28} className={`mx-auto mb-2 ${dragging?'text-orange-400':'text-white/30'}`}/>
-        <p className="text-sm text-white/50">Glissez-déposez vos fichiers ici ou <span className="text-orange-400">cliquez pour parcourir</span></p>
-        <p className="text-xs text-white/30 mt-1">Images, Vidéos, PDFs acceptés</p>
+        <Upload size={28} className={`mx-auto mb-2 ${dragging?'text-orange-400':'text-slate-400'}`}/>
+        <p className="text-sm text-slate-500">Glissez-déposez vos fichiers ici ou <span className="text-orange-400">cliquez pour parcourir</span></p>
+        <p className="text-xs text-slate-400 mt-1">Images, Vidéos, PDFs acceptés</p>
       </div>
 
       {/* Search + filter */}
       <div className="flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[180px] max-w-xs">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
           <input type="search" placeholder="Rechercher..." value={search} onChange={e=>setSearch(e.target.value)} className="input-dark pl-8"/>
         </div>
         <div className="flex gap-2">
           {typeFilter.map(f=>(
             <button key={f} onClick={()=>setFilter(f)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${filter===f?'bg-orange-500/20 border-orange-500/40 text-orange-400':'bg-white/5 border-white/10 text-white/60 hover:border-white/20'}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${filter===f?'bg-[#f0fdfa] border-[#00d4b8] text-[#00b8a0]':'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-200'}`}>
               {f}
             </button>
           ))}
@@ -131,15 +131,15 @@ export default function MediaAdmin() {
             className="glass-card overflow-hidden cursor-pointer hover:border-white/30 hover:scale-[1.02] transition-all group aspect-square relative">
             {m.type==='image'
               ? <img src={m.url} alt={m.name} className="w-full h-full object-cover"/>
-              : <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-white/3">
+              : <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-slate-50">
                   <TypeIcon type={m.type}/>
-                  <p className="text-xs text-white/50 text-center px-2 truncate max-w-full">{m.name}</p>
+                  <p className="text-xs text-slate-500 text-center px-2 truncate max-w-full">{m.name}</p>
                 </div>
             }
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <button onClick={e=>{e.stopPropagation();copyUrl(m.url)}}
-                className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30 transition">
-                {copied===m.url?<Check size={14} className="text-green-400"/>:<Copy size={14} className="text-white"/>}
+                className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center hover:bg-slate-500 transition">
+                {copied===m.url?<Check size={14} className="text-green-400"/>:<Copy size={14} className="text-slate-900"/>}
               </button>
               <button onClick={e=>{e.stopPropagation();setConfirmDel(m)}}
                 className="w-8 h-8 bg-red-500/30 rounded-lg flex items-center justify-center hover:bg-red-500/50 transition">
@@ -152,8 +152,8 @@ export default function MediaAdmin() {
 
       {displayed.length===0 && (
         <div className="glass-card p-12 text-center">
-          <Image size={36} className="text-white/20 mx-auto mb-3"/>
-          <p className="text-white/50">Aucun fichier trouvé</p>
+          <Image size={36} className="text-slate-300 mx-auto mb-3"/>
+          <p className="text-slate-500">Aucun fichier trouvé</p>
         </div>
       )}
 
@@ -169,14 +169,14 @@ export default function MediaAdmin() {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <TypeIcon type={selected.type}/>
-                  <p className="font-medium text-white text-sm truncate max-w-[240px]">{selected.name}</p>
+                  <p className="font-medium text-slate-900 text-sm truncate max-w-[240px]">{selected.name}</p>
                 </div>
-                <button onClick={()=>setSelected(null)} className="text-white/40 hover:text-white transition"><X size={16}/></button>
+                <button onClick={()=>setSelected(null)} className="text-slate-400 hover:text-slate-900 transition"><X size={16}/></button>
               </div>
               {selected.type==='image' && <img src={selected.url} alt={selected.name} className="w-full rounded-xl mb-4 max-h-64 object-contain bg-black/20"/>}
               <div className="grid grid-cols-2 gap-2 text-xs mb-4">
-                <div className="bg-white/5 rounded-lg p-2.5"><p className="text-white/40">Taille</p><p className="text-white font-medium">{fmtSize(selected.size)}</p></div>
-                <div className="bg-white/5 rounded-lg p-2.5"><p className="text-white/40">Date</p><p className="text-white font-medium">{new Date(selected.created_at).toLocaleDateString('fr-FR')}</p></div>
+                <div className="bg-slate-50 rounded-lg p-2.5"><p className="text-slate-400">Taille</p><p className="text-slate-900 font-medium">{fmtSize(selected.size)}</p></div>
+                <div className="bg-slate-50 rounded-lg p-2.5"><p className="text-slate-400">Date</p><p className="text-slate-900 font-medium">{new Date(selected.created_at).toLocaleDateString('fr-FR')}</p></div>
               </div>
               <div className="flex gap-2">
                 <button onClick={()=>copyUrl(selected.url)} className="btn-primary flex-1 justify-center">
@@ -196,8 +196,8 @@ export default function MediaAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer ce fichier ?</h3>
-              <p className="text-sm text-white/60 mb-4">{confirmDel.name}</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer ce fichier ?</h3>
+              <p className="text-sm text-slate-500 mb-4">{confirmDel.name}</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={()=>setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={()=>deleteMedia(confirmDel.id)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>

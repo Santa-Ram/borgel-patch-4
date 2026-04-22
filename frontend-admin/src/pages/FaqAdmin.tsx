@@ -101,8 +101,8 @@ export default function FaqAdmin() {
       <div className="flex items-center gap-3">
         <button onClick={() => setView('list')} className="btn-ghost p-1.5"><ArrowLeft size={16}/></button>
         <div>
-          <h1 className="text-xl font-bold text-white">{editing ? 'Modifier la FAQ' : 'Nouvelle FAQ'}</h1>
-          <p className="text-sm text-white/50">{editing ? editing.question.substring(0,50)+'...' : 'Ajouter une question/réponse'}</p>
+          <h1 className="text-xl font-bold text-slate-900">{editing ? 'Modifier la FAQ' : 'Nouvelle FAQ'}</h1>
+          <p className="text-sm text-slate-500">{editing ? editing.question.substring(0,50)+'...' : 'Ajouter une question/réponse'}</p>
         </div>
       </div>
 
@@ -110,12 +110,12 @@ export default function FaqAdmin() {
         <div className="lg:col-span-2 space-y-4">
           <div className="glass-card p-5 space-y-4">
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Question *</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Question *</label>
               <textarea value={form.question} onChange={e => set('question', e.target.value)}
                 className="input-dark resize-none" rows={3} placeholder="Comment fonctionne une expertise médicale ?"/>
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Réponse *</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Réponse *</label>
               <textarea value={form.answer} onChange={e => set('answer', e.target.value)}
                 className="input-dark resize-none" rows={6} placeholder="Rédigez une réponse claire et complète..."/>
             </div>
@@ -123,7 +123,7 @@ export default function FaqAdmin() {
 
           {/* Mots-clés */}
           <div className="glass-card p-5">
-            <label className="text-xs text-white/50 block mb-3">
+            <label className="text-xs text-slate-500 block mb-3">
               <Tag size={11} className="inline mr-1"/>Mots-clés (pour la recherche)
             </label>
             <div className="flex gap-2 mb-3">
@@ -137,7 +137,7 @@ export default function FaqAdmin() {
             {keywords().length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {keywords().map(kw => (
-                  <span key={kw} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-orange-500/15 text-orange-400 border border-orange-500/20">
+                  <span key={kw} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-[#f0fdfa] text-[#00b8a0] border border-[#00d4b8]/30">
                     #{kw}
                     <button onClick={() => removeKeyword(kw)} className="ml-1 hover:text-red-400 transition">×</button>
                   </span>
@@ -150,10 +150,10 @@ export default function FaqAdmin() {
         {/* Sidebar */}
         <div className="space-y-4">
           <div className="glass-card p-4 space-y-4">
-            <p className="text-xs font-semibold text-white/50 uppercase tracking-wider">Paramètres</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Paramètres</p>
 
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Catégorie</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Catégorie</label>
               <select value={form.category} onChange={e => set('category', e.target.value)} className="input-dark">
                 <option value="">Sans catégorie</option>
                 {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -161,15 +161,15 @@ export default function FaqAdmin() {
             </div>
 
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Ordre</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Ordre</label>
               <input type="number" value={form.order} onChange={e => set('order', parseInt(e.target.value)||0)}
                 className="input-dark" min={0}/>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-sm text-white">Visible sur le site</span>
+              <span className="text-sm text-slate-900">Visible sur le site</span>
               <button onClick={() => set('is_active', !form.is_active)}
-                className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? 'bg-orange-500' : 'bg-white/10'}`}>
+                className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? 'bg-orange-500' : 'bg-slate-100'}`}>
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.is_active ? 'translate-x-5' : 'translate-x-0.5'}`}/>
               </button>
             </div>
@@ -192,8 +192,8 @@ export default function FaqAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer cette FAQ ?</h3>
-              <p className="text-sm text-white/60 mb-4 line-clamp-2">"{confirmDel.question}"</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer cette FAQ ?</h3>
+              <p className="text-sm text-slate-500 mb-4 line-clamp-2">"{confirmDel.question}"</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>
@@ -210,8 +210,8 @@ export default function FaqAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">FAQ</h1>
-          <p className="text-sm text-white/50">{list.filter(f=>f.is_active).length} publiées · {list.filter(f=>!f.is_active).length} masquées</p>
+          <h1 className="text-2xl font-bold text-slate-900">FAQ</h1>
+          <p className="text-sm text-slate-500">{list.filter(f=>f.is_active).length} publiées · {list.filter(f=>!f.is_active).length} masquées</p>
         </div>
         <button onClick={openNew} className="btn-primary"><Plus size={15}/>Ajouter une FAQ</button>
       </div>
@@ -219,7 +219,7 @@ export default function FaqAdmin() {
       {/* Filtres */}
       <div className="flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
           <input type="search" placeholder="Rechercher une question ou mot-clé..."
             value={search} onChange={e => setSearch(e.target.value)} className="input-dark pl-8"/>
         </div>
@@ -227,7 +227,7 @@ export default function FaqAdmin() {
           {(['all','active','inactive'] as const).map(f => (
             <button key={f} onClick={() => setFilter(f)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
-                filter === f ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
+                filter === f ? 'bg-[#f0fdfa] border-[#00d4b8] text-[#00b8a0]' : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-200'
               }`}>
               {f === 'all' ? 'Toutes' : f === 'active' ? 'Publiées' : 'Masquées'}
             </button>
@@ -241,36 +241,36 @@ export default function FaqAdmin() {
           <div className="p-8 text-center"><div className="animate-spin w-6 h-6 border-2 border-orange-500 border-t-transparent rounded-full mx-auto"/></div>
         ) : displayed.length === 0 ? (
           <div className="p-12 text-center">
-            <HelpCircle size={36} className="text-white/20 mx-auto mb-3"/>
-            <p className="text-white/40">{search ? 'Aucun résultat' : 'Aucune FAQ — cliquez sur "Ajouter une FAQ"'}</p>
+            <HelpCircle size={36} className="text-slate-300 mx-auto mb-3"/>
+            <p className="text-slate-400">{search ? 'Aucun résultat' : 'Aucune FAQ — cliquez sur "Ajouter une FAQ"'}</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Question</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider hidden md:table-cell">Catégorie</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider hidden lg:table-cell">Mots-clés</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Statut</th>
-                <th className="text-right py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Question</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider hidden md:table-cell">Catégorie</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider hidden lg:table-cell">Mots-clés</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Statut</th>
+                <th className="text-right py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody>
               {displayed.map(f => (
-                <tr key={f.id} className="border-b border-white/5 hover:bg-white/3 transition">
+                <tr key={f.id} className="border-b border-white/5 hover:bg-slate-50 transition">
                   <td className="py-3 px-4">
                     <div className="flex items-start gap-2">
                       <HelpCircle size={13} className="text-orange-400 mt-0.5 shrink-0"/>
-                      <p className="text-white font-medium line-clamp-2 max-w-xs">{f.question}</p>
+                      <p className="text-slate-900 font-medium line-clamp-2 max-w-xs">{f.question}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4 hidden md:table-cell">
-                    <span className="text-xs text-white/50 bg-white/5 px-2 py-0.5 rounded">{f.category || '—'}</span>
+                    <span className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded">{f.category || '—'}</span>
                   </td>
                   <td className="py-3 px-4 hidden lg:table-cell">
                     <div className="flex flex-wrap gap-1">
                       {(f.keywords||'').split(',').filter(Boolean).slice(0,3).map((k: string) => (
-                        <span key={k.trim()} className="text-[10px] px-1.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400">#{k.trim()}</span>
+                        <span key={k.trim()} className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#f0fdfa] text-[#00b8a0]">#{k.trim()}</span>
                       ))}
                     </div>
                   </td>
@@ -300,8 +300,8 @@ export default function FaqAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer cette FAQ ?</h3>
-              <p className="text-sm text-white/60 mb-4 line-clamp-2">"{confirmDel.question}"</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer cette FAQ ?</h3>
+              <p className="text-sm text-slate-500 mb-4 line-clamp-2">"{confirmDel.question}"</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>

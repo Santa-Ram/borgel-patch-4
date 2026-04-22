@@ -26,7 +26,7 @@ function ParallaxImage({ id, imageSrc, title, subtitle }: ParallaxSectionProps) 
         <div className="absolute inset-0 bg-gradient-to-b from-[#080d1e]/60 via-navy/40 to-[#080d1e]/80" />
       </div>
       <motion.div style={{ y, opacity }} className="relative z-10 text-center px-6">
-        <p className="text-xs uppercase tracking-[0.3em] text-orange-400 mb-3 font-semibold">
+        <p className="text-xs uppercase tracking-[0.3em] text-[#00d4b8] mb-3 font-semibold">
           #{String(id).padStart(2, '0')}
         </p>
         <h2 className="font-poppins text-4xl lg:text-6xl font-bold text-white mb-4">{title}</h2>
@@ -52,7 +52,7 @@ export function ParallaxSections() {
         <ParallaxImage key={s.id} {...s} />
       ))}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 h-1 bg-orange-500 origin-left z-50"
+        className="fixed bottom-0 left-0 right-0 h-1 bg-[#00d4b8] origin-left z-50"
         style={{ scaleX }}
       />
     </div>

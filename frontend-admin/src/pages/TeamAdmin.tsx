@@ -309,10 +309,10 @@ export default function TeamAdmin() {
             <ArrowLeft size={16} />
           </button>
           <div>
-            <h1 className="text-sm font-bold text-white">
+            <h1 className="text-sm font-bold text-slate-900">
               {editing ? `Modifier ${editing.name}` : "Nouveau membre"}
             </h1>
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-slate-500">
               {editing
                 ? "Mettre à jour les informations"
                 : "Ajouter un membre à l'équipe"}
@@ -339,7 +339,7 @@ export default function TeamAdmin() {
                           size={28}
                           className="text-orange-400/50 mx-auto mb-1"
                         />
-                        <p className="text-[10px] text-white/30">
+                        <p className="text-[10px] text-slate-400">
                           Aucune photo
                         </p>
                       </div>
@@ -349,7 +349,7 @@ export default function TeamAdmin() {
                     onClick={() => photoRef.current?.click()}
                     className="absolute -bottom-2 -right-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shadow-lg hover:bg-orange-400 transition"
                   >
-                    <Upload size={14} className="text-white" />
+                    <Upload size={14} className="text-slate-900" />
                   </button>
                   <input
                     ref={photoRef}
@@ -360,25 +360,25 @@ export default function TeamAdmin() {
                   />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm font-medium text-white">
+                  <p className="text-sm font-medium text-slate-900">
                     {form.name || "Nom du membre"}
                   </p>
-                  <p className="text-xs text-white/50">{form.role || "Rôle"}</p>
+                  <p className="text-xs text-slate-500">{form.role || "Rôle"}</p>
                 </div>
               </div>
 
               {/* stat */}
               <div className="glass-card p-4 space-y-3">
-                <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                   Statut
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-white">
+                  <span className="text-sm text-slate-900">
                     Visible sur le site
                   </span>
                   <button
                     onClick={() => set("is_active", !form.is_active)}
-                    className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? "bg-orange-500" : "bg-white/10"}`}
+                    className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? "bg-orange-500" : "bg-slate-100"}`}
                   >
                     <div
                       className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.is_active ? "translate-x-5" : "translate-x-0.5"}`}
@@ -386,7 +386,7 @@ export default function TeamAdmin() {
                   </button>
                 </div>
                 <div>
-                  <label className="text-xs text-white/50 block mb-1">
+                  <label className="text-xs text-slate-500 block mb-1">
                     Ordre d'affichage
                   </label>
                   <input
@@ -402,12 +402,12 @@ export default function TeamAdmin() {
 
               {/* contact */}
               <div className="glass-card p-5 space-y-3">
-                <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                   Contact
                 </p>
                 <div className="grid sm:grid-rows-2 gap-3">
                   <div>
-                    <label className="text-xs text-white/50 block mb-1.5 flex items-center gap-1">
+                    <label className="text-xs text-slate-500 block mb-1.5 flex items-center gap-1">
                       <Phone size={10} />
                       Téléphone
                     </label>
@@ -420,7 +420,7 @@ export default function TeamAdmin() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-white/50 block mb-1.5 flex items-center gap-1">
+                    <label className="text-xs text-slate-500 block mb-1.5 flex items-center gap-1">
                       <Mail size={10} />
                       Email
                     </label>
@@ -440,12 +440,12 @@ export default function TeamAdmin() {
           {/* Infos principales */}
           <div className="flex flex-col lg:col-span-4">
             <div className="glass-card p-5 space-y-4 ">
-              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 Informations
               </p>
               <div className="flex lg:gap-[2%] xl:gap-20 flex-wrap">
                 <div>
-                  <label className="text-xs text-white/50 block mb-1.5">
+                  <label className="text-xs text-slate-500 block mb-1.5">
                     Nom complet *
                   </label>
                   <input
@@ -458,7 +458,7 @@ export default function TeamAdmin() {
                 </div>
 
                 <div>
-                  <label className="text-xs text-white/50 block mb-1.5">
+                  <label className="text-xs text-slate-500 block mb-1.5">
                     Rôle *
                   </label>
                   <select
@@ -489,7 +489,7 @@ export default function TeamAdmin() {
                 </div>
 
                 <div >
-                  <label className="text-xs text-white/50 block mb-1.5 flex items-center gap-1">
+                  <label className="text-xs text-slate-500 block mb-1.5 flex items-center gap-1">
                     <Phone size={10} />
                     Téléphone
                   </label>
@@ -503,7 +503,7 @@ export default function TeamAdmin() {
                 </div>
 
                 <div>
-                  <label className="text-xs text-white/50 block mb-1.5 flex items-center gap-1">
+                  <label className="text-xs text-slate-500 block mb-1.5 flex items-center gap-1">
                     <Mail size={10} />
                     Email
                   </label>
@@ -518,7 +518,7 @@ export default function TeamAdmin() {
               </div>
 
               <div>
-                <label className="text-xs text-white/50 block mb-1.5">
+                <label className="text-xs text-slate-500 block mb-1.5">
                   Biographie
                 </label>
                 <textarea
@@ -536,7 +536,7 @@ export default function TeamAdmin() {
           
           <div className="flex lg:col-span-2">
             <div className="glass-card p-5 space-y-3">
-              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider flex items-center gap-1">
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1">
                 <Link size={11} />
                 Réseaux sociaux
               </p>
@@ -558,7 +558,7 @@ export default function TeamAdmin() {
                 },
               ].map(({ key, placeholder, label }) => (
                 <div key={key}>
-                  <label className="text-xs text-white/50 block mb-1">
+                  <label className="text-xs text-slate-500 block mb-1">
                     {label}
                   </label>
                   <input
@@ -576,7 +576,7 @@ export default function TeamAdmin() {
           {/* expertise */}
           <div className="lg:flex lg:col-span-2">
             <div className="glass-card p-5 lg:max-w-5xl">
-              <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-3">
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
                 Expertises
               </p>
               <div className="flex flex-wrap gap-2">
@@ -591,7 +591,7 @@ export default function TeamAdmin() {
                             : [...p, e.id],
                         )
                       }
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition ${selectedExp.includes(e.id) ? "bg-orange-500/20 border-orange-500/40 text-orange-400" : "bg-white/5 border-white/10 text-white/60 hover:border-white/20"}`}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition ${selectedExp.includes(e.id) ? "bg-[#f0fdfa] border-[#00d4b8] text-[#00b8a0]" : "bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-200"}`}
                     >
                       <span>{e.icon}</span>
                       {e.name}
@@ -656,10 +656,10 @@ export default function TeamAdmin() {
                     <Trash2 size={18} className="text-red-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">
+                    <h3 className="font-semibold text-slate-900">
                       Supprimer {confirmDelete.name} ?
                     </h3>
-                    <p className="text-sm text-white/60 mt-1">
+                    <p className="text-sm text-slate-500 mt-1">
                       Cette action est irréversible. Le membre sera
                       définitivement supprimé du site.
                     </p>
@@ -692,8 +692,8 @@ export default function TeamAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Équipe</h1>
-          <p className="text-sm text-white/50">
+          <h1 className="text-2xl font-bold text-slate-900">Équipe</h1>
+          <p className="text-sm text-slate-500">
             {displayed.length} membre{displayed.length !== 1 ? "s" : ""}
           </p>
         </div>
@@ -706,7 +706,7 @@ export default function TeamAdmin() {
       <div className="relative max-w-xs">
         <Search
           size={13}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
         />
         <input
           type="search"
@@ -728,7 +728,7 @@ export default function TeamAdmin() {
           {displayed.map((m) => (
             <div
               key={m.id}
-              className="glass-card p-4 hover:border-white/20 transition"
+              className="glass-card p-4 hover:border-slate-200 transition"
             >
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-xl overflow-hidden bg-orange-500/10 flex items-center justify-center flex-shrink-0">
@@ -745,8 +745,8 @@ export default function TeamAdmin() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white truncate">{m.name}</p>
-                  <p className="text-xs text-white/50 truncate">{m.role}</p>
+                  <p className="font-semibold text-slate-900 truncate">{m.name}</p>
+                  <p className="text-xs text-slate-500 truncate">{m.role}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <button onClick={() => toggleActive(m)}>
                       {m.is_active ? (
@@ -805,10 +805,10 @@ export default function TeamAdmin() {
                   <Trash2 size={18} className="text-red-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">
+                  <h3 className="font-semibold text-slate-900">
                     Supprimer {confirmDelete.name} ?
                   </h3>
-                  <p className="text-sm text-white/60 mt-1">
+                  <p className="text-sm text-slate-500 mt-1">
                     Cette action est irréversible.
                   </p>
                 </div>

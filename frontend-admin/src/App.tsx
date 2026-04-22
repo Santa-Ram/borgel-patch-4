@@ -14,13 +14,14 @@ const NewsletterAdmin= lazy(() => import('./pages/NewsletterAdmin'));
 const GalleryAdmin   = lazy(() => import('./pages/GalleryAdmin'));
 const FaqAdmin       = lazy(() => import('./pages/FaqAdmin'));
 const MediaAdmin     = lazy(() => import('./pages/MediaAdmin'));
+const ExpertisesAdmin= lazy(() => import('./pages/ExpertisesAdmin'));
 
 function PageLoader() {
   return (
     <div className="flex items-center justify-center h-64">
       <div className="flex gap-1.5">
         {[0,1,2].map(i=>(
-          <div key={i} className="w-2 h-2 rounded-full bg-orange-500 animate-bounce" style={{animationDelay:`${i*0.15}s`}}/>
+          <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{animationDelay:`${i*0.15}s`, background:"#00d4b8"}}/>
         ))}
       </div>
     </div>
@@ -54,6 +55,7 @@ export default function App() {
                   <Route path="gallery"           element={<GalleryAdmin/>}/>
                   <Route path="faq"              element={<FaqAdmin/>}/>
                   <Route path="media"             element={<MediaAdmin/>}/>
+                  <Route path="expertises"        element={<ExpertisesAdmin/>}/>
                   <Route path="*"                 element={<Navigate to="/" replace/>}/>
                 </Routes>
               </Suspense>

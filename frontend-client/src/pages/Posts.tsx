@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion, Variants } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Award, Briefcase, Building2, Search, Users } from 'lucide-react';
+import { IconAward, IconBriefcase, IconBuilding, IconSearch, IconUsers } from '@tabler/icons-react';
 import { postsAPI } from '../api/client';
 import HeroBanner from '../components/HeroBanner';
 import { CardPost } from '../components/Cards';
@@ -62,7 +62,7 @@ const staggerContainer: Variants = {
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="relative max-w-md mx-auto mb-12">
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+            <IconSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
             <input
               type="search"
               placeholder="Rechercher un article..."
@@ -126,19 +126,19 @@ const staggerContainer: Variants = {
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full lg:w-auto text-center text-[11px] text-white/90"
             >
               <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
-                <Award className="w-4 h-4 text-ba-gold mb-1" />
+                <IconAward className="w-4 h-4 text-ba-gold mb-1" />
                 <span>Barreau de Marseille</span>
               </div>
               <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
-                <Building2 className="w-4 h-4 text-ba-gold mb-1" />
+                <IconBuilding className="w-4 h-4 text-ba-gold mb-1" />
                 <span>Institutions médicales</span>
               </div>
               <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
-                <Users className="w-4 h-4 text-ba-gold mb-1" />
+                <IconUsers className="w-4 h-4 text-ba-gold mb-1" />
                 <span>Associations de victimes</span>
               </div>
               <div className="rounded-xl bg-gray-900/40 border border-white/10 px-4 py-3 flex flex-col items-center gap-1">
-                <Briefcase className="w-4 h-4 text-ba-gold mb-1" />
+                <IconBriefcase className="w-4 h-4 text-ba-gold mb-1" />
                 <span>Partenaires assurances</span>
               </div>
             </motion.div>

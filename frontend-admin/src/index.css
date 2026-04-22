@@ -1,97 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
+
   body {
-    @apply text-white font-poppins antialiased;
-    background: #080d1e;
+    @apply antialiased;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    background: #f8fafc;
+    color: #334155;
+    min-height: 100vh;
   }
-  ::-webkit-scrollbar {
-    width: 5px;
+
+  ::selection {
+    background: rgba(0, 212, 184, 0.15);
+    color: #0f172a;
   }
-  ::-webkit-scrollbar-track {
-    background: #0a0f1e;
-  }
+
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(51, 192, 70, 0.4);
-    border-radius: 3px;
+    background: #cbd5e1;
+    border-radius: 10px;
   }
+  ::-webkit-scrollbar-thumb:hover { background: #00d4b8; }
 }
 
 @layer components {
+
+  /* ── Glass card (white) ── */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+    @apply rounded-2xl;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
+  .glass-card:hover {
+    border-color: #00d4b8;
+    box-shadow: 0 6px 24px rgba(0, 212, 184, 0.1);
+  }
+
+  /* ── Inputs (light) ── */
   .input-dark {
-    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-white/30 outline-none focus:border-orange-500/50 transition text-sm;
+    @apply w-full rounded-xl outline-none transition;
+    background: #ffffff;
+    border: 1.5px solid #d1d5db;
+    padding: 10px 16px;
+    color: #0f172a;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
   }
+  .input-dark::placeholder { color: #94a3b8; }
+  .input-dark:hover { border-color: #94a3b8; }
+  .input-dark:focus {
+    background: #f0fdfa;
+    border-color: #00d4b8;
+    box-shadow: 0 0 0 3px rgba(0, 212, 184, 0.15);
+  }
+
+  /* ── Select options ── */
+  .input-dark option, select option {
+    background: #ffffff;
+    color: #0f172a;
+  }
+
+  /* ── Buttons ── */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 text-white text-sm font-semibold hover:bg-orange-400 active:scale-95 transition;
+    @apply inline-flex items-center gap-2 rounded-lg text-sm font-bold active:scale-95 transition;
+    background: linear-gradient(90deg, #00d4b8 0%, #00b0f0 100%);
+    color: #fff !important;
+    border: none;
+    padding: 10px 22px;
+    letter-spacing: 0.01em;
   }
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 212, 184, 0.3);
+  }
+
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white text-sm font-medium hover:bg-white/15 active:scale-95 transition;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium active:scale-95 transition;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
   }
+  .btn-secondary:hover { background: #e2e8f0; }
+
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/5 transition;
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition;
+    color: #64748b;
   }
+  .btn-ghost:hover { color: #0f172a; background: #f1f5f9; }
+
   .btn-danger {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/20 text-red-400 text-sm font-semibold hover:bg-red-500/30 active:scale-95 transition border border-red-500/20;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold active:scale-95 transition;
+    background: linear-gradient(90deg, #f43f5e 0%, #e11d48 100%);
+    color: #ffffff;
+    border: none;
   }
+  .btn-danger:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ── Badges ── */
   .badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
-  .badge-green {
-    @apply badge bg-green-500/15 text-green-400;
-  }
-  .badge-red {
-    @apply badge bg-red-500/15 text-red-400;
-  }
-  .badge-orange {
-    @apply badge bg-orange-500/15 text-orange-400;
-  }
-  .badge-blue {
-    @apply badge bg-blue-500/15 text-blue-400;
-  }
-  .badge-purple {
-    @apply badge bg-purple-500/15 text-purple-400;
-  }
+  .badge-green  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+  .badge-red    { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+  .badge-orange { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+  .badge-blue   { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+  .badge-cyan   { background: #ccfbf1; color: #134e4a; border: 1px solid #99f6e4; }
+  .badge-purple { background: #ede9fe; color: #4f35c2; border: 1px solid #ddd6fe; }
+  .badge-forest { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+  /* ── Stat card ── */
   .stat-card {
-    @apply glass-card p-5 hover:border-white/20 transition;
+    @apply glass-card p-5 transition;
   }
+
+  /* ── Table row ── */
   .table-row {
-    @apply border-b border-white/5 hover:bg-white/3 transition;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.12s;
   }
+  .table-row:hover { background: #f8fafc; }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
 }

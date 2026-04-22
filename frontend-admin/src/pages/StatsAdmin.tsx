@@ -27,20 +27,20 @@ export default function StatsAdmin() {
 
   return (
     <div className="space-y-6">
-      <div><h1 className="text-2xl font-bold text-white">Statistiques</h1><p className="text-sm text-white/50">Vue d'ensemble de l'activité du site</p></div>
+      <div><h1 className="text-2xl font-bold text-slate-900">Statistiques</h1><p className="text-sm text-slate-500">Vue d'ensemble de l'activité du site</p></div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {[['Posts', stats.posts, '#3b82f6'], ['Équipe', stats.team, '#10b981'], ['Messages', stats.contacts, '#f97316'], ['Avis', stats.reviews, '#f59e0b'], ['Newsletter', stats.newsletter, '#8b5cf6'], ['Vues total', stats.views, '#ec4899']].map(([label, value, color])=>(
           <div key={label as string} className="glass-card p-4 text-center">
             <p className="text-2xl font-bold" style={{color: color as string}}>{value}</p>
-            <p className="text-xs text-white/50 mt-1">{label as string}</p>
+            <p className="text-xs text-slate-500 mt-1">{label as string}</p>
           </div>
         ))}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="glass-card p-5">
-          <h2 className="font-semibold text-white mb-5 text-sm">Contacts & Vues mensuels</h2>
+          <h2 className="font-semibold text-slate-900 mb-5 text-sm">Contacts & Vues mensuels</h2>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={monthlyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)"/>
@@ -55,7 +55,7 @@ export default function StatsAdmin() {
         </div>
 
         <div className="glass-card p-5">
-          <h2 className="font-semibold text-white mb-5 text-sm">Répartition des expertises consultées</h2>
+          <h2 className="font-semibold text-slate-900 mb-5 text-sm">Répartition des expertises consultées</h2>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={expertiseData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={3} dataKey="value">
@@ -69,7 +69,7 @@ export default function StatsAdmin() {
       </div>
 
       <div className="glass-card p-5">
-        <h2 className="font-semibold text-white mb-5 text-sm">Vues par expertise</h2>
+        <h2 className="font-semibold text-slate-900 mb-5 text-sm">Vues par expertise</h2>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={expertiseData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)"/>

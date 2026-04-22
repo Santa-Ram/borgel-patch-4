@@ -1,31 +1,30 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Search,
-  X,
-  ChevronDown,
-  ShieldCheck,
-  Target,
-  Gavel,
-  Users,
-  ArrowRight,
-  Phone,
-  Mail,
-  MapPin,
-  MessageSquare,
-  ShieldQuestion,
-} from "lucide-react";
+  IconSearch,
+  IconX,
+  IconChevronDown,
+  IconShieldCheck,
+  IconTarget,
+  IconGavel,
+  IconUsers,
+  IconArrowRight,
+  IconPhone,
+  IconMail,
+  IconMapPin,
+  IconMessage,
+  IconShieldQuestion,
+} from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import API from "../api/client";
 
 /* ─── Nav links ─────────────────────────────────────────── */
 const navLinks = [
-  { label: "Accueil", url: "/" },
+  { label: "Accueil",      url: "/" },
   { label: "Notre Équipe", url: "/equipe" },
-  { label: "À propos", url: "/a-propos" },
-  { label: "Actualités", url: "/actualites" },
-  { label: "Honoraires", url: "/honoraires" },
-  
+  { label: "À propos",     url: "/a-propos" },
+  { label: "Actualités",   url: "/actualites" },
+  { label: "Honoraires",   url: "/honoraires" },
 ];
 
 /* ─── Expertises mega menu ──────────────────────────────── */
@@ -33,113 +32,45 @@ const expertisesMenu = {
   col1: {
     title: "Indemnisation du dommage corporel",
     items: [
-      {
-        icon: ShieldCheck,
-        label: "Accident de la Circulation",
-        desc: "Conseils essentiels pour protéger vos intérêts",
-        slug: "accidents-circulation",
-      },
-      {
-        icon: Target,
-        label: "Agressions et Infractions",
-        desc: "Comment préparer votre dossier efficacement",
-        slug: "agressions",
-      },
-      {
-        icon: Gavel,
-        label: "Victimes d'Attentat",
-        desc: "Découvrez nos domaines de compétence",
-        slug: "victimes-attentat",
-      },
-      {
-        icon: Users,
-        label: "Accident Médical",
-        desc: "Rencontrez nos avocats expérimentés",
-        slug: "accident-medical",
-      },
-      {
-        icon: Users,
-        label: "Accident du Travail",
-        desc: "Droits et démarches après un accident professionnel",
-        slug: "accidents-travail",
-      },
+      { icon: IconShieldCheck, label: "Accident de la Circulation",   desc: "Conseils essentiels pour protéger vos intérêts",     slug: "accidents-circulation" },
+      { icon: IconTarget,      label: "Agressions et Infractions",    desc: "Comment préparer votre dossier efficacement",        slug: "agressions" },
+      { icon: IconGavel,       label: "Victimes d'Attentat",          desc: "Découvrez nos domaines de compétence",               slug: "victimes-attentat" },
+      { icon: IconUsers,       label: "Accident Médical",             desc: "Rencontrez nos avocats expérimentés",                slug: "accident-medical" },
+      { icon: IconUsers,       label: "Accident du Travail",          desc: "Droits et démarches après un accident professionnel",slug: "accidents-travail" },
     ],
   },
   col2: {
     title: "Présentation",
     items: [
-      {
-        icon: ShieldCheck,
-        label: "Accident de la Vie Courante",
-        desc: "Conseils essentiels pour protéger vos intérêts",
-        slug: "accident-vie-courante",
-      },
-      {
-        icon: Target,
-        label: "Contentieux Droit des Assurances",
-        desc: "Comment préparer votre dossier efficacement",
-        slug: "assurance-dommage",
-      },
-      {
-        icon: Gavel,
-        label: "Réparation du Préjudice Corporel",
-        desc: "Découvrez nos domaines de compétence",
-        slug: "prejudice-corporel",
-      },
-      {
-        icon: Users,
-        label: "Médecin de Recours & Expertise",
-        desc: "Rencontrez nos avocats expérimentés",
-        slug: "expertise-medicale",
-      },
+      { icon: IconShieldCheck, label: "Accident de la Vie Courante",        desc: "Conseils essentiels pour protéger vos intérêts",  slug: "accident-vie-courante" },
+      { icon: IconTarget,      label: "Contentieux Droit des Assurances",   desc: "Comment préparer votre dossier efficacement",     slug: "assurance-dommage" },
+      { icon: IconGavel,       label: "Réparation du Préjudice Corporel",   desc: "Découvrez nos domaines de compétence",            slug: "prejudice-corporel" },
+      { icon: IconUsers,       label: "Médecin de Recours & Expertise",     desc: "Rencontrez nos avocats expérimentés",             slug: "expertise-medicale" },
     ],
   },
 };
 
 /* ─── Contacts ──────────────────────────────────────────── */
 const contactItems = [
-  {
-    icon: Phone,
-    label: "Appeler",
-    href: "tel:0491335000",
-    color: "bg-green-500/15 text-green-400 border-green-500/20",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    href: "mailto:contact@borgel.fr",
-    color: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  },
-  {
-    icon: MessageSquare,
-    label: "Formulaire",
-    href: "/contact",
-    color: "bg-purple-500/15 text-purple-400 border-purple-500/20",
-  },
-  {
-    icon: MapPin,
-    label: "Localiser",
-    href: "https://maps.google.com/?q=89+Rue+Saint+Jacques+Marseille",
-    color: "bg-red-500/15 text-red-400 border-red-500/20",
-  },
+  { icon: IconPhone,         label: "Appeler",    href: "tel:0491335000",                    color: "bg-cyan-50 text-[#00b8a0] border-cyan-200" },
+  { icon: IconMail,          label: "Email",      href: "mailto:contact@borgel.fr",           color: "bg-blue-50 text-blue-500 border-blue-200" },
+  { icon: IconMessage, label: "Formulaire", href: "/contact",                           color: "bg-cyan-50 text-[#00b8a0] border-cyan-200" },
+  { icon: IconMapPin,        label: "Localiser",  href: "https://maps.google.com/?q=89+Rue+Saint+Jacques+Marseille", color: "bg-pink-50 text-pink-500 border-pink-200" },
 ];
 
 /* ─── Animations ────────────────────────────────────────── */
 const dropdownV = {
-  hidden: { opacity: 0, y: -8 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.16 } },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.12 } },
+  hidden:  { opacity: 0, y: -8 },
+  visible: { opacity: 1, y: 0,  transition: { duration: 0.16 } },
+  exit:    { opacity: 0, y: -8, transition: { duration: 0.12 } },
 };
 const searchV = {
-  hidden: { opacity: 0, height: 0 },
+  hidden:  { opacity: 0, height: 0 },
   visible: { opacity: 1, height: "auto", transition: { duration: 0.2 } },
-  exit: { opacity: 0, height: 0, transition: { duration: 0.15 } },
+  exit:    { opacity: 0, height: 0,      transition: { duration: 0.15 } },
 };
-const contactV = {
-  hidden: { opacity: 0, scale: 0.95, y: -6 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.18 } },
-  exit: { opacity: 0, scale: 0.95, y: -6, transition: { duration: 0.12 } },
-};
+
+const CYAN = "#00d4b8";
 
 function NavLabel({ label, active }: { label: string; active: boolean }) {
   return (
@@ -147,26 +78,27 @@ function NavLabel({ label, active }: { label: string; active: boolean }) {
       {label}
       <span
         className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
-          active ? "w-full bg-orange-400" : "w-0 bg-white/60 group-hover:w-full"
+          active ? "w-full" : "w-0 group-hover:w-full"
         }`}
+        style={{ background: CYAN }}
       />
     </span>
   );
 }
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [expertisesOpen, setExpertisesOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
-  const [searchVal, setSearchVal] = useState("");
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [mobileOpen, setMobileOpen]           = useState(false);
+  const [expertisesOpen, setExpertisesOpen]   = useState(false);
+  const [searchOpen, setSearchOpen]           = useState(false);
+  const [contactOpen, setContactOpen]         = useState(false);
+  const [searchVal, setSearchVal]             = useState("");
+  const [recentPosts, setRecentPosts]         = useState<any[]>([]);
 
-  const expertRef = useRef<HTMLDivElement>(null);
+  const expertRef  = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const searchRef  = useRef<HTMLInputElement>(null);
+  const location   = useLocation();
+  const navigate   = useNavigate();
 
   const isActive = (url: string) =>
     url === "/" ? location.pathname === "/" : location.pathname.startsWith(url);
@@ -176,44 +108,31 @@ export default function Navbar() {
     setContactOpen(false);
     setSearchOpen(false);
   }, [location]);
+
   useEffect(() => {
     if (searchOpen) setTimeout(() => searchRef.current?.focus(), 60);
   }, [searchOpen]);
 
   useEffect(() => {
     const h = (e: MouseEvent) => {
-      if (expertRef.current && !expertRef.current.contains(e.target as Node))
-        setExpertisesOpen(false);
-      if (contactRef.current && !contactRef.current.contains(e.target as Node))
-        setContactOpen(false);
+      if (expertRef.current  && !expertRef.current.contains(e.target as Node))  setExpertisesOpen(false);
+      if (contactRef.current && !contactRef.current.contains(e.target as Node)) setContactOpen(false);
     };
     document.addEventListener("mousedown", h);
     return () => document.removeEventListener("mousedown", h);
   }, []);
 
-
   useEffect(() => {
     API.get("/posts/?page_size=6")
       .then((r) => {
         const posts = r.data.results || r.data;
-        const shuffled = [...posts].sort(() => Math.random() - 0.5).slice(0, 2);
-        setRecentPosts(shuffled);
+        setRecentPosts([...posts].sort(() => Math.random() - 0.5).slice(0, 2));
       })
       .catch(() =>
         setRecentPosts([
-          {
-            id: 1,
-            title: "Indemnisation : nouvelles règles 2025",
-            slug: "indemnisation-2025",
-            cover_image: null,
-          },
-          {
-            id: 2,
-            title: "Faute médicale : comment réagir ?",
-            slug: "faute-medicale",
-            cover_image: null,
-          },
-        ]),
+          { id: 1, title: "Indemnisation : nouvelles règles 2025", slug: "indemnisation-2025", cover_image: null },
+          { id: 2, title: "Faute médicale : comment réagir ?",    slug: "faute-medicale",    cover_image: null },
+        ])
       );
   }, []);
 
@@ -227,12 +146,22 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-white/8">
-        
-        <div className="flex items-center h-16 px-6 gap-4">
-         
+      <nav
+        className="fixed top-0 w-full z-50"
+        style={{
+          background: "#ffffff",
+          borderBottom: "1px solid #e2e8f0",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+        }}
+      >
+        <div className="flex items-center h-16 px-6 gap-4 max-w-7xl mx-auto">
+
+          {/* Logo */}
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+            <div
+              className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #00d4b8 0%, #00b0f0 100%)" }}
+            >
               <img
                 src="/logo.png"
                 alt="Borgel"
@@ -244,42 +173,37 @@ export default function Navbar() {
                 }}
               />
             </div>
-            <span className="hidden lg:block text-sm font-bold text-white tracking-wide">
+            <span className="hidden lg:block text-sm font-bold tracking-wide" style={{ color: "#0f172a" }}>
               BORGEL
             </span>
           </Link>
 
-          
+          {/* Desktop nav links */}
           <div className="hidden 891:flex flex-1 items-center justify-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.url}
                 to={link.url}
                 className={`group relative px-3.5 py-2 text-sm font-medium transition-colors ${
-                  isActive(link.url)
-                    ? "text-white"
-                    : "text-white/55 hover:text-white"
+                  isActive(link.url) ? "text-[#0f172a]" : "text-slate-500 hover:text-slate-900"
                 }`}
               >
                 <NavLabel label={link.label} active={isActive(link.url)} />
               </Link>
             ))}
 
-            
+            {/* Expertises dropdown */}
             <div className="relative" ref={expertRef}>
               <button
                 onClick={() => setExpertisesOpen((p) => !p)}
                 className={`group relative px-3.5 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
                   isActive("/expertises") || expertisesOpen
-                    ? "text-white"
-                    : "text-white/55 hover:text-white"
+                    ? "text-[#0f172a]"
+                    : "text-slate-500 hover:text-slate-900"
                 }`}
               >
-                <NavLabel
-                  label="Expertises"
-                  active={isActive("/expertises") || expertisesOpen}
-                />
-                <ChevronDown
+                <NavLabel label="Expertises" active={isActive("/expertises") || expertisesOpen} />
+                <IconChevronDown
                   size={12}
                   className={`transition-transform duration-200 mt-0.5 ${expertisesOpen ? "rotate-180" : ""}`}
                 />
@@ -294,11 +218,20 @@ export default function Navbar() {
                     animate="visible"
                     exit="exit"
                   >
-                    <div className="bg-[#0d1117]/97 backdrop-blur-md border-t border-white/10 shadow-2xl">
+                    <div
+                      style={{
+                        background: "#ffffff",
+                        borderTop: "1px solid #e2e8f0",
+                        boxShadow: "0 16px 48px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)",
+                      }}
+                    >
                       <div className="max-w-6xl mx-auto px-8 py-7 grid grid-cols-3 gap-10">
                         {/* Col 1 */}
                         <div>
-                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                          <h4
+                            className="text-[10px] font-semibold uppercase tracking-widest mb-4"
+                            style={{ color: "#94a3b8" }}
+                          >
                             {expertisesMenu.col1.title}
                           </h4>
                           <ul className="space-y-3">
@@ -309,15 +242,24 @@ export default function Navbar() {
                                   onClick={() => setExpertisesOpen(false)}
                                   className="flex gap-3 group"
                                 >
-                                  <item.icon
-                                    size={14}
-                                    className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
-                                  />
+                                  <div
+                                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition"
+                                    style={{ background: "#f0fdfa" }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.background = "#ccfbf1")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.background = "#f0fdfa")}
+                                  >
+                                    <item.icon size={15} style={{ color: "#00b8a0" }} />
+                                  </div>
                                   <div>
-                                    <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
+                                    <p
+                                      className="text-sm font-semibold"
+                                      style={{ color: "#0f172a", transition: "color 0.15s" }}
+                                      onMouseEnter={(e) => (e.currentTarget.style.color = "#00b8a0")}
+                                      onMouseLeave={(e) => (e.currentTarget.style.color = "#0f172a")}
+                                    >
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/35">
+                                    <p className="text-[11px] mt-0.5" style={{ color: "#64748b" }}>
                                       {item.desc}
                                     </p>
                                   </div>
@@ -326,9 +268,13 @@ export default function Navbar() {
                             ))}
                           </ul>
                         </div>
+
                         {/* Col 2 */}
                         <div>
-                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                          <h4
+                            className="text-[10px] font-semibold uppercase tracking-widest mb-4"
+                            style={{ color: "#94a3b8" }}
+                          >
                             {expertisesMenu.col2.title}
                           </h4>
                           <ul className="space-y-3">
@@ -339,15 +285,24 @@ export default function Navbar() {
                                   onClick={() => setExpertisesOpen(false)}
                                   className="flex gap-3 group"
                                 >
-                                  <item.icon
-                                    size={14}
-                                    className="text-orange-400 mt-0.5 shrink-0 group-hover:text-orange-300 transition"
-                                  />
+                                  <div
+                                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition"
+                                    style={{ background: "#f0fdfa" }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.background = "#ccfbf1")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.background = "#f0fdfa")}
+                                  >
+                                    <item.icon size={15} style={{ color: "#00b8a0" }} />
+                                  </div>
                                   <div>
-                                    <p className="text-sm font-medium text-white group-hover:text-orange-400 transition">
+                                    <p
+                                      className="text-sm font-semibold"
+                                      style={{ color: "#0f172a", transition: "color 0.15s" }}
+                                      onMouseEnter={(e) => (e.currentTarget.style.color = "#00b8a0")}
+                                      onMouseLeave={(e) => (e.currentTarget.style.color = "#0f172a")}
+                                    >
                                       {item.label}
                                     </p>
-                                    <p className="text-[11px] text-white/35">
+                                    <p className="text-[11px] mt-0.5" style={{ color: "#64748b" }}>
                                       {item.desc}
                                     </p>
                                   </div>
@@ -356,20 +311,26 @@ export default function Navbar() {
                             ))}
                           </ul>
 
-                          <div className="py-5 pl-7 flex items-center justify-between">
+                          <div className="py-5 pl-12">
                             <Link
                               to="/expertises"
                               onClick={() => setExpertisesOpen(false)}
-                              className="inline-flex items-center gap-2 border text-xs font-semibold text-orange-400 hover:bg-orange-500/25  px-4 py-1.5 rounded-full transition"
+                              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition"
+                              style={{ border: `1px solid rgba(0,212,184,0.4)`, color: CYAN }}
+                              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,212,184,0.08)")}
+                              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                             >
-                              Voir toutes nos expertises{" "}
-                              <ArrowRight size={12} />
+                              Voir toutes nos expertises <IconArrowRight size={12} />
                             </Link>
                           </div>
                         </div>
+
                         {/* Col 3 — Actualités récentes */}
                         <div>
-                          <h4 className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-4">
+                          <h4
+                            className="text-[10px] font-semibold uppercase tracking-widest mb-4"
+                            style={{ color: "#94a3b8" }}
+                          >
                             Actualités récentes
                           </h4>
                           <div className="space-y-4">
@@ -380,24 +341,28 @@ export default function Navbar() {
                                 onClick={() => setExpertisesOpen(false)}
                                 className="flex gap-3 group"
                               >
-                                <div className="w-20 h-14 rounded-lg overflow-hidden shrink-0 bg-white/5 border border-white/8 group-hover:border-orange-500/20 transition">
+                                <div
+                                  className="w-20 h-14 rounded-lg overflow-hidden shrink-0"
+                                  style={{ background: "#f1f5f9", border: "1px solid #e2e8f0" }}
+                                >
                                   {post.cover_image ? (
-                                    <img
-                                      src={post.cover_image}
-                                      alt={post.title}
-                                      className="w-full h-full object-cover"
-                                    />
+                                    <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
                                   ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-orange-500/10 to-blue-500/10 flex items-center justify-center text-white/20 text-xs">
+                                    <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: "#94a3b8" }}>
                                       📰
                                     </div>
                                   )}
                                 </div>
                                 <div>
-                                  <p className="text-sm font-medium text-white group-hover:text-orange-400 transition line-clamp-2 leading-snug">
+                                  <p
+                                    className="text-sm font-medium line-clamp-2 leading-snug"
+                                    style={{ color: "#0f172a", transition: "color 0.15s" }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.color = "#00b8a0")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.color = "#0f172a")}
+                                  >
                                     {post.title}
                                   </p>
-                                  <span className="text-[11px] text-orange-400 mt-1 inline-block">
+                                  <span className="text-[11px] mt-1 inline-block font-medium" style={{ color: CYAN }}>
                                     Lire →
                                   </span>
                                 </div>
@@ -406,15 +371,17 @@ export default function Navbar() {
                             <Link
                               to="/actualites"
                               onClick={() => setExpertisesOpen(false)}
-                              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-white transition"
+                              className="inline-flex items-center gap-1 text-xs transition"
+                              style={{ color: "#94a3b8" }}
+                              onMouseEnter={(e) => (e.currentTarget.style.color = "#0f172a")}
+                              onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
                             >
-                              Toutes les actualités <ArrowRight size={11} />
+                              Toutes les actualités <IconArrowRight size={11} />
                             </Link>
                           </div>
                         </div>
                       </div>
                     </div>
-                    {/* Bande bas — CTA */}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -423,17 +390,18 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1.5 ml-auto shrink-0">
-            {/* Search */}
+            {/* CTA pill */}
+            <Link to="/contact" className="btn-nav-cta hidden 891:inline-flex mr-2">
+              Rendez-vous →
+            </Link>
+
+            {/* IconSearch */}
             <button
               onClick={() => setSearchOpen((p) => !p)}
-              className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
-                searchOpen
-                  ? "bg-white/10 text-white"
-                  : "text-white/50 hover:text-white hover:bg-white/6"
-              }`}
+              className="w-9 h-9 flex items-center justify-center rounded-xl transition text-slate-500 hover:text-slate-800 hover:bg-slate-100"
               aria-label="Rechercher"
             >
-              {searchOpen ? <X size={17} /> : <Search size={17} />}
+              {searchOpen ? <IconX size={17} /> : <IconSearch size={17} />}
             </button>
 
             {/* FAQ */}
@@ -441,31 +409,25 @@ export default function Navbar() {
               to="/faq"
               className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
                 isActive("/faq")
-                  ? "bg-white/10 text-white"
-                  : "text-white/50 hover:text-white hover:bg-white/6"
+                  ? "bg-slate-100 text-slate-900"
+                  : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
               }`}
               aria-label="FAQ"
               title="Questions fréquentes"
             >
-              <ShieldQuestion size={17} />
+              <IconShieldQuestion size={17} />
             </Link>
 
-            {/* Contact — FAB flower */}
+            {/* Contact FAB */}
             <div className="relative hidden 891:block" ref={contactRef}>
               <button
                 onClick={() => setContactOpen((p) => !p)}
-                className={`w-9 h-9 flex items-center justify-center rounded-xl transition ${
-                  contactOpen
-                    ? "bg-orange-500 text-white"
-                    : "bg-orange-500/15 text-orange-400 hover:bg-orange-500/25"
-                }`}
+                className="w-9 h-9 flex items-center justify-center rounded-xl transition text-slate-500 hover:text-slate-800 hover:bg-slate-100"
+                style={contactOpen ? { background: "#f0fdfa", color: "#00b8a0" } : {}}
                 aria-label="Nous contacter"
               >
-                <motion.div
-                  animate={{ rotate: contactOpen ? 45 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {contactOpen ? <X size={17} /> : <Phone size={17} />}
+                <motion.div animate={{ rotate: contactOpen ? 45 : 0 }} transition={{ duration: 0.2 }}>
+                  {contactOpen ? <IconX size={17} /> : <IconPhone size={17} />}
                 </motion.div>
               </button>
 
@@ -487,20 +449,24 @@ export default function Navbar() {
                         transition={{ delay: i * 0.06 }}
                         className="flex items-center justify-end gap-2 group"
                       >
-                        {/* Label au survol — apparaît à gauche */}
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs font-medium text-white bg-[#131822] border border-white/10 px-2.5 py-1 rounded-lg whitespace-nowrap shadow-lg">
+                        <span
+                          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs font-medium px-2.5 py-1 rounded-lg whitespace-nowrap shadow-md"
+                          style={{
+                            color: "#334155",
+                            background: "#ffffff",
+                            border: "1px solid #e2e8f0",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                          }}
+                        >
                           {c.label}
                         </span>
-
                         <a
                           href={c.href}
-                          target={
-                            c.href.startsWith("http") ? "_blank" : undefined
-                          }
+                          target={c.href.startsWith("http") ? "_blank" : undefined}
                           rel="noopener noreferrer"
                           onClick={() => setContactOpen(false)}
                           title={c.label}
-                          className={`w-9 h-9 rounded-full border flex items-center justify-center shadow-lg hover:scale-110 transition-transform shrink-0 ${c.color}`}
+                          className={`w-9 h-9 rounded-full border flex items-center justify-center shadow-sm hover:scale-110 transition-transform shrink-0 ${c.color}`}
                         >
                           <c.icon size={15} />
                         </a>
@@ -513,18 +479,11 @@ export default function Navbar() {
 
             {/* Mobile burger */}
             <button
-              className="891:hidden text-white/60 hover:text-white transition w-9 h-9 flex items-center justify-center"
+              className="891:hidden text-slate-500 hover:text-slate-800 transition w-9 h-9 flex items-center justify-center"
               onClick={() => setMobileOpen(true)}
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6"  x2="21" y2="6"  />
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
@@ -532,7 +491,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Search bar */}
+        {/* IconSearch bar */}
         <AnimatePresence>
           {searchOpen && (
             <motion.div
@@ -540,20 +499,21 @@ export default function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="overflow-hidden border-t border-white/8 bg-[#0d1117]"
+              className="overflow-hidden"
+              style={{ borderTop: "1px solid #e2e8f0", background: "#f8fafc" }}
             >
               <form
                 onSubmit={handleSearch}
                 className="flex items-center gap-3 px-6 py-3 max-w-3xl mx-auto"
               >
-                <Search size={15} className="text-white/35 shrink-0" />
+                <IconSearch size={15} className="shrink-0 text-slate-400" />
                 <input
                   ref={searchRef}
                   type="search"
                   value={searchVal}
                   onChange={(e) => setSearchVal(e.target.value)}
                   placeholder="Rechercher une expertise, un article, un avocat..."
-                  className="flex-1 bg-transparent text-sm text-white placeholder:text-white/30 outline-none"
+                  className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 outline-none"
                 />
                 <AnimatePresence>
                   {searchVal && (
@@ -562,7 +522,8 @@ export default function Navbar() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      className="text-xs bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-lg transition shrink-0"
+                      className="text-xs px-4 py-1.5 rounded-lg transition shrink-0 text-white font-semibold"
+                      style={{ background: "linear-gradient(90deg, #00d4b8 0%, #00b0f0 100%)" }}
                     >
                       Rechercher
                     </motion.button>
@@ -570,13 +531,10 @@ export default function Navbar() {
                 </AnimatePresence>
                 <button
                   type="button"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setSearchVal("");
-                  }}
-                  className="text-white/30 hover:text-white transition shrink-0"
+                  onClick={() => { setSearchOpen(false); setSearchVal(""); }}
+                  className="transition shrink-0 text-slate-400 hover:text-slate-700"
                 >
-                  <X size={14} />
+                  <IconX size={14} />
                 </button>
               </form>
             </motion.div>
@@ -584,6 +542,7 @@ export default function Navbar() {
         </AnimatePresence>
       </nav>
 
+      {/* Mobile drawer — white */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -591,7 +550,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -599,63 +558,68 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.25 }}
-              className="fixed right-0 top-0 h-full w-72 z-50 bg-[#0d1117] border-l border-white/10 flex flex-col"
+              className="fixed right-0 top-0 h-full w-72 z-50 flex flex-col"
+              style={{
+                background: "#ffffff",
+                borderLeft: "1px solid #e2e8f0",
+                boxShadow: "-8px 0 32px rgba(0,0,0,0.1)",
+              }}
             >
-              <div className="flex items-center justify-between px-5 h-16 border-b border-white/10">
-                <span className="text-sm font-bold text-white">
-                  BORGEL &amp; ASSOCIÉS
-                </span>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="text-white/50 hover:text-white"
-                >
-                  <X size={18} />
+              {/* Drawer header */}
+              <div
+                className="flex items-center justify-between px-5 h-16"
+                style={{ borderBottom: "1px solid #e2e8f0" }}
+              >
+                <span className="text-sm font-bold text-slate-900">BORGEL &amp; ASSOCIÉS</span>
+                <button onClick={() => setMobileOpen(false)} className="text-slate-400 hover:text-slate-700 transition">
+                  <IconX size={18} />
                 </button>
               </div>
 
+              {/* IconSearch */}
               <div className="px-4 pt-3 pb-2">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (searchVal.trim()) {
-                      navigate(
-                        `/actualites?q=${encodeURIComponent(searchVal)}`,
-                      );
+                      navigate(`/actualites?q=${encodeURIComponent(searchVal)}`);
                       setSearchVal("");
                       setMobileOpen(false);
                     }
                   }}
-                  className="flex items-center gap-2 bg-white/6 border border-white/10 rounded-xl px-3 py-2"
+                  className="flex items-center gap-2 rounded-xl px-3 py-2"
+                  style={{ background: "#f8fafc", border: "1px solid #e2e8f0" }}
                 >
-                  <Search size={13} className="text-white/40 shrink-0" />
+                  <IconSearch size={13} className="shrink-0 text-slate-400" />
                   <input
                     type="search"
                     value={searchVal}
                     onChange={(e) => setSearchVal(e.target.value)}
                     placeholder="Rechercher..."
-                    className="flex-1 bg-transparent text-sm text-white placeholder:text-white/30 outline-none"
+                    className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 outline-none"
                   />
                 </form>
               </div>
 
+              {/* Nav links */}
               <nav className="flex-1 px-3 py-1 overflow-y-auto">
-                {[...navLinks, { label: "Expertises", url: "/expertises" }].map(
-                  (link) => (
-                    <Link
-                      key={link.url}
-                      to={link.url}
-                      onClick={() => setMobileOpen(false)}
-                      className={`block px-4 py-3 rounded-xl text-sm font-medium transition mb-0.5 ${
-                        isActive(link.url)
-                          ? "bg-white/10 text-white"
-                          : "text-white/65 hover:text-white hover:bg-white/6"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  ),
-                )}
-                <div className="border-t border-white/8 mt-2 pt-2">
+                {[...navLinks, { label: "Expertises", url: "/expertises" }].map((link) => (
+                  <Link
+                    key={link.url}
+                    to={link.url}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-xl text-sm font-medium transition mb-0.5 text-slate-600 hover:text-[#00b8a0] hover:bg-[#f0fdfa]"
+                    style={
+                      isActive(link.url)
+                        ? { color: "#00b8a0", background: "#f0fdfa", fontWeight: 700, borderLeft: "3px solid #00d4b8" }
+                        : {}
+                    }
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                <div className="mt-2 pt-2" style={{ borderTop: "1px solid #f1f5f9" }}>
                   {contactItems.map((c) => (
                     <a
                       key={c.label}
@@ -663,22 +627,31 @@ export default function Navbar() {
                       target={c.href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/5 transition"
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-600 hover:text-[#00b8a0] hover:bg-[#f0fdfa] transition"
                     >
-                      <c.icon size={14} className="text-orange-400 shrink-0" />
+                      <c.icon size={14} style={{ color: CYAN }} className="shrink-0" />
                       {c.label}
                     </a>
                   ))}
                 </div>
+
+                {/* Mobile CTA */}
+                <div className="mx-1 mt-4">
+                  <Link
+                    to="/contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-center text-sm font-bold text-white py-3 rounded-xl"
+                    style={{ background: "linear-gradient(90deg, #00d4b8 0%, #00b0f0 100%)" }}
+                  >
+                    Prendre rendez-vous →
+                  </Link>
+                </div>
               </nav>
 
-              <div className="border-t border-white/10 px-5 py-4">
-                <p className="text-xs font-semibold text-white">
-                  Borgel &amp; Associés
-                </p>
-                <p className="text-xs text-white/40">
-                  contact@borgel-avocats.fr
-                </p>
+              {/* Drawer footer */}
+              <div className="px-5 py-4" style={{ borderTop: "1px solid #f1f5f9" }}>
+                <p className="text-xs font-semibold text-slate-900">Borgel &amp; Associés</p>
+                <p className="text-xs text-slate-400">contact@borgel-avocat.fr</p>
               </div>
             </motion.div>
           </>

@@ -57,25 +57,25 @@ export default function NewsletterAdmin() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Newsletter</h1>
-          <p className="text-sm text-white/50">{activeCount} abonné{activeCount !== 1 ? 's' : ''} actif{activeCount !== 1 ? 's' : ''} · {list.length} total</p>
+          <h1 className="text-2xl font-bold text-slate-900">Newsletter</h1>
+          <p className="text-sm text-slate-500">{activeCount} abonné{activeCount !== 1 ? 's' : ''} actif{activeCount !== 1 ? 's' : ''} · {list.length} total</p>
         </div>
         <div className="glass-card px-4 py-2.5 flex items-center gap-2">
           <Send size={14} className="text-orange-400"/>
-          <span className="text-sm text-white/70">{activeCount} destinataires</span>
+          <span className="text-sm text-slate-600">{activeCount} destinataires</span>
         </div>
       </div>
 
       {/* Stat cards */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label:'Total', value:list.length, color:'text-white' },
+          { label:'Total', value:list.length, color:'text-slate-900' },
           { label:'Actifs', value:list.filter(s=>s.is_active).length, color:'text-green-400' },
           { label:'Inactifs', value:list.filter(s=>!s.is_active).length, color:'text-red-400' },
         ].map(s => (
           <div key={s.label} className="glass-card p-4">
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-            <p className="text-xs text-white/40">{s.label}</p>
+            <p className="text-xs text-slate-400">{s.label}</p>
           </div>
         ))}
       </div>
@@ -83,7 +83,7 @@ export default function NewsletterAdmin() {
       {/* Search + filter */}
       <div className="flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
           <input
             type="search" placeholder="Rechercher un email..."
             value={search} onChange={e => setSearch(e.target.value)}
@@ -94,7 +94,7 @@ export default function NewsletterAdmin() {
           {(['all','active','inactive'] as const).map(f => (
             <button key={f} onClick={() => setFilter(f)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
-                filter === f ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
+                filter === f ? 'bg-[#f0fdfa] border-[#00d4b8] text-[#00b8a0]' : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-200'
               }`}>
               {f === 'all' ? 'Tous' : f === 'active' ? 'Actifs' : 'Inactifs'}
             </button>
@@ -110,31 +110,31 @@ export default function NewsletterAdmin() {
           </div>
         ) : displayed.length === 0 ? (
           <div className="p-12 text-center">
-            <Mail size={32} className="text-white/20 mx-auto mb-3"/>
-            <p className="text-white/40">{search ? 'Aucun résultat' : 'Aucun abonné'}</p>
+            <Mail size={32} className="text-slate-300 mx-auto mb-3"/>
+            <p className="text-slate-400">{search ? 'Aucun résultat' : 'Aucun abonné'}</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Email</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider hidden sm:table-cell">Date inscription</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Statut</th>
-                <th className="text-right py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Action</th>
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Email</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider hidden sm:table-cell">Date inscription</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Statut</th>
+                <th className="text-right py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Action</th>
               </tr>
             </thead>
             <tbody>
               {displayed.map(s => (
-                <tr key={s.id} className="border-b border-white/5 hover:bg-white/3 transition">
+                <tr key={s.id} className="border-b border-white/5 hover:bg-slate-50 transition">
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <div className="w-7 h-7 rounded-full bg-orange-500/10 flex items-center justify-center flex-shrink-0">
                         <Mail size={12} className="text-orange-400"/>
                       </div>
-                      <span className="text-white">{s.email}</span>
+                      <span className="text-slate-900">{s.email}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-4 hidden sm:table-cell text-white/50 text-xs">
+                  <td className="py-3 px-4 hidden sm:table-cell text-slate-500 text-xs">
                     {new Date(s.subscribed_at).toLocaleDateString('fr-FR')}
                   </td>
                   <td className="py-3 px-4">
@@ -163,8 +163,8 @@ export default function NewsletterAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Désinscrire cet abonné ?</h3>
-              <p className="text-sm text-white/60 mb-4">{confirmDel.email}</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Désinscrire cet abonné ?</h3>
+              <p className="text-sm text-slate-500 mb-4">{confirmDel.email}</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>

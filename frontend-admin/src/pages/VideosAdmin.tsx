@@ -67,21 +67,21 @@ function VideoPreview({ url }: { url: string }) {
 
   if (platform === 'instagram') {
     return (
-      <div className="rounded-xl border border-white/10 bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 text-center">
+      <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 text-center">
         <div className="text-3xl mb-3">📱</div>
-        <p className="text-white/70 text-sm mb-3">Instagram — aperçu non disponible directement</p>
+        <p className="text-slate-600 text-sm mb-3">Instagram — aperçu non disponible directement</p>
         <a href={url} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-xs text-pink-400 hover:text-pink-300 transition underline">
           Voir sur Instagram ↗
         </a>
-        <p className="text-[10px] text-white/30 mt-2">La vidéo s'affichera sur le site via le lien</p>
+        <p className="text-[10px] text-slate-400 mt-2">La vidéo s'affichera sur le site via le lien</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/3 p-6 text-center">
-      <p className="text-white/50 text-sm">URL non reconnue — vérifiez le lien</p>
+    <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+      <p className="text-slate-500 text-sm">URL non reconnue — vérifiez le lien</p>
     </div>
   );
 }
@@ -182,8 +182,8 @@ export default function VideosAdmin() {
       <div className="flex items-center gap-3">
         <button onClick={() => setView('list')} className="btn-ghost p-1.5"><ArrowLeft size={16}/></button>
         <div>
-          <h1 className="text-xl font-bold text-white">{editing ? 'Modifier la vidéo' : 'Ajouter une vidéo'}</h1>
-          <p className="text-sm text-white/50">{editing ? editing.title : 'Nouvelle vidéo YouTube'}</p>
+          <h1 className="text-xl font-bold text-slate-900">{editing ? 'Modifier la vidéo' : 'Ajouter une vidéo'}</h1>
+          <p className="text-sm text-slate-500">{editing ? editing.title : 'Nouvelle vidéo YouTube'}</p>
         </div>
       </div>
 
@@ -191,18 +191,18 @@ export default function VideosAdmin() {
         <div className="lg:col-span-2 space-y-4">
           <div className="glass-card p-5 space-y-4">
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Titre *</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Titre *</label>
               <input type="text" value={form.title} onChange={e => set('title', e.target.value)}
                 className="input-dark" placeholder="Comment se passe une expertise médicale ?"/>
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">URL YouTube *</label>
+              <label className="text-xs text-slate-500 block mb-1.5">URL YouTube *</label>
               <input type="url" value={form.url} onChange={e => handleUrlChange(e.target.value)}
                 className="input-dark" placeholder="https://www.youtube.com/watch?v=..."/>
-              <p className="text-[10px] text-white/30 mt-1">URL normale ou youtu.be — convertie automatiquement.</p>
+              <p className="text-[10px] text-slate-400 mt-1">URL normale ou youtu.be — convertie automatiquement.</p>
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Description</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Description</label>
               <textarea value={form.description} onChange={e => set('description', e.target.value)}
                 className="input-dark resize-none" rows={3} placeholder="Description courte..."/>
             </div>
@@ -210,7 +210,7 @@ export default function VideosAdmin() {
 
           {previewUrl && (
             <div className="glass-card p-4">
-              <p className="text-xs text-white/50 mb-3">Aperçu</p>
+              <p className="text-xs text-slate-500 mb-3">Aperçu</p>
               <VideoPreview url={previewUrl}/>
             </div>
           )}
@@ -218,16 +218,16 @@ export default function VideosAdmin() {
 
         <div className="space-y-4">
           <div className="glass-card p-4 space-y-4">
-            <p className="text-xs font-semibold text-white/50 uppercase tracking-wider">Publication</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Publication</p>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-white">Visible sur le site</span>
+              <span className="text-sm text-slate-900">Visible sur le site</span>
               <button onClick={() => set('is_active', !form.is_active)}
-                className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? 'bg-orange-500' : 'bg-white/10'}`}>
+                className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active ? 'bg-orange-500' : 'bg-slate-100'}`}>
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.is_active ? 'translate-x-5' : 'translate-x-0.5'}`}/>
               </button>
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1">Ordre d'affichage</label>
+              <label className="text-xs text-slate-500 block mb-1">Ordre d'affichage</label>
               <input type="number" value={form.order} onChange={e => set('order', parseInt(e.target.value) || 0)}
                 className="input-dark" min={0}/>
             </div>
@@ -251,8 +251,8 @@ export default function VideosAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer cette vidéo ?</h3>
-              <p className="text-sm text-white/60 mb-4">"{confirmDel.title}" — action irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer cette vidéo ?</h3>
+              <p className="text-sm text-slate-500 mb-4">"{confirmDel.title}" — action irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>
@@ -269,8 +269,8 @@ export default function VideosAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Vidéos</h1>
-          <p className="text-sm text-white/50">
+          <h1 className="text-2xl font-bold text-slate-900">Vidéos</h1>
+          <p className="text-sm text-slate-500">
             {displayed.filter(v=>v.is_active).length} publiées · {displayed.filter(v=>!v.is_active).length} désactivées
           </p>
         </div>
@@ -278,7 +278,7 @@ export default function VideosAdmin() {
       </div>
 
       <div className="relative max-w-xs">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
         <input type="search" placeholder="Rechercher une vidéo..." value={search}
           onChange={e => setSearch(e.target.value)} className="input-dark pl-8"/>
       </div>
@@ -290,32 +290,32 @@ export default function VideosAdmin() {
           </div>
         ) : displayed.length === 0 ? (
           <div className="p-12 text-center">
-            <Play size={36} className="text-white/20 mx-auto mb-3"/>
-            <p className="text-white/40">{search ? 'Aucun résultat' : 'Aucune vidéo — cliquez sur "Ajouter vidéo"'}</p>
+            <Play size={36} className="text-slate-300 mx-auto mb-3"/>
+            <p className="text-slate-400">{search ? 'Aucun résultat' : 'Aucune vidéo — cliquez sur "Ajouter vidéo"'}</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Titre</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider hidden sm:table-cell">Ordre</th>
-                <th className="text-left py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Statut</th>
-                <th className="text-right py-3 px-4 text-white/40 text-xs uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Titre</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider hidden sm:table-cell">Ordre</th>
+                <th className="text-left py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Statut</th>
+                <th className="text-right py-3 px-4 text-slate-400 text-xs uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody>
               {displayed.map(v => (
-                <tr key={v.id} className="border-b border-white/5 hover:bg-white/3 transition">
+                <tr key={v.id} className="border-b border-white/5 hover:bg-slate-50 transition">
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-orange-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Play size={13} className="text-orange-400"/>
                       </div>
-                      <p className="text-white font-medium truncate max-w-[200px]">{v.title}</p>
+                      <p className="text-slate-900 font-medium truncate max-w-[200px]">{v.title}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4 hidden sm:table-cell">
-                    <span className="text-white/50 text-xs">#{v.order}</span>
+                    <span className="text-slate-500 text-xs">#{v.order}</span>
                   </td>
                   <td className="py-3 px-4">
                     <button onClick={() => toggle(v)}>
@@ -343,8 +343,8 @@ export default function VideosAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer cette vidéo ?</h3>
-              <p className="text-sm text-white/60 mb-4">"{confirmDel.title}" — action irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer cette vidéo ?</h3>
+              <p className="text-sm text-slate-500 mb-4">"{confirmDel.title}" — action irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>

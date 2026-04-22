@@ -145,8 +145,8 @@ export default function PostsAdmin() {
       <div className="flex items-center gap-3">
         <button onClick={() => setView('list')} className="btn-ghost p-1.5"><ArrowLeft size={16}/></button>
         <div>
-          <h1 className="text-xl font-bold text-white">{editing ? 'Modifier le post' : 'Nouveau post'}</h1>
-          <p className="text-sm text-white/50">{editing ? editing.title : 'Créer un nouvel article'}</p>
+          <h1 className="text-xl font-bold text-slate-900">{editing ? 'Modifier le post' : 'Nouveau post'}</h1>
+          <p className="text-sm text-slate-500">{editing ? editing.title : 'Créer un nouvel article'}</p>
         </div>
       </div>
 
@@ -157,7 +157,7 @@ export default function PostsAdmin() {
           {/* Titre + slug */}
           <div className="glass-card p-5 space-y-4">
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Titre *</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Titre *</label>
               <input
                 type="text" value={form.title}
                 onChange={e => handleTitleChange(e.target.value)}
@@ -165,9 +165,9 @@ export default function PostsAdmin() {
               />
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Slug (URL)</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Slug (URL)</label>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-white/30">/actualites/</span>
+                <span className="text-xs text-slate-400">/actualites/</span>
                 <input
                   type="text" value={form.slug}
                   onChange={e => set('slug', e.target.value)}
@@ -177,7 +177,7 @@ export default function PostsAdmin() {
               </div>
             </div>
             <div>
-              <label className="text-xs text-white/50 block mb-1.5">Extrait / résumé</label>
+              <label className="text-xs text-slate-500 block mb-1.5">Extrait / résumé</label>
               <textarea
                 value={form.excerpt} onChange={e => set('excerpt', e.target.value)}
                 className="input-dark resize-none" rows={2}
@@ -188,8 +188,8 @@ export default function PostsAdmin() {
 
           {/* Contenu */}
           <div className="glass-card p-5">
-            <label className="text-xs text-white/50 block mb-2">Contenu *</label>
-            <p className="text-[10px] text-white/30 mb-2">HTML accepté : &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, etc.</p>
+            <label className="text-xs text-slate-500 block mb-2">Contenu *</label>
+            <p className="text-[10px] text-slate-400 mb-2">HTML accepté : &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, etc.</p>
             <textarea
               value={form.content} onChange={e => set('content', e.target.value)}
               className="input-dark resize-none font-mono text-xs" rows={16}
@@ -203,12 +203,12 @@ export default function PostsAdmin() {
 
           {/* Actions */}
           <div className="glass-card p-4 space-y-3">
-            <p className="text-xs font-semibold text-white/50 uppercase tracking-wider">Publication</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Publication</p>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-white">Publié sur le site</span>
+              <span className="text-sm text-slate-900">Publié sur le site</span>
               <button
                 onClick={() => set('published', !form.published)}
-                className={`relative w-10 h-5 rounded-full transition-colors ${form.published ? 'bg-orange-500' : 'bg-white/10'}`}
+                className={`relative w-10 h-5 rounded-full transition-colors ${form.published ? 'bg-orange-500' : 'bg-slate-100'}`}
               >
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.published ? 'translate-x-5' : 'translate-x-0.5'}`}/>
               </button>
@@ -231,7 +231,7 @@ export default function PostsAdmin() {
 
           {/* Expertise */}
           <div className="glass-card p-4">
-            <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Expertise liée</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Expertise liée</p>
             <select
               value={form.expertise_id} onChange={e => set('expertise_id', e.target.value)}
               className="input-dark"
@@ -245,10 +245,10 @@ export default function PostsAdmin() {
 
           {/* Image de couverture */}
           <div className="glass-card p-4">
-            <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Image de couverture</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Image de couverture</p>
             <div
               onClick={() => coverRef.current?.click()}
-              className="relative rounded-xl overflow-hidden border-2 border-dashed border-white/10 hover:border-orange-500/40 transition cursor-pointer aspect-video flex items-center justify-center bg-white/3"
+              className="relative rounded-xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-orange-500/40 transition cursor-pointer aspect-video flex items-center justify-center bg-slate-50"
             >
               {coverPreview ? (
                 <>
@@ -257,13 +257,13 @@ export default function PostsAdmin() {
                     onClick={e => { e.stopPropagation(); setCoverPreview(''); setCoverFile(null); }}
                     className="absolute top-2 right-2 w-6 h-6 bg-black/60 rounded-full flex items-center justify-center hover:bg-black/80 transition"
                   >
-                    <X size={12} className="text-white"/>
+                    <X size={12} className="text-slate-900"/>
                   </button>
                 </>
               ) : (
                 <div className="text-center p-4">
-                  <Image size={24} className="text-white/20 mx-auto mb-2"/>
-                  <p className="text-xs text-white/30">Cliquer pour ajouter une image</p>
+                  <Image size={24} className="text-slate-300 mx-auto mb-2"/>
+                  <p className="text-xs text-slate-400">Cliquer pour ajouter une image</p>
                 </div>
               )}
             </div>
@@ -284,8 +284,8 @@ export default function PostsAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer ce post ?</h3>
-              <p className="text-sm text-white/60 mb-4">"{confirmDel.title}" — action irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer ce post ?</h3>
+              <p className="text-sm text-slate-500 mb-4">"{confirmDel.title}" — action irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>
@@ -302,8 +302,8 @@ export default function PostsAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Posts / Actualités</h1>
-          <p className="text-sm text-white/50">
+          <h1 className="text-2xl font-bold text-slate-900">Posts / Actualités</h1>
+          <p className="text-sm text-slate-500">
             {displayed.filter(p=>p.published).length} publiés · {displayed.filter(p=>!p.published).length} brouillons
           </p>
         </div>
@@ -311,43 +311,43 @@ export default function PostsAdmin() {
       </div>
 
       <div className="relative max-w-xs">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
         <input type="search" placeholder="Rechercher..." value={search} onChange={e => setSearch(e.target.value)} className="input-dark pl-8"/>
       </div>
 
       <div className="glass-card overflow-hidden">
         {loading ? (
-          <div className="p-4 space-y-2">{Array.from({length:5}).map((_,i) => <div key={i} className="h-14 bg-white/5 rounded-xl animate-pulse"/>)}</div>
+          <div className="p-4 space-y-2">{Array.from({length:5}).map((_,i) => <div key={i} className="h-14 bg-slate-50 rounded-xl animate-pulse"/>)}</div>
         ) : displayed.length === 0 ? (
           <div className="p-12 text-center">
-            <p className="text-white/40">Aucun post trouvé</p>
+            <p className="text-slate-400">Aucun post trouvé</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="text-left py-3 px-4 text-white/40 font-medium text-xs uppercase tracking-wider">Titre</th>
-                <th className="text-left py-3 px-4 text-white/40 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Expertise</th>
-                <th className="text-left py-3 px-4 text-white/40 font-medium text-xs uppercase tracking-wider hidden sm:table-cell">Vues</th>
-                <th className="text-left py-3 px-4 text-white/40 font-medium text-xs uppercase tracking-wider">Statut</th>
-                <th className="text-right py-3 px-4 text-white/40 font-medium text-xs uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 px-4 text-slate-400 font-medium text-xs uppercase tracking-wider">Titre</th>
+                <th className="text-left py-3 px-4 text-slate-400 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Expertise</th>
+                <th className="text-left py-3 px-4 text-slate-400 font-medium text-xs uppercase tracking-wider hidden sm:table-cell">Vues</th>
+                <th className="text-left py-3 px-4 text-slate-400 font-medium text-xs uppercase tracking-wider">Statut</th>
+                <th className="text-right py-3 px-4 text-slate-400 font-medium text-xs uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody>
               {displayed.map(post => (
-                <tr key={post.id} className="border-b border-white/5 hover:bg-white/3 transition">
+                <tr key={post.id} className="border-b border-white/5 hover:bg-slate-50 transition">
                   <td className="py-3 px-4">
-                    <p className="text-white font-medium truncate max-w-[220px]">{post.title}</p>
-                    <p className="text-xs text-white/30">{new Date(post.created_at).toLocaleDateString('fr-FR')}</p>
+                    <p className="text-slate-900 font-medium truncate max-w-[220px]">{post.title}</p>
+                    <p className="text-xs text-slate-400">{new Date(post.created_at).toLocaleDateString('fr-FR')}</p>
                   </td>
                   <td className="py-3 px-4 hidden md:table-cell">
                     {post.expertise
                       ? <span className="badge badge-blue">{post.expertise.name}</span>
-                      : <span className="text-white/30 text-xs">—</span>
+                      : <span className="text-slate-400 text-xs">—</span>
                     }
                   </td>
                   <td className="py-3 px-4 hidden sm:table-cell">
-                    <div className="flex items-center gap-1 text-white/50 text-xs">
+                    <div className="flex items-center gap-1 text-slate-500 text-xs">
                       <Eye size={11}/>{post.views}
                     </div>
                   </td>
@@ -382,8 +382,8 @@ export default function PostsAdmin() {
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer ce post ?</h3>
-              <p className="text-sm text-white/60 mb-4">"{confirmDel.title}" — action irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer ce post ?</h3>
+              <p className="text-sm text-slate-500 mb-4">"{confirmDel.title}" — action irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={() => setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={() => handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>

@@ -33,25 +33,41 @@ API.interceptors.response.use(
   }
 );
 
+// ── In-memory cache (30s TTL) — deduplicates identical GET calls across components ──
+const cache = new Map<string, { data: unknown; ts: number }>();
+const TTL = 30_000;
+
+function cachedGet(url: string, params?: Record<string, unknown>) {
+  const key = url + (params ? JSON.stringify(params) : '');
+  const hit = cache.get(key);
+  if (hit && Date.now() - hit.ts < TTL) {
+    return Promise.resolve({ data: hit.data } as any);
+  }
+  return API.get(url, { params }).then((res) => {
+    cache.set(key, { data: res.data, ts: Date.now() });
+    return res;
+  });
+}
+
 export const postsAPI = {
-  list: (params?: Record<string, unknown>) => API.get('/posts/', { params }),
-  detail: (slug: string) => API.get(`/posts/${slug}/`),
+  list: (params?: Record<string, unknown>) => cachedGet('/posts/', params),
+  detail: (slug: string) => cachedGet(`/posts/${slug}/`),
   create: (data: FormData) => API.post('/admin/posts/', data),
   update: (id: number, data: FormData) => API.patch(`/admin/posts/${id}/`, data),
   delete: (id: number) => API.delete(`/admin/posts/${id}/`),
 };
 
 export const teamAPI = {
-  list: () => API.get('/team/'),
-  detail: (id: number) => API.get(`/team/${id}/`),
+  list: () => cachedGet('/team/'),
+  detail: (id: number) => cachedGet(`/team/${id}/`),
   create: (data: FormData) => API.post('/admin/team/', data),
   update: (id: number, data: FormData) => API.patch(`/admin/team/${id}/`, data),
   delete: (id: number) => API.delete(`/admin/team/${id}/`),
 };
 
 export const expertisesAPI = {
-  list: () => API.get('/expertises/'),
-  detail: (slug: string) => API.get(`/expertises/${slug}/`),
+  list: () => cachedGet('/expertises/'),
+  detail: (slug: string) => cachedGet(`/expertises/${slug}/`),
   create: (data: FormData) => API.post('/admin/expertises/', data),
   update: (slug: string, data: FormData) => API.patch(`/admin/expertises/${slug}/`, data),
   delete: (slug: string) => API.delete(`/admin/expertises/${slug}/`),
@@ -65,22 +81,22 @@ export const contactsAPI = {
 };
 
 export const reviewsAPI = {
-  list: () => API.get('/reviews/'),
+  list: () => cachedGet('/reviews/'),
   create: (data: FormData) => API.post('/admin/reviews/', data),
   update: (id: number, data: Partial<{ is_active: boolean }>) => API.patch(`/admin/reviews/${id}/`, data),
   delete: (id: number) => API.delete(`/admin/reviews/${id}/`),
 };
 
 export const videosAPI = {
-  list: () => API.get('/videos/'),
+  list: () => cachedGet('/videos/'),
   create: (data: Record<string, unknown>) => API.post('/admin/videos/', data),
   update: (id: number, data: Partial<{ is_active: boolean; order: number }>) => API.patch(`/admin/videos/${id}/`, data),
   delete: (id: number) => API.delete(`/admin/videos/${id}/`),
 };
 
 export const galleryAPI = {
-  sections: () => API.get('/gallery/sections/'),
-  images: (sectionSlug: string) => API.get(`/gallery/images/?section__slug=${sectionSlug}`),
+  sections: () => cachedGet('/gallery/sections/'),
+  images: (sectionSlug: string) => cachedGet(`/gallery/images/?section__slug=${sectionSlug}`),
 };
 
 export const newsletterAPI = {

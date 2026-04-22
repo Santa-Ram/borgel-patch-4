@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Play } from 'lucide-react';
+import { IconPlayerPlay } from '@tabler/icons-react';
 import { videosAPI } from '../api/client';
 import HeroBanner from '../components/HeroBanner';
 
@@ -51,7 +51,7 @@ export default function Videos() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: (i % 2) * 0.1 }}
-                  className="glass-card overflow-hidden hover:border-orange-500/30 transition group"
+                  className="glass-card overflow-hidden hover:border-purple-500/30 transition group"
                 >
                   <div className="relative aspect-video bg-navy cursor-pointer" onClick={() => setActiveVideo(activeVideo === video.id ? null : video.id)}>
                     {activeVideo === video.id ? (
@@ -68,22 +68,22 @@ export default function Videos() {
                           <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-blue-deep to-navy flex items-center justify-center">
-                            <div className="w-16 h-16 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition">
-                              <Play size={24} className="text-orange-400 ml-1" />
+                            <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition">
+                              <IconPlayerPlay size={24} className="text-[#1e40af] ml-1" />
                             </div>
                           </div>
                         )}
                         <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition">
-                          <div className="w-16 h-16 rounded-full bg-orange-500/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
-                            <Play size={22} className="text-white ml-1" />
+                          <div className="w-16 h-16 rounded-full bg-[#00d4b8] flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                            <IconPlayerPlay size={22} className="text-white ml-1" />
                           </div>
                         </div>
                       </>
                     )}
                   </div>
                   <div className="p-5">
-                    <h3 className="font-semibold text-white mb-2 group-hover:text-orange-400 transition">{video.title}</h3>
-                    {video.description && <p className="text-sm text-white/60">{video.description}</p>}
+                    <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-[#00b8a0] transition">{video.title}</h3>
+                    {video.description && <p className="text-sm text-slate-500">{video.description}</p>}
                   </div>
                 </motion.div>
               ))}

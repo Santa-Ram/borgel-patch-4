@@ -7,8 +7,8 @@ import toast from 'react-hot-toast';
 export default function LoginAdmin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPwd, setShowPwd] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showPwd, setShowPwd]   = useState(false);
+  const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,27 +29,32 @@ export default function LoginAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080d1e] flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#f8fafc" }}>
       {/* Background blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl" style={{ background: "rgba(0,212,184,0.08)" }} />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl" style={{ background: "rgba(59,130,246,0.08)" }} />
       </div>
 
       <div className="w-full max-w-md relative">
         <div className="glass-card p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 bg-orange-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-orange-500/30">
-              <Scale size={28} className="text-orange-400" />
+            <div
+              className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              style={{ background: "linear-gradient(135deg, #00d4b8 0%, #00b0f0 100%)" }}
+            >
+              <Scale size={28} className="text-slate-900" />
             </div>
-            <h1 className="text-2xl font-bold text-white">Administration</h1>
-            <p className="text-white/50 text-sm mt-1">Borgel & Associés</p>
+            <h1 className="text-2xl font-bold text-slate-900">Administration</h1>
+            <p className="text-slate-500 text-sm mt-1">Borgel &amp; Associés</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-white/60 mb-1.5">Nom d'utilisateur</label>
+              <label className="block text-sm text-slate-600 font-medium mb-1.5">
+                Nom d'utilisateur
+              </label>
               <input
                 type="text"
                 value={username}
@@ -61,7 +66,9 @@ export default function LoginAdmin() {
             </div>
 
             <div>
-              <label className="block text-sm text-white/60 mb-1.5">Mot de passe</label>
+              <label className="block text-sm text-slate-600 font-medium mb-1.5">
+                Mot de passe
+              </label>
               <div className="relative">
                 <input
                   type={showPwd ? 'text' : 'password'}
@@ -74,7 +81,7 @@ export default function LoginAdmin() {
                 <button
                   type="button"
                   onClick={() => setShowPwd(!showPwd)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition"
                 >
                   {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -96,7 +103,7 @@ export default function LoginAdmin() {
             </button>
           </form>
 
-          <p className="text-center text-xs text-white/30 mt-6">
+          <p className="text-center text-xs text-slate-400 mt-6">
             Accès réservé aux administrateurs
           </p>
         </div>

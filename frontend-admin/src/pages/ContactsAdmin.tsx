@@ -20,7 +20,7 @@ const FILTERS = [
 
 const statusBadge: Record<string,JSX.Element> = {
   new:     <span className="badge badge-orange">Nouveau</span>,
-  read:    <span className="badge bg-white/10 text-white/50">Lu</span>,
+  read:    <span className="badge bg-slate-100 text-slate-500">Lu</span>,
   replied: <span className="badge badge-green">Répondu</span>,
   archived:<span className="badge badge-purple">Archivé</span>,
 };
@@ -114,8 +114,8 @@ export default function ContactsAdmin({ archived=false }:{archived?:boolean}) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{archived?'Messages archivés':'Messages de contact'}</h1>
-          <p className="text-sm text-white/50">
+          <h1 className="text-2xl font-bold text-slate-900">{archived?'Messages archivés':'Messages de contact'}</h1>
+          <p className="text-sm text-slate-500">
             {unreadCount>0?<><span className="text-orange-400 font-medium">{unreadCount} non lu{unreadCount>1?'s':''}</span> · </>:''}
             {displayed.length} message{displayed.length!==1?'s':''}
           </p>
@@ -125,13 +125,13 @@ export default function ContactsAdmin({ archived=false }:{archived?:boolean}) {
       {/* Search + filter */}
       <div className="flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
           <input type="search" placeholder="Rechercher nom, email, message..." value={search} onChange={e=>setSearch(e.target.value)} className="input-dark pl-8"/>
         </div>
         <div className="flex gap-2 flex-wrap">
           {!archived && FILTERS.map(f=>(
             <button key={f.value} onClick={()=>setFilter(f.value)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${filter===f.value?'bg-orange-500/20 border-orange-500/40 text-orange-400':'bg-white/5 border-white/10 text-white/60 hover:border-white/20'}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${filter===f.value?'bg-[#f0fdfa] border-[#00d4b8] text-[#00b8a0]':'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-200'}`}>
               {f.label}
             </button>
           ))}
@@ -146,26 +146,26 @@ export default function ContactsAdmin({ archived=false }:{archived?:boolean}) {
             <div key={i} className="glass-card h-20 animate-pulse"/>
           )) : displayed.length===0 ? (
             <div className="glass-card p-8 text-center">
-              <Mail size={32} className="text-white/20 mx-auto mb-3"/>
-              <p className="text-white/50">{archived?'Aucun message archivé':'Aucun message trouvé'}</p>
+              <Mail size={32} className="text-slate-300 mx-auto mb-3"/>
+              <p className="text-slate-500">{archived?'Aucun message archivé':'Aucun message trouvé'}</p>
             </div>
           ) : displayed.map(c=>(
             <button key={c.id} onClick={()=>openContact(c)}
-              className={`glass-card p-4 text-left hover:border-white/20 transition w-full ${selected?.id===c.id?'border-orange-500/40 bg-orange-500/5':''} ${!c.is_read?'border-orange-500/20':''}`}>
+              className={`glass-card p-4 text-left hover:border-slate-200 transition w-full ${selected?.id===c.id?'border-orange-500/40 bg-orange-500/5':''} ${!c.is_read?'border-orange-500/20':''}`}>
               <div className="flex items-start gap-3">
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${!c.is_read?'bg-orange-500/30 text-orange-300':'bg-white/10 text-white/60'}`}>
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${!c.is_read?'bg-orange-500/30 text-orange-300':'bg-slate-100 text-slate-500'}`}>
                   {c.name[0]}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className={`text-sm font-medium truncate ${!c.is_read?'text-white':'text-white/70'}`}>{c.name}</p>
+                    <p className={`text-sm font-medium truncate ${!c.is_read?'text-slate-900':'text-slate-600'}`}>{c.name}</p>
                     {statusBadge[c.status]}
                   </div>
-                  <p className="text-xs text-white/40 mb-1">{c.email}</p>
-                  <p className="text-xs text-white/50 line-clamp-2">{c.message}</p>
+                  <p className="text-xs text-slate-400 mb-1">{c.email}</p>
+                  <p className="text-xs text-slate-500 line-clamp-2">{c.message}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                  <p className="text-[10px] text-white/30">{timeAgo(c.created_at)}</p>
+                  <p className="text-[10px] text-slate-400">{timeAgo(c.created_at)}</p>
                   {!c.is_read && <div className="w-2 h-2 rounded-full bg-orange-500"/>}
                 </div>
               </div>
@@ -178,32 +178,32 @@ export default function ContactsAdmin({ archived=false }:{archived?:boolean}) {
           <motion.div initial={{opacity:0,x:20}} animate={{opacity:1,x:0}}
             className="flex-1 glass-card p-5 overflow-y-auto flex flex-col">
             {/* Panel header */}
-            <div className="flex items-start gap-3 pb-4 border-b border-white/10 mb-4">
+            <div className="flex items-start gap-3 pb-4 border-b border-slate-200 mb-4">
               <button onClick={()=>setSelected(null)} className="lg:hidden btn-ghost p-1.5"><ArrowLeft size={15}/></button>
               <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-xl flex-shrink-0">
                 {selected.name[0]}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white">{selected.name}</p>
+                <p className="font-semibold text-slate-900">{selected.name}</p>
                 <a href={`mailto:${selected.email}`} className="text-sm text-orange-400 hover:underline">{selected.email}</a>
-                {selected.phone && <p className="text-xs text-white/50 mt-0.5">{selected.phone}</p>}
+                {selected.phone && <p className="text-xs text-slate-500 mt-0.5">{selected.phone}</p>}
               </div>
               <div className="flex flex-col gap-1">
                 {statusBadge[selected.status]}
-                <p className="text-[10px] text-white/30 text-right">{timeAgo(selected.created_at)}</p>
+                <p className="text-[10px] text-slate-400 text-right">{timeAgo(selected.created_at)}</p>
               </div>
             </div>
 
             {/* Message */}
             <div className="flex-1 mb-4">
-              <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Message</p>
-              <div className="bg-white/3 rounded-xl p-4 border border-white/8">
-                <p className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Message</p>
+              <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-200">
               <button onClick={()=>replyByEmail(selected)}
                 className="btn-primary flex-1 justify-center">
                 <ExternalLink size={14}/>Répondre par email
@@ -232,8 +232,8 @@ export default function ContactsAdmin({ archived=false }:{archived?:boolean}) {
               <div className="flex items-start gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><Trash2 size={18} className="text-red-400"/></div>
                 <div>
-                  <h3 className="font-semibold text-white">Supprimer ce message ?</h3>
-                  <p className="text-sm text-white/60 mt-1">De {confirmDel.name} — action irréversible.</p>
+                  <h3 className="font-semibold text-slate-900">Supprimer ce message ?</h3>
+                  <p className="text-sm text-slate-500 mt-1">De {confirmDel.name} — action irréversible.</p>
                 </div>
               </div>
               <div className="flex gap-3 justify-end">

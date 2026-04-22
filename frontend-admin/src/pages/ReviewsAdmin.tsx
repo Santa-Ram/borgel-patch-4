@@ -75,7 +75,7 @@ export default function ReviewsAdmin() {
     <div className="flex gap-0.5">
       {Array.from({length:5}).map((_,i)=>(
         <Star key={i} size={interactive?20:14}
-          className={`${i<n?'text-amber-400 fill-amber-400':'text-white/20'} ${interactive?'cursor-pointer hover:scale-110 transition':''}`}
+          className={`${i<n?'text-amber-400 fill-amber-400':'text-slate-300'} ${interactive?'cursor-pointer hover:scale-110 transition':''}`}
           onClick={interactive?()=>onChange?.(i+1):undefined}/>
       ))}
     </div>
@@ -85,7 +85,7 @@ export default function ReviewsAdmin() {
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
         <button onClick={()=>setView('list')} className="btn-ghost p-1.5"><ArrowLeft size={16}/></button>
-        <h1 className="text-xl font-bold text-white">{editing?'Modifier l\'avis':'Nouvel avis'}</h1>
+        <h1 className="text-xl font-bold text-slate-900">{editing?'Modifier l\'avis':'Nouvel avis'}</h1>
       </div>
 
       <div className="glass-card p-6 space-y-5">
@@ -99,23 +99,23 @@ export default function ReviewsAdmin() {
             </div>
             <button onClick={()=>avatarRef.current?.click()}
               className="absolute -bottom-1 -right-1 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center shadow-lg hover:bg-orange-400 transition">
-              <Camera size={11} className="text-white"/>
+              <Camera size={11} className="text-slate-900"/>
             </button>
             <input ref={avatarRef} type="file" accept="image/*" className="hidden" onChange={e=>{const f=e.target.files?.[0];if(f){setAvatarFile(f);setAvatarPreview(URL.createObjectURL(f))}}}/>
           </div>
           <div>
-            <p className="text-sm text-white font-medium">{form.name||'Nom du client'}</p>
+            <p className="text-sm text-slate-900 font-medium">{form.name||'Nom du client'}</p>
             <Stars n={form.rating}/>
           </div>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-xs text-white/50 block mb-1.5">Nom *</label>
+            <label className="text-xs text-slate-500 block mb-1.5">Nom *</label>
             <input type="text" value={form.name} onChange={e=>set('name',e.target.value)} className="input-dark" placeholder="Marie L."/>
           </div>
           <div>
-            <label className="text-xs text-white/50 block mb-1.5">Source</label>
+            <label className="text-xs text-slate-500 block mb-1.5">Source</label>
             <select value={form.source} onChange={e=>set('source',e.target.value)} className="input-dark">
               {['Google','Barreau','Recommandation','Direct','Autre'].map(s=><option key={s}>{s}</option>)}
             </select>
@@ -123,26 +123,26 @@ export default function ReviewsAdmin() {
         </div>
 
         <div>
-          <label className="text-xs text-white/50 block mb-2">Note *</label>
+          <label className="text-xs text-slate-500 block mb-2">Note *</label>
           <Stars n={form.rating} interactive onChange={v=>set('rating',v)}/>
         </div>
 
         <div>
-          <label className="text-xs text-white/50 block mb-1.5">Contenu de l'avis *</label>
+          <label className="text-xs text-slate-500 block mb-1.5">Contenu de l'avis *</label>
           <textarea value={form.content} onChange={e=>set('content',e.target.value)} className="input-dark min-h-[120px] resize-none" rows={5} placeholder="Ce que le client dit du cabinet..."/>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-xs text-white/50 block mb-1.5">Date de publication</label>
+            <label className="text-xs text-slate-500 block mb-1.5">Date de publication</label>
             <input type="date" value={form.published_at} onChange={e=>set('published_at',e.target.value)} className="input-dark"/>
           </div>
           <div className="flex items-center gap-3 pt-5">
             <button onClick={()=>set('is_active',!form.is_active)}
-              className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active?'bg-orange-500':'bg-white/10'}`}>
+              className={`relative w-10 h-5 rounded-full transition-colors ${form.is_active?'bg-orange-500':'bg-slate-100'}`}>
               <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${form.is_active?'translate-x-5':'translate-x-0.5'}`}/>
             </button>
-            <span className="text-sm text-white">{form.is_active?'Publié sur le site':'Désactivé (masqué)'}</span>
+            <span className="text-sm text-slate-900">{form.is_active?'Publié sur le site':'Désactivé (masqué)'}</span>
           </div>
         </div>
 
@@ -157,8 +157,8 @@ export default function ReviewsAdmin() {
         {confirmDel && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer cet avis ?</h3>
-              <p className="text-sm text-white/60 mb-4">Action irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer cet avis ?</h3>
+              <p className="text-sm text-slate-500 mb-4">Action irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={()=>setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={()=>handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>
@@ -174,17 +174,17 @@ export default function ReviewsAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Avis Clients</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Avis Clients</h1>
           <div className="flex items-center gap-2 mt-1">
             <Stars n={Math.round(avgRating)}/>
-            <p className="text-sm text-white/50">{avgRating.toFixed(1)}/5 · {reviews.filter(r=>r.is_active).length} publiés</p>
+            <p className="text-sm text-slate-500">{avgRating.toFixed(1)}/5 · {reviews.filter(r=>r.is_active).length} publiés</p>
           </div>
         </div>
         <button onClick={openNew} className="btn-primary"><Plus size={15}/>Ajouter avis</button>
       </div>
 
       <div className="relative max-w-xs">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40"/>
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/>
         <input type="search" placeholder="Rechercher un avis..." value={search} onChange={e => setSearch(e.target.value)} className="input-dark pl-8"/>
       </div>
 
@@ -193,22 +193,22 @@ export default function ReviewsAdmin() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {(reviews.length>0?reviews:demo).filter((r:any)=>r.name.toLowerCase().includes(search.toLowerCase())||r.content.toLowerCase().includes(search.toLowerCase())).map(r=>(
-            <div key={r.id} className={`glass-card p-4 hover:border-white/20 transition ${r.is_active?'':'opacity-60'}`}>
+            <div key={r.id} className={`glass-card p-4 hover:border-slate-200 transition ${r.is_active?'':'opacity-60'}`}>
               <div className="flex items-start gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-orange-500/20 flex items-center justify-center flex-shrink-0">
                   {r.avatar ? <img src={r.avatar} alt={r.name} className="w-full h-full object-cover"/> : <span className="font-bold text-orange-400">{r.name[0]}</span>}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-white text-sm">{r.name}</p>
+                  <p className="font-medium text-slate-900 text-sm">{r.name}</p>
                   <Stars n={r.rating}/>
                 </div>
                 <button onClick={()=>toggleActive(r)} title={r.is_active?'Désactiver':'Publier'}>
                   {r.is_active ? <CheckCircle size={16} className="text-green-400"/> : <XCircle size={16} className="text-red-400"/>}
                 </button>
               </div>
-              <p className="text-xs text-white/60 line-clamp-3 mb-3">{r.content}</p>
+              <p className="text-xs text-slate-500 line-clamp-3 mb-3">{r.content}</p>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-white/30">{r.source} · {new Date(r.published_at).toLocaleDateString('fr-FR')}</span>
+                <span className="text-[10px] text-slate-400">{r.source} · {new Date(r.published_at).toLocaleDateString('fr-FR')}</span>
                 <div className="flex gap-1">
                   <button onClick={()=>openEdit(r)} className="btn-ghost p-1"><Edit3 size={12}/></button>
                   <button onClick={()=>setConfirmDel(r)} className="btn-ghost text-red-400 p-1"><Trash2 size={12}/></button>
@@ -223,8 +223,8 @@ export default function ReviewsAdmin() {
         {confirmDel && view==='list' && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <motion.div initial={{scale:0.9}} animate={{scale:1}} className="glass-card p-6 max-w-sm mx-4 w-full">
-              <h3 className="font-semibold text-white mb-2">Supprimer l'avis de {confirmDel.name} ?</h3>
-              <p className="text-sm text-white/60 mb-4">Cette action est irréversible.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Supprimer l'avis de {confirmDel.name} ?</h3>
+              <p className="text-sm text-slate-500 mb-4">Cette action est irréversible.</p>
               <div className="flex gap-3 justify-end">
                 <button onClick={()=>setConfirmDel(null)} className="btn-secondary">Annuler</button>
                 <button onClick={()=>handleDelete(confirmDel)} className="btn-danger"><Trash2 size={13}/>Supprimer</button>
